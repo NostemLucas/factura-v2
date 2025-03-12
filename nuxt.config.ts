@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxtjs/color-mode", "@nuxt/image"],
+
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@pinia/nuxt",
+    "@nuxtjs/color-mode",
+    "@nuxt/image",
+  ],
   colorMode: {
     classSuffix: "",
   },
@@ -11,6 +17,7 @@ export default defineNuxtConfig({
     strict: true,
   },
   app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || "/",
     head: {
       title: "Login App",
       meta: [
