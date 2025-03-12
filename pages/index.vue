@@ -263,6 +263,7 @@ const schema = toTypedSchema(
       .min(1, "El correo electrónico es requerido")
       .email("Ingrese un correo electrónico válido"),
     password: z
+
       //.string({ required_error: "La contraseña es obligatoria" })
       .string()
       .min(6, "La contraseña debe tener al menos 6 caracteres")
