@@ -167,23 +167,23 @@
               href="#"
               class="hover:underline flex items-center transition-colors duration-200"
             >
-              InteractiveBrokers.com
+              SynergySoft.com
               <external-link-icon class="h-4 w-4 ml-1" />
             </a>
           </div>
 
           <div class="flex flex-wrap justify-center gap-x-4 gap-y-2">
             <a href="#" class="hover:underline transition-colors duration-200"
-              >IBKR Desktop</a
+              >Galileo</a
             >
             <a href="#" class="hover:underline transition-colors duration-200"
-              >Trader Workstation (TWS)</a
+              >Gestion de almacenes</a
             >
             <a
               href="#"
               class="hover:underline flex items-center transition-colors duration-200"
             >
-              IBKR Mobile
+              Codex Mobile
               <span class="ml-1 flex">
                 <apple-icon class="h-4 w-4 text-gray-600 dark:text-gray-400" />
                 <smartphone-icon
@@ -195,7 +195,7 @@
               href="#"
               class="hover:underline flex items-center transition-colors duration-200"
             >
-              IBKR GlobalTrader
+              Galielo Mobile
               <span class="ml-1 flex">
                 <apple-icon class="h-4 w-4 text-gray-600 dark:text-gray-400" />
                 <smartphone-icon
@@ -207,24 +207,21 @@
               href="#"
               class="hover:underline flex items-center transition-colors duration-200"
             >
-              IBKR Forecast Trader
+              Codex
               <span
                 class="ml-1 text-xs bg-blue-600 dark:bg-blue-700 text-white px-1 rounded"
                 >NEW</span
               >
             </a>
-            <a href="#" class="hover:underline transition-colors duration-200"
-              >IBKR APIs</a
-            >
           </div>
 
           <div class="flex flex-wrap justify-center gap-x-2">
             <a href="#" class="hover:underline transition-colors duration-200"
-              >Contact Us</a
+              >Contactanos</a
             >
             <span class="text-gray-400 dark:text-gray-500">|</span>
             <a href="#" class="hover:underline transition-colors duration-200"
-              >About Our Trading Platform</a
+              >Sobre nuestra Plataforma</a
             >
           </div>
         </div>
