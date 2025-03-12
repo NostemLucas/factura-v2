@@ -7,12 +7,8 @@
     <div class="flex-grow flex items-center justify-center p-4">
       <div class="w-full max-w-md flex flex-col items-center">
         <!-- Logo -->
-        <div class="mb-8 flex items-center">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-AekGGW6sFgI6W0i61bjk6ipE08nNW3.png"
-            alt="Interactive Brokers"
-            class="h-8 dark:invert"
-          />
+        <div class="mb-2 flex justify-center">
+          <NuxtImg src="/logo.png" alt="Logo" class="h-16" format="webp" />
         </div>
 
         <!-- Card de login -->
@@ -43,15 +39,16 @@
             </div>
 
             <!-- Título -->
-            <h2 class="text-xl font-normal text-gray-800 dark:text-white mb-4">
-              Login
-            </h2>
+            <h1 class="text-2xl font-semibold text-neutral-900 dark:text-white">
+              Iniciar Sesión
+            </h1>
 
             <!-- Formulario -->
             <Form
               @submit="onSubmit"
               :validation-schema="schema"
               v-slot="{ errors }"
+              :initial-values="{ email: '', password: '' }"
             >
               <div class="space-y-4">
                 <!-- Campo de usuario -->
@@ -265,11 +262,12 @@ const showPassword = ref(false);
 const schema = toTypedSchema(
   z.object({
     email: z
-      .string({ required_error: "El correo electrónico es obligatorio" })
+      .string()
       .min(1, "El correo electrónico es requerido")
       .email("Ingrese un correo electrónico válido"),
     password: z
-      .string({ required_error: "La contraseña es obligatoria" })
+      //.string({ required_error: "La contraseña es obligatoria" })
+      .string()
       .min(6, "La contraseña debe tener al menos 6 caracteres")
       .min(1, "La contraseña es requerida"),
   })
