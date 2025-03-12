@@ -1,9 +1,10 @@
 <template>
   <div>
     <NuxtPage />
+    <Toaster richColors />
   </div>
 </template>
 
 <script setup lang="ts">
-// El componente NuxtPage manejará el enrutamiento automáticamente
+import { Toaster } from "vue-sonner";
 </script>

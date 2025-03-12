@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { toast } from "vue-sonner";
 
 interface User {
   id: string;
@@ -25,7 +26,8 @@ export const useAuthStore = defineStore("auth", {
         // Por ahora simulamos una respuesta exitosa
         if (payload.username !== "admin" || payload.password !== "admin") {
           console.log(payload.username, payload.password);
-          throw new Error("Credenciales inválidas"); // Solo lanzamos el error si son incorrectas
+          toast.error("Credenciales Invalidas");
+          throw new Error("Credenciales inválidas");
         }
         const response = {
           user: {
