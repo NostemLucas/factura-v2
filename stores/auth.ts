@@ -2,12 +2,12 @@ import { defineStore } from "pinia";
 
 interface User {
   id: string;
-  email: string;
+  username: string;
   name: string;
 }
 
 interface LoginPayload {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -26,7 +26,7 @@ export const useAuthStore = defineStore("auth", {
         const response = {
           user: {
             id: "1",
-            email: payload.email,
+            username: payload.username,
             name: "Usuario Demo",
           },
           token: "token-demo",
