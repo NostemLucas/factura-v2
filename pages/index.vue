@@ -520,7 +520,7 @@ const schema = computed(() => {
             : "Password is required"
         )
         .min(
-          6,
+          5,
           language.value === "es"
             ? "La contraseña debe tener al menos 6 caracteres"
             : "Password must be at least 6 characters"
@@ -532,8 +532,6 @@ const schema = computed(() => {
 // Función para manejar el envío del formulario
 const onSubmit = async (values: any) => {
   try {
-    console.log("Iniciando sesión con:", values);
-
     // Simulamos un tiempo de carga
     await new Promise((resolve) => setTimeout(resolve, 1000));
 

@@ -23,6 +23,10 @@ export const useAuthStore = defineStore("auth", {
       try {
         // Aquí iría la llamada a tu API de autenticación
         // Por ahora simulamos una respuesta exitosa
+        if (payload.username !== "admin" || payload.password !== "admin") {
+          console.log(payload.username, payload.password);
+          throw new Error("Credenciales inválidas"); // Solo lanzamos el error si son incorrectas
+        }
         const response = {
           user: {
             id: "1",
