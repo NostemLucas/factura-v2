@@ -4,7 +4,7 @@
       <!-- Header -->
       <div class="flex justify-between items-center p-4 border-b">
         <div class="flex items-center">
-          <h1 class="text-purple-600 text-xl font-bold">Arto<sup>+</sup></h1>
+          <!--     <h1 class="text-purple-600 text-xl font-bold">Arto<sup>+</sup></h1> -->
           <span class="ml-4 text-gray-700">Crear Factura</span>
         </div>
         <div class="flex items-center gap-4">
@@ -59,7 +59,7 @@
                 </div>
               </div>
               <div class="flex items-center">
-                <span class="text-xs text-blue-500 mr-2">En Arto+</span>
+                <span class="text-xs text-blue-500 mr-2">Cambiar Cliente</span>
                 <button @click="openClientSearch" class="text-gray-400">
                   <edit-icon class="w-4 h-4" />
                 </button>
@@ -1050,7 +1050,7 @@
                 type="email"
                 class="w-full p-2 border rounded-lg"
                 placeholder="correo@ejemplo.com"
-                :value="selectedClient ? selectedClient.email : ''"
+                v-value="selectedClient ? selectedClient.email : ''"
               />
             </div>
             <div class="mb-4">
@@ -1060,7 +1060,6 @@
                 type="text"
                 class="w-full p-2 border rounded-lg"
                 placeholder="Asunto del correo"
-                value="Factura FAC2398-08-087"
               />
             </div>
             <div class="mb-4">
@@ -1159,7 +1158,7 @@ Estimado cliente, adjunto encontrará su factura. Gracias por su preferencia.</t
                 type="text"
                 class="w-full p-2 border rounded-lg"
                 placeholder="+591 123 456 789"
-                :value="selectedClient ? selectedClient.phone : ''"
+                v-value="selectedClient ? selectedClient.phone : ''"
               />
             </div>
             <div class="mb-4">
@@ -1253,10 +1252,10 @@ Estimado cliente, adjunto encontrará su factura. Gracias por su preferencia.</t
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 import {
-  CircleInfo as CircleInfoIcon,
+  CircleIcon as CircleInfoIcon,
   X as XIcon,
   XCircle as XCircleIcon,
   ChevronRight as ChevronRightIcon,

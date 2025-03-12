@@ -298,7 +298,7 @@
             class="flex aspect-video items-center justify-center rounded-lg bg-gray-100"
           >
             <span class="text-gray-400">
-              Map and chart content would go here
+              <slot />
             </span>
           </div>
         </div>
