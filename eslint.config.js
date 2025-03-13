@@ -11,5 +11,11 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   ...pluginVue.configs["flat/essential"],
+  {
+    rules: {
+      "vue/multi-word-component-names": "off"
+    }
+  },
+  
   {files: ["**/*.vue"], languageOptions: {parserOptions: {parser: tseslint.parser}}},
 ];

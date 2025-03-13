@@ -12,7 +12,7 @@
       :class="[
         'fixed inset-y-0 left-0 z-50 flex w-16 flex-col border-r border-gray-200 bg-white transition-all duration-300 lg:static',
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
-        isExpandedSidebar ? 'lg:w-48' : 'lg:w-16',
+        isExpandedSidebar ? 'lg:w-48' : 'lg:w-16'
       ]"
     >
       <!-- Sidebar Header -->
@@ -42,7 +42,7 @@
                 item.active ? 'bg-gray-100 text-blue-600' : '',
                 isExpandedSidebar
                   ? 'lg:flex-row lg:justify-start lg:gap-3 lg:px-3 lg:text-xs'
-                  : '',
+                  : ''
               ]"
             >
               <component :is="item.icon" class="mb-1 h-5 w-5 lg:mb-0" />
@@ -331,7 +331,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 import {
   Menu as MenuIcon,
   File as FileIcon,
@@ -360,118 +360,118 @@ import {
   LayoutGrid as LayoutGridIcon,
   Columns as ColumnsIcon,
   Plus as PlusIcon,
-  Minus as MinusIcon,
-} from "lucide-vue-next";
+  Minus as MinusIcon
+} from 'lucide-vue-next'
 
 // Sidebar state
-const isSidebarOpen = ref(false);
-const isExpandedSidebar = ref(false);
-const zoomLevel = ref(60);
-const activeTab = ref("electric");
+const isSidebarOpen = ref(false)
+const isExpandedSidebar = ref(false)
+const zoomLevel = ref(60)
+const activeTab = ref('electric')
 
 // Toggle sidebar function
 const toggleSidebar = () => {
-  isSidebarOpen.value = !isSidebarOpen.value;
-};
+  isSidebarOpen.value = !isSidebarOpen.value
+}
 
 // Toggle expanded sidebar
 const toggleExpandSidebar = () => {
-  isExpandedSidebar.value = !isExpandedSidebar.value;
-};
+  isExpandedSidebar.value = !isExpandedSidebar.value
+}
 
 // Sidebar navigation items
 const sidebarItems = [
-  { name: "Home", icon: HomeIcon, active: true },
-  { name: "Gráficas", icon: PieChartIcon, active: false },
-  { name: "Facturas", icon: FileTextIcon, active: false },
-  { name: "Ventas", icon: FileTextIcon, active: false },
-  { name: "Usuarios", icon: UsersIcon, active: false },
-  { name: "Ayuda", icon: HelpCircleIcon, active: false },
-  { name: "Shared Links", icon: ShareIcon, active: false },
-  { name: "ESG", icon: BarChartIcon, active: false },
-  { name: "Mas", icon: MoreHorizontalIcon, active: false },
-];
+  { name: 'Home', icon: HomeIcon, active: true },
+  { name: 'Gráficas', icon: PieChartIcon, active: false },
+  { name: 'Facturas', icon: FileTextIcon, active: false },
+  { name: 'Ventas', icon: FileTextIcon, active: false },
+  { name: 'Usuarios', icon: UsersIcon, active: false },
+  { name: 'Ayuda', icon: HelpCircleIcon, active: false },
+  { name: 'Shared Links', icon: ShareIcon, active: false },
+  { name: 'ESG', icon: BarChartIcon, active: false },
+  { name: 'Mas', icon: MoreHorizontalIcon, active: false }
+]
 
 // Button functionality
 const toggleNotifications = () => {
-  alert("Notifications panel toggled");
-};
+  alert('Notifications panel toggled')
+}
 
 const openSettings = () => {
-  alert("Settings panel opened");
-};
+  alert('Settings panel opened')
+}
 
 const downloadData = () => {
-  alert("Downloading data...");
-};
+  alert('Downloading data...')
+}
 
 const openHelp = () => {
-  alert("Help center opened");
-};
+  alert('Help center opened')
+}
 
 const toggleTheme = () => {
-  alert("Theme toggled");
-};
+  alert('Theme toggled')
+}
 
 const openProfile = () => {
-  alert("Profile opened");
-};
+  alert('Profile opened')
+}
 
 const shareDocument = () => {
-  alert("Share document dialog opened");
-};
+  alert('Share document dialog opened')
+}
 
 const openChat = () => {
-  alert("Teams chat opened");
-};
+  alert('Teams chat opened')
+}
 
 const getInsights = () => {
-  alert("Getting insights...");
-};
+  alert('Getting insights...')
+}
 
 const editDocument = () => {
-  alert("Edit mode activated");
-};
+  alert('Edit mode activated')
+}
 
 const openMoreMenu = () => {
-  alert("More options menu opened");
-};
+  alert('More options menu opened')
+}
 
 const openCollaboration = () => {
-  alert("Collaboration panel opened");
-};
+  alert('Collaboration panel opened')
+}
 
 const toggleView = (viewType) => {
-  alert(`View changed to ${viewType}`);
-};
+  alert(`View changed to ${viewType}`)
+}
 
 const zoomIn = () => {
   if (zoomLevel.value < 150) {
-    zoomLevel.value += 10;
-    handleZoom();
+    zoomLevel.value += 10
+    handleZoom()
   }
-};
+}
 
 const zoomOut = () => {
   if (zoomLevel.value > 50) {
-    zoomLevel.value -= 10;
-    handleZoom();
+    zoomLevel.value -= 10
+    handleZoom()
   }
-};
+}
 
 const handleZoom = () => {
   // This would actually apply zoom to the content
-  console.log(`Zoom level set to ${zoomLevel.value}%`);
-};
+  console.log(`Zoom level set to ${zoomLevel.value}%`)
+}
 
 const selectTab = (tab) => {
-  activeTab.value = tab;
-  alert(`Selected tab: ${tab}`);
-};
+  activeTab.value = tab
+  alert(`Selected tab: ${tab}`)
+}
 
 const provideFeedback = () => {
-  alert("Feedback form opened");
-};
+  alert('Feedback form opened')
+}
 </script>
 
 <style scoped>
