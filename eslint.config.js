@@ -13,7 +13,8 @@ export default [
   ...pluginVue.configs["flat/essential"],
   {
     rules: {
-      "vue/multi-word-component-names": "off"
+      "vue/multi-word-component-names": "off",
+      "eslint/no-undef": "error"
     }
   },
   
