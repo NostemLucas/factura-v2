@@ -1,74 +1,12 @@
 <template>
-  <div class="flex w-full overflow-hidden bg-gray-50">
-    <!-- Sidebar - Mobile overlay when open -->
+  <div class="relative flex w-full overflow-hidden bg-gray-50">
+    <Sidebar />
     <div
-      v-if="isSidebarOpen"
-      class="fixed inset-0 z-40 bg-black/20 lg:hidden"
-      @click="toggleSidebar"
-    ></div>
-
-    <!-- Sidebar -->
-    <aside
       :class="[
-        'fixed inset-y-0 left-0 z-50 flex w-16 flex-col border-r border-gray-200 bg-white transition-all duration-300 lg:static',
-        isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
-        isExpandedSidebar ? 'lg:w-48' : 'lg:w-16',
+        'flex w-full flex-1 flex-col  transition-all duration-300',
+        openDrawer ? 'lg:pl-48' : 'lg:pl-16',
       ]"
     >
-      <!-- Sidebar Header -->
-      <div
-        class="flex h-14 items-center justify-center border-b border-gray-200"
-      >
-        <button
-          class="rounded-md p-2 hover:bg-gray-100"
-          @click="toggleExpandSidebar"
-        >
-          <grid-icon class="h-5 w-5 text-gray-600" />
-        </button>
-      </div>
-
-      <!-- Sidebar Navigation -->
-      <nav class="flex-1 overflow-y-auto py-2">
-        <ul class="space-y-1">
-          <li
-            v-for="(item, index) in sidebarItems"
-            :key="index"
-            class="relative px-2"
-          >
-            <a
-              href="#"
-              :class="[
-                'flex w-full flex-col items-center justify-center rounded-lg p-2 text-[10px] text-gray-600 transition-colors hover:bg-gray-100',
-                item.active ? 'bg-gray-100 text-blue-600' : '',
-                isExpandedSidebar
-                  ? 'lg:flex-row lg:justify-start lg:gap-3 lg:px-3 lg:text-xs'
-                  : '',
-              ]"
-            >
-              <component :is="item.icon" class="mb-1 h-5 w-5 lg:mb-0" />
-              <span :class="isExpandedSidebar ? 'lg:flex-1' : ''">
-                {{ item.name }}
-              </span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Sidebar Footer -->
-      <div class="mt-auto border-t border-gray-200 p-2">
-        <div
-          class="flex cursor-pointer flex-col items-center rounded-lg p-2 text-[10px] text-gray-600 hover:bg-gray-100"
-          :class="isExpandedSidebar ? 'lg:flex-row lg:gap-3 lg:text-xs' : ''"
-        >
-          <user-icon class="mb-1 h-5 w-5 lg:mb-0" />
-          <span>My Profile</span>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <div class="flex w-full flex-1 flex-col">
-      <!-- Topbar -->
       <header class="flex flex-col border-b border-gray-200 bg-white">
         <!-- Main Topbar -->
         <div class="flex h-14 items-center justify-between px-4">
@@ -282,9 +220,7 @@
         </div> -->
       </header>
 
-      <!-- Main Content Area -->
-      <main class="relative flex-1 overflow-auto bg-gray-50 p-4">
-        <!-- Card placeholder - not focusing on content as requested -->
+      <main class="flex-1 overflow-auto bg-gray-50 p-4">
         <div class="rounded-lg bg-white p-6 shadow">
           <div class="mb-4 flex items-center">
             <h2 class="text-lg font-semibold text-blue-700">
@@ -292,7 +228,6 @@
               years
             </h2>
           </div>
-
           <!-- Placeholder for the map and charts -->
           <div class="flex items-center justify-center rounded-lg bg-gray-100">
             <span class="text-gray-400">
@@ -300,38 +235,13 @@
             </span>
           </div>
         </div>
-
-        <!-- Zoom controls at bottom -->
-        <div
-          class="absolute right-4 bottom-4 flex items-center gap-2 rounded-md bg-white px-2 py-1 shadow"
-        >
-          <input
-            v-model="zoomLevel"
-            type="range"
-            min="50"
-            max="150"
-            class="w-24"
-            @input="handleZoom"
-          />
-          <span class="text-xs text-gray-600">{{ zoomLevel }}%</span>
-        </div>
-
-        <!-- Feedback button -->
-        <div class="absolute top-1/2 right-0 -translate-y-1/2 transform">
-          <button
-            class="origin-bottom-left translate-x-8 -rotate-90 transform rounded-l-md bg-blue-600 px-2 py-6 text-xs font-medium text-white"
-            @click="provideFeedback"
-          >
-            Feedback
-          </button>
-        </div>
       </main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import Sidebar from "./ui/Sidebar.vue";
 import {
   Menu as MenuIcon,
   File as FileIcon,
@@ -364,6 +274,9 @@ import {
 } from "lucide-vue-next";
 
 // Sidebar state
+const dashboard = useDashboard();
+const { openDrawer } = storeToRefs(dashboard);
+
 const isSidebarOpen = ref(false);
 const isExpandedSidebar = ref(false);
 const zoomLevel = ref(60);
@@ -482,8 +395,5 @@ const provideFeedback = () => {
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
-}
-* {
-  border: 1px solid red;
 }
 </style>
