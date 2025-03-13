@@ -1,10 +1,51 @@
 <script setup lang="ts">
-const { toggleDrawer } = useDashboard();
+import {
+  Menu as MenuIcon,
+  File as FileIcon,
+  ChevronRight as ChevronRightIcon,
+  ChevronLeft as ChevronLeftIcon,
+  Share as ShareIcon,
+  MessageCircle as MessageCircleIcon,
+  Lightbulb as LightbulbIcon,
+  Edit as EditIcon,
+  Search as SearchIcon,
+  Bell as BellIcon,
+  Settings as SettingsIcon,
+  Download as DownloadIcon,
+  HelpCircle as HelpCircleIcon,
+  Circle as CircleIcon,
+  User as UserIcon,
+  Home as HomeIcon,
+  PieChart as PieChartIcon,
+  BarChart2 as BarChartIcon,
+  FileText as FileTextIcon,
+  Users as UsersIcon,
+  ChevronDown as ChevronDownIcon,
+  Grid as GridIcon,
+  MoreHorizontal as MoreHorizontalIcon,
+  List as ListIcon,
+  LayoutGrid as LayoutGridIcon,
+  Columns as ColumnsIcon,
+  Plus as PlusIcon,
+  Minus as MinusIcon,
+  Moon as MoonIcon,
+  Sun as SunIcon
+} from 'lucide-vue-next'
+
+const colorMode = useColorMode()
+const { toggleDrawer } = useDashboard()
+
+const toggleTheme = () => {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+}
 </script>
 
 <template>
-  <header class="flex flex-col border-b border-gray-200 bg-white">
+  <header
+    class="sticky top-0 z-50 flex flex-col border-b border-gray-200 bg-white"
+  >
     <div class="flex h-14 items-center justify-between px-4">
+      <!-- Logo -->
       <div class="flex items-center gap-2">
         <button class="p-1 lg:hidden" @click="toggleDrawer">
           <menu-icon class="h-5 w-5 text-gray-600" />
@@ -15,6 +56,7 @@ const { toggleDrawer } = useDashboard();
         </div>
       </div>
 
+      <!-- Buscador -->
       <div class="relative hidden md:block">
         <search-icon
           class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-gray-400"
@@ -26,136 +68,31 @@ const { toggleDrawer } = useDashboard();
         />
       </div>
 
+      <!-- Iconos -->
       <div class="flex items-center gap-3">
-        <button
-          class="text-gray-600 hover:text-gray-800"
-          @click="toggleNotifications"
-        >
+        <button class="text-gray-600 hover:text-gray-800">
           <bell-icon class="h-5 w-5" />
         </button>
-        <button class="text-gray-600 hover:text-gray-800" @click="openSettings">
+        <button class="text-gray-600 hover:text-gray-800">
           <settings-icon class="h-5 w-5" />
         </button>
-        <button class="text-gray-600 hover:text-gray-800" @click="downloadData">
-          <download-icon class="h-5 w-5" />
+        <button class="text-gray-600 hover:text-gray-800" @click="toggleTheme">
+          <moon-icon v-show="colorMode.value === 'light'" class="h-5 w-5" />
+          <sun-icon v-show="colorMode.value === 'dark'" class="h-5 w-5" />
         </button>
-        <button class="text-gray-600 hover:text-gray-800" @click="openHelp">
+        <button class="text-gray-600 hover:text-gray-800">
           <help-circle-icon class="h-5 w-5" />
         </button>
-        <button class="text-gray-600 hover:text-gray-800" @click="toggleTheme">
-          <circle-icon class="h-5 w-5" />
-        </button>
+
+        <!-- Profile -->
         <div
           class="h-8 w-8 cursor-pointer overflow-hidden rounded-full bg-orange-100"
-          @click="openProfile"
         >
           <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-WgQHB6tjxKdjwGHMcrAjRPUpwo8kbP.png"
+            src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?t=st=1741835586~exp=1741839186~hmac=8db5fa939f4300f9c92703847b463609c0c986557bae4d9295dbe79ce0fc9a83&w=740"
             alt="User avatar"
             class="h-full w-full object-cover"
           />
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="flex h-10 items-center border-t border-b border-gray-200 px-4 text-xs"
-    >
-      <div class="mr-2 flex items-center gap-1">
-        <chevron-left-icon class="h-4 w-4 text-gray-500" />
-      </div>
-
-      <div class="flex items-center gap-1 text-gray-600">
-        <file-icon class="h-4 w-4" />
-        <span>File</span>
-      </div>
-
-      <chevron-right-icon class="mx-1 h-3 w-3 text-gray-400" />
-
-      <div class="flex items-center gap-1 text-gray-600">
-        <span>Export</span>
-      </div>
-
-      <div class="mx-2 h-4 border-r border-gray-300"></div>
-
-      <div class="flex items-center gap-3">
-        <button
-          class="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-gray-600 hover:bg-gray-100"
-          @click="shareDocument"
-        >
-          <share-icon class="h-3 w-3" />
-          <span>Share</span>
-        </button>
-
-        <button
-          class="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-gray-600 hover:bg-gray-100"
-          @click="openChat"
-        >
-          <message-circle-icon class="h-3 w-3" />
-          <span>Chat in Teams</span>
-        </button>
-
-        <button
-          class="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-gray-600 hover:bg-gray-100"
-          @click="getInsights"
-        >
-          <lightbulb-icon class="h-3 w-3" />
-          <span>Get Insights</span>
-        </button>
-
-        <button
-          class="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-gray-600 hover:bg-gray-100"
-          @click="editDocument"
-        >
-          <edit-icon class="h-3 w-3" />
-          <span>Edit</span>
-        </button>
-
-        <button
-          class="flex items-center gap-1 rounded-md px-1 py-1 text-xs text-gray-600 hover:bg-gray-100"
-          @click="openMoreMenu"
-        >
-          <more-horizontal-icon class="h-4 w-4" />
-        </button>
-      </div>
-
-      <div class="ml-auto flex items-center gap-2">
-        <button
-          class="flex h-6 w-6 items-center justify-center rounded-full bg-green-600 text-xs text-white"
-          @click="openCollaboration"
-        >
-          C
-        </button>
-        <div class="flex items-center rounded border border-gray-200">
-          <button
-            class="border-r border-gray-200 px-2 py-0.5 hover:bg-gray-100"
-            @click="toggleView('list')"
-          >
-            <list-icon class="h-3 w-3 text-gray-600" />
-          </button>
-          <button
-            class="border-r border-gray-200 px-2 py-0.5 hover:bg-gray-100"
-            @click="toggleView('grid')"
-          >
-            <layout-grid-icon class="h-3 w-3 text-gray-600" />
-          </button>
-          <button
-            class="px-2 py-0.5 hover:bg-gray-100"
-            @click="toggleView('columns')"
-          >
-            <columns-icon class="h-3 w-3 text-gray-600" />
-          </button>
-        </div>
-        <div class="flex items-center rounded border border-gray-200">
-          <button
-            class="border-r border-gray-200 px-2 py-0.5 hover:bg-gray-100"
-            @click="zoomOut"
-          >
-            <minus-icon class="h-3 w-3 text-gray-600" />
-          </button>
-          <button class="px-2 py-0.5 hover:bg-gray-100" @click="zoomIn">
-            <plus-icon class="h-3 w-3 text-gray-600" />
-          </button>
         </div>
       </div>
     </div>
