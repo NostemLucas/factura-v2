@@ -2,8 +2,11 @@
 import { SidebarItems } from '~/mocks/mainLayout.types'
 import { Grid as GridIcon, User as UserIcon } from 'lucide-vue-next'
 import { NuxtLink } from '#components'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+const breakpoints = useBreakpoints(breakpointsTailwind)
 
 const router = useRoute()
+const lgUp = breakpoints.greaterOrEqual('lg')
 
 const dashboard = useDashboard()
 const { openDrawer } = storeToRefs(dashboard)
@@ -13,21 +16,20 @@ const { toggleDrawer } = dashboard
 <template>
   <div
     v-show="openDrawer"
-    class="fixed inset-0 z-40 bg-black/20 lg:hidden"
+    class="fixed inset-0 z-0 bg-black/20 lg:hidden transition-all duration-300"
     @click="toggleDrawer"
   ></div>
   <aside
     :class="[
-      'fixed inset-y-0 left-0 z-50 h-screen flex w-16 flex-col border-r border-gray-200 bg-white transition-all duration-300  overflow-x-hidden',
-      openDrawer ? 'lg:w-48' : 'lg:w-16'
+      'fixed inset-y-0 left-0 z-50 h-screen flex w-32 lg:w-16 flex-col border-r border-gray-200 bg-white transition-all duration-300  overflow-x-hidden',
+      openDrawer && lgUp ? 'lg:w-48' : 'lg:w-16',
+      !lgUp
+        ? openDrawer
+          ? 'translate-x-0 w-48'
+          : '-translate-x-full w-16'
+        : ''
     ]"
   >
-    <div class="flex h-14 items-center justify-center border-b border-gray-200">
-      <button class="rounded-md p-2 hover:bg-gray-100" @click="toggleDrawer">
-        <grid-icon class="h-5 w-5 text-gray-600" />
-      </button>
-    </div>
-
     <nav class="flex-1 overflow-y-auto overflow-x-hidden py-2">
       <ul class="space-y-1">
         <li

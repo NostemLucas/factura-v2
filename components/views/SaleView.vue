@@ -321,10 +321,7 @@
         </div>
 
         <!-- Right Side - Preview -->
-        <div
-          class="p-8 lg:w-1/2 bg-gray-50 overflow-y-auto"
-          style="max-height: 85vh"
-        >
+        <div class="p-8 lg:w-1/2 bg-gray-50 overflow-y-auto">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold flex items-center">
               Vista Previa

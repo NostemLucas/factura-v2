@@ -1,33 +1,10 @@
 <script setup lang="ts">
 import {
   Menu as MenuIcon,
-  File as FileIcon,
-  ChevronRight as ChevronRightIcon,
-  ChevronLeft as ChevronLeftIcon,
-  Share as ShareIcon,
-  MessageCircle as MessageCircleIcon,
-  Lightbulb as LightbulbIcon,
-  Edit as EditIcon,
   Search as SearchIcon,
   Bell as BellIcon,
   Settings as SettingsIcon,
-  Download as DownloadIcon,
   HelpCircle as HelpCircleIcon,
-  Circle as CircleIcon,
-  User as UserIcon,
-  Home as HomeIcon,
-  PieChart as PieChartIcon,
-  BarChart2 as BarChartIcon,
-  FileText as FileTextIcon,
-  Users as UsersIcon,
-  ChevronDown as ChevronDownIcon,
-  Grid as GridIcon,
-  MoreHorizontal as MoreHorizontalIcon,
-  List as ListIcon,
-  LayoutGrid as LayoutGridIcon,
-  Columns as ColumnsIcon,
-  Plus as PlusIcon,
-  Minus as MinusIcon,
   Moon as MoonIcon,
   Sun as SunIcon
 } from 'lucide-vue-next'
@@ -42,12 +19,12 @@ const toggleTheme = () => {
 
 <template>
   <header
-    class="sticky top-0 z-50 flex flex-col border-b border-gray-200 bg-white"
+    class="z-20 sticky top-0 flex flex-col border-b border-gray-200 bg-white"
   >
     <div class="flex h-14 items-center justify-between px-4">
       <!-- Logo -->
       <div class="flex items-center gap-2">
-        <button class="p-1 lg:hidden" @click="toggleDrawer">
+        <button class="p-1" @click="toggleDrawer">
           <menu-icon class="h-5 w-5 text-gray-600" />
         </button>
 
