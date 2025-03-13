@@ -1,30 +1,10 @@
 <template>
-  <div class="bg-black flex items-center justify-center p-4 w-full h-full">
-    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl overflow-hidden">
-      <!-- Header -->
-      <div class="flex justify-between items-center p-4 border-b">
-        <div class="flex items-center">
-          <!--     <h1 class="text-purple-600 text-xl font-bold">Arto<sup>+</sup></h1> -->
-          <span class="ml-4 text-gray-700">Crear Factura</span>
-        </div>
-        <div class="flex items-center gap-4">
-          <button class="flex items-center text-sm text-gray-600">
-            <circle-info-icon class="w-4 h-4 mr-1" />
-            ¿Necesitas ayuda?
-          </button>
-          <button class="text-gray-500">
-            <x-icon class="w-5 h-5" />
-          </button>
-        </div>
-      </div>
-
+  <div class="flex items-center justify-center w-full">
+    <div class="bg-white rounded-xl w-full overflow-hidden">
       <!-- Main Content -->
       <div class="flex flex-col lg:flex-row">
         <!-- Left Side - Invoice Details -->
-        <div
-          class="p-6 lg:w-1/2 border-r overflow-y-auto"
-          style="max-height: 85vh"
-        >
+        <div class="p-8 lg:w-1/2 border-r overflow-y-auto">
           <h2 class="text-xl font-bold mb-6">Detalles de Factura</h2>
 
           <!-- People -->
@@ -128,7 +108,7 @@
           <div class="mb-6">
             <div class="flex justify-between items-center mb-4">
               <h3 class="text-lg font-bold">
-                {{ serviceType === "medical" ? "Medicamentos" : "Servicios" }}
+                {{ serviceType === 'medical' ? 'Medicamentos' : 'Servicios' }}
               </h3>
               <div class="flex items-center">
                 <label class="text-sm mr-2">Tipo:</label>
@@ -208,7 +188,7 @@
             >
               <plus-circle-icon class="w-4 h-4 mr-1" />
               Añadir
-              {{ serviceType === "medical" ? "Medicamento" : "Servicio" }}
+              {{ serviceType === 'medical' ? 'Medicamento' : 'Servicio' }}
             </button>
           </div>
 
@@ -342,7 +322,7 @@
 
         <!-- Right Side - Preview -->
         <div
-          class="p-6 lg:w-1/2 bg-gray-50 overflow-y-auto"
+          class="p-8 lg:w-1/2 bg-gray-50 overflow-y-auto"
           style="max-height: 85vh"
         >
           <div class="flex justify-between items-center mb-6">
@@ -396,11 +376,11 @@
                   {{
                     selectedClient
                       ? selectedClient.name
-                      : "Seleccione un cliente"
+                      : 'Seleccione un cliente'
                   }}
                 </div>
                 <div class="text-sm text-gray-500">
-                  {{ selectedClient ? selectedClient.email : "" }}
+                  {{ selectedClient ? selectedClient.email : '' }}
                 </div>
               </div>
               <div>
@@ -504,9 +484,9 @@
                   <div>
                     <div>
                       {{
-                        serviceType === "medical"
-                          ? "Receta.PDF"
-                          : "Detalles_servicio.PDF"
+                        serviceType === 'medical'
+                          ? 'Receta.PDF'
+                          : 'Detalles_servicio.PDF'
                       }}
                     </div>
                     <div class="text-xs text-gray-500">21 KB</div>
@@ -658,7 +638,7 @@
       <div class="bg-white rounded-lg w-full max-w-md">
         <div class="flex justify-between items-center p-4 border-b">
           <h3 class="text-lg font-bold">
-            Añadir {{ serviceType === "medical" ? "Medicamento" : "Servicio" }}
+            Añadir {{ serviceType === 'medical' ? 'Medicamento' : 'Servicio' }}
           </h3>
           <button @click="showServiceSearch = false" class="text-gray-500">
             <x-icon class="w-5 h-5" />
@@ -714,7 +694,7 @@
           >
             <plus-circle-icon class="w-4 h-4 mr-1" />
             Añadir Nuevo
-            {{ serviceType === "medical" ? "Medicamento" : "Servicio" }}
+            {{ serviceType === 'medical' ? 'Medicamento' : 'Servicio' }}
           </button>
         </div>
       </div>
@@ -729,7 +709,7 @@
         <div class="flex justify-between items-center p-4 border-b">
           <h3 class="text-lg font-bold">
             Añadir Nuevo
-            {{ serviceType === "medical" ? "Medicamento" : "Servicio" }}
+            {{ serviceType === 'medical' ? 'Medicamento' : 'Servicio' }}
           </h3>
           <button @click="showServiceModal = false" class="text-gray-500">
             <x-icon class="w-5 h-5" />
@@ -888,7 +868,7 @@
                 @click="newPayment.method = method"
                 class="p-3 border rounded-lg flex items-center justify-center"
                 :class="{
-                  'border-blue-600 bg-blue-50': newPayment.method === method,
+                  'border-blue-600 bg-blue-50': newPayment.method === method
                 }"
               >
                 <component
@@ -1253,7 +1233,7 @@ Estimado cliente, adjunto encontrará su factura. Gracias por su preferencia.</t
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed } from 'vue'
 import {
   CircleIcon as CircleInfoIcon,
   X as XIcon,
@@ -1288,272 +1268,272 @@ import {
   CreditCard as CreditCardIcon2,
   BanknoteIcon,
   MessageCircle as MessageCircleIcon,
-  CheckCircle as CheckCircleIcon,
-} from "lucide-vue-next";
+  CheckCircle as CheckCircleIcon
+} from 'lucide-vue-next'
 
 // Form data
-const subject = ref("Consulta Médica - Junio 2023");
-const dueDate = ref("10 Noviembre 2023");
-const currency = ref("Bs");
-const serviceType = ref("medical");
+const subject = ref('Consulta Médica - Junio 2023')
+const dueDate = ref('10 Noviembre 2023')
+const currency = ref('Bs')
+const serviceType = ref('medical')
 
 // Discount data
-const hasDiscount = ref(true);
-const discountType = ref("Descuento Paciente");
-const discountValue = ref(10);
-const showDiscountModal = ref(false);
+const hasDiscount = ref(true)
+const discountType = ref('Descuento Paciente')
+const discountValue = ref(10)
+const showDiscountModal = ref(false)
 
 // Payment data
-const showPaymentModal = ref(false);
-const payments = ref([]);
-const paymentMethods = ["QR", "Cash", "Check", "Transfer"];
+const showPaymentModal = ref(false)
+const payments = ref([])
+const paymentMethods = ['QR', 'Cash', 'Check', 'Transfer']
 const newPayment = ref({
-  method: "Cash",
+  method: 'Cash',
   amount: 0,
-  reference: "",
-});
+  reference: ''
+})
 
 // Client data
-const clientSearch = ref("");
-const showClientSearch = ref(false);
-const selectedClient = ref(null);
-const showClientModal = ref(false);
+const clientSearch = ref('')
+const showClientSearch = ref(false)
+const selectedClient = ref(null)
+const showClientModal = ref(false)
 const newClient = ref({
-  name: "",
-  email: "",
-  phone: "",
-  address: "",
-});
+  name: '',
+  email: '',
+  phone: '',
+  address: ''
+})
 
 // Sample clients
 const clients = ref([
   {
     id: 1,
-    name: "Juan Pérez",
-    email: "juan.perez@gmail.com",
-    phone: "+591 712 123 4567",
-    address: "Av. Principal, La Paz",
+    name: 'Juan Pérez',
+    email: 'juan.perez@gmail.com',
+    phone: '+591 712 123 4567',
+    address: 'Av. Principal, La Paz'
   },
   {
     id: 2,
-    name: "María González",
-    email: "maria.g@company.com",
-    phone: "+591 714 765 4321",
-    address: "Calle 5, Santa Cruz",
+    name: 'María González',
+    email: 'maria.g@company.com',
+    phone: '+591 714 765 4321',
+    address: 'Calle 5, Santa Cruz'
   },
   {
     id: 3,
-    name: "Carlos Rodríguez",
-    email: "carlos.r@business.net",
-    phone: "+591 716 555 1234",
-    address: "Urb. El Bosque, Cochabamba",
+    name: 'Carlos Rodríguez',
+    email: 'carlos.r@business.net',
+    phone: '+591 716 555 1234',
+    address: 'Urb. El Bosque, Cochabamba'
   },
   {
     id: 4,
-    name: "Ana Martínez",
-    email: "ana.m@example.org",
-    phone: "+591 724 333 2222",
-    address: "Av. Las Américas, Sucre",
+    name: 'Ana Martínez',
+    email: 'ana.m@example.org',
+    phone: '+591 724 333 2222',
+    address: 'Av. Las Américas, Sucre'
   },
   {
     id: 5,
-    name: "Luis Hernández",
-    email: "luis.h@mail.com",
-    phone: "+591 726 777 8888",
-    address: "Sector La Candelaria, Tarija",
-  },
-]);
+    name: 'Luis Hernández',
+    email: 'luis.h@mail.com',
+    phone: '+591 726 777 8888',
+    address: 'Sector La Candelaria, Tarija'
+  }
+])
 
 // Service data
-const serviceSearch = ref("");
-const showServiceSearch = ref(false);
-const showServiceModal = ref(false);
-const selectedServices = ref([]);
+const serviceSearch = ref('')
+const showServiceSearch = ref(false)
+const showServiceModal = ref(false)
+const selectedServices = ref([])
 const newService = ref({
-  name: "",
+  name: '',
   price: 0,
-  description: "",
-  category: "other",
-});
+  description: '',
+  category: 'other'
+})
 
 // Sample medical services and medications
 const medicalServices = ref([
   {
     id: 1,
-    name: "Consulta General",
+    name: 'Consulta General',
     price: 150,
-    description: "Consulta médica general",
-    category: "consultation",
+    description: 'Consulta médica general',
+    category: 'consultation',
     icon: StethoscopeIcon,
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-600",
-    type: "service",
+    iconBg: 'bg-blue-100',
+    iconColor: 'text-blue-600',
+    type: 'service'
   },
   {
     id: 2,
-    name: "Ecografía Abdominal",
+    name: 'Ecografía Abdominal',
     price: 300,
-    description: "Examen de ultrasonido abdominal",
-    category: "procedure",
+    description: 'Examen de ultrasonido abdominal',
+    category: 'procedure',
     icon: CameraIcon,
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-600",
-    type: "service",
+    iconBg: 'bg-purple-100',
+    iconColor: 'text-purple-600',
+    type: 'service'
   },
   {
     id: 3,
-    name: "Terapia Física",
+    name: 'Terapia Física',
     price: 200,
-    description: "Sesión de terapia física",
-    category: "therapy",
+    description: 'Sesión de terapia física',
+    category: 'therapy',
     icon: StethoscopeIcon,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-600",
-    type: "service",
+    iconBg: 'bg-green-100',
+    iconColor: 'text-green-600',
+    type: 'service'
   },
   {
     id: 4,
-    name: "Amoxicilina 500mg",
+    name: 'Amoxicilina 500mg',
     price: 45,
-    description: "Antibiótico - caja de 20 tabletas",
-    category: "prescription",
+    description: 'Antibiótico - caja de 20 tabletas',
+    category: 'prescription',
     icon: PillIcon,
-    iconBg: "bg-red-100",
-    iconColor: "text-red-600",
-    type: "medical",
+    iconBg: 'bg-red-100',
+    iconColor: 'text-red-600',
+    type: 'medical'
   },
   {
     id: 5,
-    name: "Paracetamol 500mg",
+    name: 'Paracetamol 500mg',
     price: 25,
-    description: "Analgésico - caja de 20 tabletas",
-    category: "otc",
+    description: 'Analgésico - caja de 20 tabletas',
+    category: 'otc',
     icon: PillIcon,
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
-    type: "medical",
+    iconBg: 'bg-amber-100',
+    iconColor: 'text-amber-600',
+    type: 'medical'
   },
   {
     id: 6,
-    name: "Jeringa Desechable",
+    name: 'Jeringa Desechable',
     price: 5,
-    description: "Jeringa estéril de 5ml",
-    category: "supplies",
+    description: 'Jeringa estéril de 5ml',
+    category: 'supplies',
     icon: SyringeIcon,
-    iconBg: "bg-teal-100",
-    iconColor: "text-teal-600",
-    type: "medical",
+    iconBg: 'bg-teal-100',
+    iconColor: 'text-teal-600',
+    type: 'medical'
   },
   {
     id: 7,
-    name: "Termómetro Digital",
+    name: 'Termómetro Digital',
     price: 60,
-    description: "Termómetro digital de uso médico",
-    category: "supplies",
+    description: 'Termómetro digital de uso médico',
+    category: 'supplies',
     icon: ThermometerIcon,
-    iconBg: "bg-pink-100",
-    iconColor: "text-pink-600",
-    type: "medical",
-  },
-]);
+    iconBg: 'bg-pink-100',
+    iconColor: 'text-pink-600',
+    type: 'medical'
+  }
+])
 
 // PDF, Email and WhatsApp status
-const showPdfModal = ref(false);
-const pdfStatus = ref("idle"); // idle, processing, success, error
-const showEmailModal = ref(false);
-const emailStatus = ref("idle");
-const emailRecipient = ref("");
-const emailSubject = ref("Factura FAC2398-08-087");
+const showPdfModal = ref(false)
+const pdfStatus = ref('idle') // idle, processing, success, error
+const showEmailModal = ref(false)
+const emailStatus = ref('idle')
+const emailRecipient = ref('')
+const emailSubject = ref('Factura FAC2398-08-087')
 const emailMessage = ref(
-  "Estimado cliente, adjunto encontrará su factura. Gracias por su preferencia."
-);
-const showWhatsappModal = ref(false);
-const whatsappStatus = ref("idle");
-const whatsappNumber = ref("");
+  'Estimado cliente, adjunto encontrará su factura. Gracias por su preferencia.'
+)
+const showWhatsappModal = ref(false)
+const whatsappStatus = ref('idle')
+const whatsappNumber = ref('')
 const whatsappMessage = ref(
-  "Estimado cliente, adjunto encontrará su factura. Gracias por su preferencia."
-);
-const attachPdfToWhatsapp = ref(true);
+  'Estimado cliente, adjunto encontrará su factura. Gracias por su preferencia.'
+)
+const attachPdfToWhatsapp = ref(true)
 
 // Computed properties
 const filteredClients = computed(() => {
-  if (!clientSearch.value) return clients.value;
-  const search = clientSearch.value.toLowerCase();
+  if (!clientSearch.value) return clients.value
+  const search = clientSearch.value.toLowerCase()
   return clients.value.filter(
     (client) =>
       client.name.toLowerCase().includes(search) ||
       client.email.toLowerCase().includes(search)
-  );
-});
+  )
+})
 
 const filteredServices = computed(() => {
   const services = medicalServices.value.filter(
     (service) => service.type === serviceType.value
-  );
+  )
 
-  if (!serviceSearch.value) return services;
-  const search = serviceSearch.value.toLowerCase();
+  if (!serviceSearch.value) return services
+  const search = serviceSearch.value.toLowerCase()
   return services.filter(
     (service) =>
       service.name.toLowerCase().includes(search) ||
       service.description.toLowerCase().includes(search) ||
       service.category.toLowerCase().includes(search)
-  );
-});
+  )
+})
 
 const subtotal = computed(() => {
   return selectedServices.value.reduce((total, service) => {
-    return total + service.price * service.quantity;
-  }, 0);
-});
+    return total + service.price * service.quantity
+  }, 0)
+})
 
 const discountAmount = computed(() => {
-  return hasDiscount.value ? subtotal.value * (discountValue.value / 100) : 0;
-});
+  return hasDiscount.value ? subtotal.value * (discountValue.value / 100) : 0
+})
 
 const totalAmount = computed(() => {
-  return subtotal.value - discountAmount.value;
-});
+  return subtotal.value - discountAmount.value
+})
 
 const totalPaid = computed(() => {
   return payments.value.reduce((total, payment) => {
-    return total + payment.amount;
-  }, 0);
-});
+    return total + payment.amount
+  }, 0)
+})
 
 // Methods
 const formatCurrency = (value) => {
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
 
 const getPaymentMethodName = (method) => {
   const methodNames = {
-    QR: "QR",
-    Cash: "Efectivo",
-    Check: "Cheque",
-    Transfer: "Transferencia",
-  };
-  return methodNames[method] || method;
-};
+    QR: 'QR',
+    Cash: 'Efectivo',
+    Check: 'Cheque',
+    Transfer: 'Transferencia'
+  }
+  return methodNames[method] || method
+}
 
 const selectClient = (client) => {
-  selectedClient.value = client;
-  showClientSearch.value = false;
+  selectedClient.value = client
+  showClientSearch.value = false
 
   // Auto-fill contact info for modals
-  emailRecipient.value = client.email;
-  whatsappNumber.value = client.phone;
-};
+  emailRecipient.value = client.email
+  whatsappNumber.value = client.phone
+}
 
 const openClientSearch = () => {
-  showClientSearch.value = true;
-  clientSearch.value = "";
-};
+  showClientSearch.value = true
+  clientSearch.value = ''
+}
 
 const openClientModal = () => {
-  showClientModal.value = true;
-  showClientSearch.value = false;
-};
+  showClientModal.value = true
+  showClientSearch.value = false
+}
 
 const addNewClient = () => {
   if (newClient.value.name && newClient.value.email) {
@@ -1562,104 +1542,104 @@ const addNewClient = () => {
       name: newClient.value.name,
       email: newClient.value.email,
       phone: newClient.value.phone,
-      address: newClient.value.address,
-    };
-    clients.value.push(client);
-    selectedClient.value = client;
-    showClientModal.value = false;
+      address: newClient.value.address
+    }
+    clients.value.push(client)
+    selectedClient.value = client
+    showClientModal.value = false
 
     // Reset form
     newClient.value = {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-    };
+      name: '',
+      email: '',
+      phone: '',
+      address: ''
+    }
   }
-};
+}
 
 const openServiceSearch = () => {
-  showServiceSearch.value = true;
-  serviceSearch.value = "";
-};
+  showServiceSearch.value = true
+  serviceSearch.value = ''
+}
 
 const openServiceModal = () => {
-  showServiceModal.value = true;
-  showServiceSearch.value = false;
+  showServiceModal.value = true
+  showServiceSearch.value = false
 
   // Set default category based on service type
-  if (serviceType.value === "medical") {
-    newService.value.category = "prescription";
+  if (serviceType.value === 'medical') {
+    newService.value.category = 'prescription'
   } else {
-    newService.value.category = "consultation";
+    newService.value.category = 'consultation'
   }
-};
+}
 
 const addService = (service) => {
   // Check if service already exists in selected services
   const existingService = selectedServices.value.find(
     (s) => s.id === service.id
-  );
+  )
 
   if (existingService) {
-    existingService.quantity++;
+    existingService.quantity++
   } else {
     selectedServices.value.push({
       ...service,
       quantity: 1,
-      tax: "0",
-    });
+      tax: '0'
+    })
   }
 
-  showServiceSearch.value = false;
-};
+  showServiceSearch.value = false
+}
 
 const removeService = (index) => {
-  selectedServices.value.splice(index, 1);
-};
+  selectedServices.value.splice(index, 1)
+}
 
 const addNewService = () => {
   if (newService.value.name && newService.value.price > 0) {
     // Determine icon based on category
-    let icon = serviceType.value === "medical" ? PillIcon : StethoscopeIcon;
-    let iconBg = "bg-blue-100";
-    let iconColor = "text-blue-600";
+    let icon = serviceType.value === 'medical' ? PillIcon : StethoscopeIcon
+    let iconBg = 'bg-blue-100'
+    let iconColor = 'text-blue-600'
 
-    if (serviceType.value === "medical") {
+    if (serviceType.value === 'medical') {
       switch (newService.value.category) {
-        case "prescription":
-          icon = PillIcon;
-          iconBg = "bg-red-100";
-          iconColor = "text-red-600";
-          break;
-        case "otc":
-          icon = PillIcon;
-          iconBg = "bg-amber-100";
-          iconColor = "text-amber-600";
-          break;
-        case "supplies":
-          icon = SyringeIcon;
-          iconBg = "bg-teal-100";
-          iconColor = "text-teal-600";
-          break;
+        case 'prescription':
+          icon = PillIcon
+          iconBg = 'bg-red-100'
+          iconColor = 'text-red-600'
+          break
+        case 'otc':
+          icon = PillIcon
+          iconBg = 'bg-amber-100'
+          iconColor = 'text-amber-600'
+          break
+        case 'supplies':
+          icon = SyringeIcon
+          iconBg = 'bg-teal-100'
+          iconColor = 'text-teal-600'
+          break
       }
     } else {
       switch (newService.value.category) {
-        case "consultation":
-          icon = StethoscopeIcon;
-          iconBg = "bg-blue-100";
-          iconColor = "text-blue-600";
-          break;
-        case "procedure":
-          icon = CameraIcon;
-          iconBg = "bg-purple-100";
-          iconColor = "text-purple-600";
-          break;
-        case "therapy":
-          icon = StethoscopeIcon;
-          iconBg = "bg-green-100";
-          iconColor = "text-green-600";
-          break;
+        case 'consultation':
+          icon = StethoscopeIcon
+          iconBg = 'bg-blue-100'
+          iconColor = 'text-blue-600'
+          break
+        case 'procedure':
+          icon = CameraIcon
+          iconBg = 'bg-purple-100'
+          iconColor = 'text-purple-600'
+          break
+        case 'therapy':
+          icon = StethoscopeIcon
+          iconBg = 'bg-green-100'
+          iconColor = 'text-green-600'
+          break
       }
     }
 
@@ -1672,69 +1652,69 @@ const addNewService = () => {
       icon,
       iconBg,
       iconColor,
-      type: serviceType.value,
-    };
+      type: serviceType.value
+    }
 
-    medicalServices.value.push(service);
+    medicalServices.value.push(service)
     selectedServices.value.push({
       ...service,
       quantity: 1,
-      tax: "0",
-    });
+      tax: '0'
+    })
 
-    showServiceModal.value = false;
+    showServiceModal.value = false
 
     // Reset form
     newService.value = {
-      name: "",
+      name: '',
       price: 0,
-      description: "",
+      description: '',
       category:
-        serviceType.value === "medical" ? "prescription" : "consultation",
-    };
+        serviceType.value === 'medical' ? 'prescription' : 'consultation'
+    }
   }
-};
+}
 
 const openDiscountModal = () => {
-  showDiscountModal.value = true;
-};
+  showDiscountModal.value = true
+}
 
 const applyDiscount = () => {
   // Ensure discount value is between 0 and 100
-  discountValue.value = Math.min(100, Math.max(0, discountValue.value));
-  showDiscountModal.value = false;
-};
+  discountValue.value = Math.min(100, Math.max(0, discountValue.value))
+  showDiscountModal.value = false
+}
 
 const openPaymentModal = () => {
-  showPaymentModal.value = true;
+  showPaymentModal.value = true
   newPayment.value = {
-    method: "Cash",
+    method: 'Cash',
     amount: 0,
-    reference: "",
-  };
-};
+    reference: ''
+  }
+}
 
 const getPaymentIcon = (method) => {
   switch (method) {
-    case "QR":
-      return QrCodeIcon;
-    case "Cash":
-      return BanknoteIcon;
-    case "Check":
-      return FileIcon;
-    case "Transfer":
-      return CreditCardIcon2;
+    case 'QR':
+      return QrCodeIcon
+    case 'Cash':
+      return BanknoteIcon
+    case 'Check':
+      return FileIcon
+    case 'Transfer':
+      return CreditCardIcon2
     default:
-      return DollarSignIcon;
+      return DollarSignIcon
   }
-};
+}
 
 const setRemainingAmount = () => {
-  const remaining = totalAmount.value - totalPaid.value;
+  const remaining = totalAmount.value - totalPaid.value
   if (remaining > 0) {
-    newPayment.value.amount = remaining;
+    newPayment.value.amount = remaining
   }
-};
+}
 
 const addPayment = () => {
   if (newPayment.value.amount > 0) {
@@ -1742,83 +1722,83 @@ const addPayment = () => {
       method: newPayment.value.method,
       amount: parseFloat(newPayment.value.amount),
       reference: newPayment.value.reference,
-      date: new Date().toISOString(),
-    });
-    showPaymentModal.value = false;
+      date: new Date().toISOString()
+    })
+    showPaymentModal.value = false
   }
-};
+}
 
 const removePayment = (index) => {
-  payments.value.splice(index, 1);
-};
+  payments.value.splice(index, 1)
+}
 
 // PDF functions
 const openPdfModal = () => {
-  showPdfModal.value = true;
-  pdfStatus.value = "idle";
-};
+  showPdfModal.value = true
+  pdfStatus.value = 'idle'
+}
 
 const generatePdf = () => {
-  pdfStatus.value = "processing";
+  pdfStatus.value = 'processing'
 
   // Simulate PDF generation with a delay
   setTimeout(() => {
     // Randomly succeed or fail for demonstration
-    const success = Math.random() > 0.3;
-    pdfStatus.value = success ? "success" : "error";
-  }, 2000);
-};
+    const success = Math.random() > 0.3
+    pdfStatus.value = success ? 'success' : 'error'
+  }, 2000)
+}
 
 // Email functions
 const openEmailModal = () => {
-  showEmailModal.value = true;
-  emailStatus.value = "idle";
+  showEmailModal.value = true
+  emailStatus.value = 'idle'
 
   if (selectedClient.value) {
-    emailRecipient.value = selectedClient.value.email;
-    emailSubject.value = `Factura FAC2398-08-087 - ${selectedClient.value.name}`;
+    emailRecipient.value = selectedClient.value.email
+    emailSubject.value = `Factura FAC2398-08-087 - ${selectedClient.value.name}`
   }
-};
+}
 
 const sendEmail = () => {
   if (!emailRecipient.value) {
-    alert("Por favor, ingrese una dirección de correo electrónico");
-    return;
+    alert('Por favor, ingrese una dirección de correo electrónico')
+    return
   }
 
-  emailStatus.value = "processing";
+  emailStatus.value = 'processing'
 
   // Simulate email sending with a delay
   setTimeout(() => {
     // Randomly succeed or fail for demonstration
-    const success = Math.random() > 0.3;
-    emailStatus.value = success ? "success" : "error";
-  }, 2000);
-};
+    const success = Math.random() > 0.3
+    emailStatus.value = success ? 'success' : 'error'
+  }, 2000)
+}
 
 // WhatsApp functions
 const openWhatsappModal = () => {
-  showWhatsappModal.value = true;
-  whatsappStatus.value = "idle";
+  showWhatsappModal.value = true
+  whatsappStatus.value = 'idle'
 
   if (selectedClient.value) {
-    whatsappNumber.value = selectedClient.value.phone;
+    whatsappNumber.value = selectedClient.value.phone
   }
-};
+}
 
 const sendWhatsapp = () => {
   if (!whatsappNumber.value) {
-    alert("Por favor, ingrese un número de teléfono");
-    return;
+    alert('Por favor, ingrese un número de teléfono')
+    return
   }
 
-  whatsappStatus.value = "processing";
+  whatsappStatus.value = 'processing'
 
   // Simulate WhatsApp sending with a delay
   setTimeout(() => {
     // Randomly succeed or fail for demonstration
-    const success = Math.random() > 0.3;
-    whatsappStatus.value = success ? "success" : "error";
-  }, 2000);
-};
+    const success = Math.random() > 0.3
+    whatsappStatus.value = success ? 'success' : 'error'
+  }, 2000)
+}
 </script>
