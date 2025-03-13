@@ -1,34 +1,51 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/Helvetica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --font-helvetica: 'Helvetica', sans-serif;
+  --coolor-background: hsl(0 0% 100%);
+  --coolor-foreground: hsl(0 0% 3.9%);
+  /* Paleta centrada en un rojo cálido */
+  --color-primary: hsl(0 80% 50%); /* Rojo base */
+  --color-color-primary-50: hsl(0 100% 98%); /* Muy claro */
+  --color-primary-100: hsl(0 100% 90%); /* Claro */
+  --color-primary-200: hsl(0 95% 80%); /* Claro */
+  --color-primary-300: hsl(0 90% 70%); /* Ligeramente oscuro */
+  --color-primary-400: hsl(0 85% 60%); /* Medio claro */
+  --color-primary-500: hsl(0 80% 50%); /* Rojo fuerte */
+  --color-primary-600: hsl(0 70% 40%); /* Oscuro */
+  --color-primary-700: hsl(0 60% 30%); /* Más oscuro */
+  --color-primary-800: hsl(0 50% 20%); /* Muy oscuro */
+  --color-primary-900: hsl(0 40% 15%); /* Muy oscuro */
+  --color-primary-950: hsl(0 35% 10%); /* Casi negro */
+  --color-primary-foreground: hsl(0 0% 98%); /* Muy claro para texto */
+  --color-background: hsl(0 0% 3.9%);
+  --color-foreground: hsl(0 0% 3%);
+}
 
 @layer base {
-  :root {
-    --background: hsl(0, 0%, 100%);
-    --foreground: hsl(0, 0%, 3.9%);
-    /* Paleta centrada en un rojo cálido */
-    --primary: hsl(0, 80%, 50%); /* Rojo base */
-    --primary-50: hsl(0, 100%, 98%); /* Muy claro */
-    --primary-100: hsl(0, 100%, 90%); /* Claro */
-    --primary-200: hsl(0, 95%, 80%); /* Claro */
-    --primary-300: hsl(0, 90%, 70%); /* Ligeramente oscuro */
-    --primary-400: hsl(0, 85%, 60%); /* Medio claro */
-    --primary-500: hsl(0, 80%, 50%); /* Rojo fuerte */
-    --primary-600: hsl(0, 70%, 40%); /* Oscuro */
-    --primary-700: hsl(0, 60%, 30%); /* Más oscuro */
-    --primary-800: hsl(0, 50%, 20%); /* Muy oscuro */
-    --primary-900: hsl(0, 40%, 15%); /* Muy oscuro */
-    --primary-950: hsl(0, 35%, 10%); /* Casi negro */
-    --primary-foreground: hsl(0, 0%, 98%); /* Muy claro para texto */
-  }
-
   .dark {
-    --background: hsl(0, 0%, 3.9%);
-    --foreground: hsl(0, 0%, 98%);
-  }
-
-  body {
-    @apply bg-background text-foreground;
+    --color-primary: hsl(210 80% 50%); /* Azul base */
+    --color-primary-50: hsl(210 100% 98%); /* Muy claro */
+    --color-primary-100: hsl(210 100% 90%); /* Claro */
+    --color-primary-200: hsl(210 95% 80%); /* Claro */
+    --color-primary-300: hsl(210 90% 70%); /* Ligeramente oscuro */
+    --color-primary-400: hsl(210 85% 60%); /* Medio claro */
+    --color-primary-500: hsl(210 80% 50%); /* Azul fuerte */
+    --color-primary-600: hsl(210 70% 40%); /* Oscuro */
+    --color-primary-700: hsl(210 60% 30%); /* Más oscuro */
+    --color-primary-800: hsl(210 50% 20%); /* Muy oscuro */
+    --color-primary-900: hsl(210 40% 15%); /* Muy oscuro */
+    --color-primary-950: hsl(210 35% 10%); /* Casi negro */
+    --color-primary-foreground: hsl(210 0% 98%); /* Muy claro para texto */
+    --color-background: hsl(210 0% 3.9%); /* Fondo oscuro */
+    --color-foreground: hsl(210 0% 98%); /* Texto claro */
   }
 }
 
@@ -38,4 +55,70 @@
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* estils customizados para el lauoy  */
+
+.gradient-bar {
+  background: linear-gradient(
+    90deg,
+    #6366f1,
+    #8b5cf6,
+    #ec4899,
+    #8b5cf6,
+    #6366f1
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+}
+
+.dark .gradient-bar {
+  background: linear-gradient(
+    90deg,
+    #44b4ff,
+    #4ad0f1,
+    #1168ec,
+    #4ad0f1,
+    #44b4ff
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+/* Animación para el texto CODEX */
+.gradient-text {
+  @apply bg-linear-90 from-primary-400 via-primary-700  to-primary-400;
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.theme-transition * {
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease !important;
 }

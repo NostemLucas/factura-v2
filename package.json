@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@nuxt/image": "^1.9.0",
-    "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia/nuxt": "^0.5.1",
+    "@tailwindcss/vite": "^4.0.14",
     "@vee-validate/rules": "^4.12.5",
     "@vee-validate/zod": "^4.15.0",
     "class-variance-authority": "^0.7.0",

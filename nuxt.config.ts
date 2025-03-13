@@ -1,29 +1,27 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "@pinia/nuxt",
-    "@nuxtjs/color-mode",
-    "@nuxt/image",
-  ],
+  modules: ['@pinia/nuxt', '@nuxtjs/color-mode', '@nuxt/image'],
   colorMode: {
-    classSuffix: "",
+    classSuffix: ''
   },
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
+  vite: { plugins: [tailwindcss()] },
   typescript: {
-    strict: true,
+    strict: true
   },
   app: {
-    baseURL: process.env.NUXT_APP_BASE_URL || "/",
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
-      title: "Login App",
+      title: 'Login App',
       meta: [
-        { charset: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-      ],
-    },
-  },
-});
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ]
+    }
+  }
+})
