@@ -20,7 +20,7 @@
           transform: `scale(${Math.random() * 1 + 0.5})`,
           filter: 'blur(40px)',
           '--index': i,
-          animationDelay: `${i * 0.5}s`,
+          animationDelay: `${i * 0.5}s`
         }"
       >
         asas
@@ -92,13 +92,13 @@
 
             <!-- Título -->
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              {{ language === "es" ? "Iniciar Sesión" : "Login" }}
+              {{ language === 'es' ? 'Iniciar Sesión' : 'Login' }}
             </h1>
             <p class="text-gray-500 dark:text-gray-400 mb-6">
               {{
-                language === "es"
-                  ? "Ingresa tus credenciales para continuar"
-                  : "Enter your credentials to continue"
+                language === 'es'
+                  ? 'Ingresa tus credenciales para continuar'
+                  : 'Enter your credentials to continue'
               }}
             </p>
 
@@ -116,12 +116,12 @@
                     for="username"
                     class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                   >
-                    {{ language === "es" ? "Nombre de usuario" : "Username" }}
+                    {{ language === 'es' ? 'Nombre de usuario' : 'Username' }}
                   </label>
                   <div
                     class="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 transition-all duration-300"
                     :class="{
-                      'ring-2 ring-red-500 border-red-500': errors.username,
+                      'ring-2 ring-red-500 border-red-500': errors.username
                     }"
                   >
                     <div
@@ -154,12 +154,12 @@
                     for="password"
                     class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                   >
-                    {{ language === "es" ? "Contraseña" : "Password" }}
+                    {{ language === 'es' ? 'Contraseña' : 'Password' }}
                   </label>
                   <div
                     class="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 transition-all duration-300"
                     :class="{
-                      'ring-2 ring-red-500 border-red-500': errors.password,
+                      'ring-2 ring-red-500 border-red-500': errors.password
                     }"
                   >
                     <div
@@ -214,14 +214,14 @@
                       class="rounded- border-gray-300 text-primary-600 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
                     />
                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">
-                      {{ language === "es" ? "Recordarme" : "Remember me" }}
+                      {{ language === 'es' ? 'Recordarme' : 'Remember me' }}
                     </span>
                   </label>
                   <a
                     href="#"
                     class="text-sm text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-300"
                     >{{
-                      language === "es" ? "¿Necesitas ayuda?" : "Need help?"
+                      language === 'es' ? '¿Necesitas ayuda?' : 'Need help?'
                     }}</a
                   >
                 </div>
@@ -236,7 +236,7 @@
                     v-if="isSubmitting"
                     class="animate-spin h-5 w-5 mr-2"
                   />
-                  {{ language === "es" ? "Iniciar Sesión" : "Login" }}
+                  {{ language === 'es' ? 'Iniciar Sesión' : 'Login' }}
                 </button>
 
                 <!-- Separador -->
@@ -251,9 +251,9 @@
                       class="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400"
                     >
                       {{
-                        language === "es"
-                          ? "o contáctanos vía"
-                          : "or contact us via"
+                        language === 'es'
+                          ? 'o contáctanos vía'
+                          : 'or contact us via'
                       }}
                     </span>
                   </div>
@@ -284,17 +284,17 @@
                   class="text-center text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300 mt-4"
                 >
                   {{
-                    language === "es"
-                      ? "¿No tienes una cuenta?"
+                    language === 'es'
+                      ? '¿No tienes una cuenta?'
                       : "Don't have an account?"
                   }}
                   <a
                     href="#"
                     class="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-300 font-medium"
                     >{{
-                      language === "es"
-                        ? "Prueba la versión gratuita"
-                        : "Try the free trial"
+                      language === 'es'
+                        ? 'Prueba la versión gratuita'
+                        : 'Try the free trial'
                     }}</a
                   >
                 </div>
@@ -327,22 +327,22 @@
             <a
               href="#"
               class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"
-              >{{ language === "es" ? "Galileo" : "Galileo" }}</a
+              >{{ language === 'es' ? 'Galileo' : 'Galileo' }}</a
             >
             <a
               href="#"
               class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"
               >{{
-                language === "es"
-                  ? "Gestión de almacenes"
-                  : "Warehouse Management"
+                language === 'es'
+                  ? 'Gestión de almacenes'
+                  : 'Warehouse Management'
               }}</a
             >
             <a
               href="#"
               class="hover:text-primary-600 dark:hover:text-primary-400 flex items-center transition-colors duration-300"
             >
-              {{ language === "es" ? "Codex Mobile" : "Codex Mobile" }}
+              {{ language === 'es' ? 'Codex Mobile' : 'Codex Mobile' }}
               <span class="ml-1 flex">
                 <apple-icon class="h-4 w-4 text-gray-600 dark:text-gray-400" />
                 <smartphone-icon
@@ -354,7 +354,7 @@
               href="#"
               class="hover:text-primary-600 dark:hover:text-primary-400 flex items-center transition-colors duration-300"
             >
-              {{ language === "es" ? "Galileo Mobile" : "Galileo Mobile" }}
+              {{ language === 'es' ? 'Galileo Mobile' : 'Galileo Mobile' }}
               <span class="ml-1 flex">
                 <apple-icon class="h-4 w-4 text-gray-600 dark:text-gray-400" />
                 <smartphone-icon
@@ -369,7 +369,7 @@
               Codex
               <span
                 class="ml-1 text-xs bg-primary-600 dark:bg-primary-700 text-white px-1.5 py-0.5 rounded-full"
-                >{{ language === "es" ? "NUEVO" : "NEW" }}</span
+                >{{ language === 'es' ? 'NUEVO' : 'NEW' }}</span
               >
             </a>
           </div>
@@ -378,16 +378,16 @@
             <a
               href="#"
               class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"
-              >{{ language === "es" ? "Contáctanos" : "Contact Us" }}</a
+              >{{ language === 'es' ? 'Contáctanos' : 'Contact Us' }}</a
             >
             <span class="text-gray-400 dark:text-gray-500">|</span>
             <a
               href="#"
               class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"
               >{{
-                language === "es"
-                  ? "Sobre nuestra Plataforma"
-                  : "About our Platform"
+                language === 'es'
+                  ? 'Sobre nuestra Plataforma'
+                  : 'About our Platform'
               }}</a
             >
           </div>
@@ -398,11 +398,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineComponent, h } from "vue";
-import { Form, Field } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
-import { z } from "zod";
-import { useAuthStore } from "~/stores/auth";
+import { ref, computed, defineComponent, h } from 'vue'
+import { Form, Field } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
+import { useAuthStore } from '~/stores/auth'
 import {
   User as UserIcon,
   Lock as LockIcon,
@@ -414,90 +414,90 @@ import {
   Smartphone as SmartphoneIcon,
   Loader as LoaderIcon,
   Mail as MailIcon,
-  MessageCircle as MessageCircleIcon,
-} from "lucide-vue-next";
-import { Apple as AppleIcon } from "lucide-vue-next";
+  MessageCircle as MessageCircleIcon
+} from 'lucide-vue-next'
+import { Apple as AppleIcon } from 'lucide-vue-next'
 
 // Componentes personalizados para iconos de redes sociales
 const GoogleIcon = defineComponent({
   setup() {
     return () =>
       h(
-        "svg",
+        'svg',
         {
-          xmlns: "http://www.w3.org/2000/svg",
-          viewBox: "0 0 24 24",
-          fill: "currentColor",
-          class: "w-5 h-5 text-gray-700 dark:text-gray-300",
+          xmlns: 'http://www.w3.org/2000/svg',
+          viewBox: '0 0 24 24',
+          fill: 'currentColor',
+          class: 'w-5 h-5 text-gray-700 dark:text-gray-300'
         },
         [
-          h("path", {
-            d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z",
-            fill: "#4285F4",
+          h('path', {
+            d: 'M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z',
+            fill: '#4285F4'
           }),
-          h("path", {
-            d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z",
-            fill: "#34A853",
+          h('path', {
+            d: 'M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z',
+            fill: '#34A853'
           }),
-          h("path", {
-            d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z",
-            fill: "#FBBC05",
+          h('path', {
+            d: 'M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z',
+            fill: '#FBBC05'
           }),
-          h("path", {
-            d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z",
-            fill: "#EA4335",
-          }),
+          h('path', {
+            d: 'M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z',
+            fill: '#EA4335'
+          })
         ]
-      );
-  },
-});
+      )
+  }
+})
 
 const MicrosoftIcon = defineComponent({
   setup() {
     return () =>
       h(
-        "svg",
+        'svg',
         {
-          xmlns: "http://www.w3.org/2000/svg",
-          viewBox: "0 0 23 23",
-          fill: "none",
-          class: "w-5 h-5",
+          xmlns: 'http://www.w3.org/2000/svg',
+          viewBox: '0 0 23 23',
+          fill: 'none',
+          class: 'w-5 h-5'
         },
         [
-          h("path", { d: "M1 1h10v10H1V1z", fill: "#F25022" }),
-          h("path", { d: "M12 1h10v10H12V1z", fill: "#7FBA00" }),
-          h("path", { d: "M1 12h10v10H1V12z", fill: "#00A4EF" }),
-          h("path", { d: "M12 12h10v10H12V12z", fill: "#FFB900" }),
+          h('path', { d: 'M1 1h10v10H1V1z', fill: '#F25022' }),
+          h('path', { d: 'M12 1h10v10H12V1z', fill: '#7FBA00' }),
+          h('path', { d: 'M1 12h10v10H1V12z', fill: '#00A4EF' }),
+          h('path', { d: 'M12 12h10v10H12V12z', fill: '#FFB900' })
         ]
-      );
-  },
-});
+      )
+  }
+})
 
 // Estado y configuración
-const authStore = useAuthStore();
-const colorMode = useColorMode();
-const showPassword = ref(false);
-const rememberMe = ref(false);
-const language = ref("es"); // 'es' para español, 'en' para inglés
+const authStore = useAuthStore()
+const colorMode = useColorMode()
+const showPassword = ref(false)
+const rememberMe = ref(false)
+const language = ref('es') // 'es' para español, 'en' para inglés
 
 // Función para cambiar el tema con animación
 const toggleTheme = () => {
   // Añadir clase para la animación
-  document.body.classList.add("theme-transition");
+  document.body.classList.add('theme-transition')
 
   // Cambiar el tema
-  colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
 
   // Eliminar la clase después de la transición
   setTimeout(() => {
-    document.body.classList.remove("theme-transition");
-  }, 500);
-};
+    document.body.classList.remove('theme-transition')
+  }, 500)
+}
 
 // Función para cambiar el idioma
 const toggleLanguage = () => {
-  language.value = language.value === "es" ? "en" : "es";
-};
+  language.value = language.value === 'es' ? 'en' : 'es'
+}
 
 // Esquema de validación dinámico basado en el idioma
 const schema = computed(() => {
@@ -507,54 +507,54 @@ const schema = computed(() => {
         .string()
         .min(
           1,
-          language.value === "es"
-            ? "El nombre de usuario es requerido"
-            : "Username is required"
+          language.value === 'es'
+            ? 'El nombre de usuario es requerido'
+            : 'Username is required'
         ),
       password: z
         .string()
         .min(
           1,
-          language.value === "es"
-            ? "La contraseña es requerida"
-            : "Password is required"
+          language.value === 'es'
+            ? 'La contraseña es requerida'
+            : 'Password is required'
         )
         .min(
           5,
-          language.value === "es"
-            ? "La contraseña debe tener al menos 6 caracteres"
-            : "Password must be at least 6 characters"
-        ),
+          language.value === 'es'
+            ? 'La contraseña debe tener al menos 6 caracteres'
+            : 'Password must be at least 6 characters'
+        )
     })
-  );
-});
+  )
+})
 
 // Función para manejar el envío del formulario
 const onSubmit = async (values: any) => {
   try {
     // Simulamos un tiempo de carga
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
     // Añadimos el estado de "recordarme"
     const loginData = {
       ...values,
-      rememberMe: rememberMe.value,
-    };
+      rememberMe: rememberMe.value
+    }
 
-    await authStore.login(loginData);
+    await authStore.login(loginData)
 
     // Mostrar notificación de éxito (si tienes un sistema de notificaciones)
     // toast.success(language.value === 'es' ? 'Inicio de sesión exitoso' : 'Login successful');
   } catch (error) {
     console.error(
-      language.value === "es" ? "Error al iniciar sesión:" : "Login error:",
+      language.value === 'es' ? 'Error al iniciar sesión:' : 'Login error:',
       error
-    );
+    )
 
     // Mostrar notificación de error (si tienes un sistema de notificaciones)
     // toast.error(language.value === 'es' ? 'Error al iniciar sesión' : 'Login failed');
   }
-};
+}
 </script>
 
 <style>
