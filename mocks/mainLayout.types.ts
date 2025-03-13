@@ -32,14 +32,14 @@ import {
 
 export const SidebarItems: Array<Item> = [
   { id: 1, title: 'Home', url: '/dashboard', icon: HomeIcon },
-  { id: 2, title: 'Gráficas', url: '/admin/graphics', icon: PieChartIcon },
-  { id: 3, title: 'Facturas', url: '/admin/invoices', icon: FileTextIcon },
-  { id: 4, title: 'Ventas', url: '/admin/sales', icon: FileTextIcon },
-  { id: 5, title: 'Usuarios', url: '/admin/users', icon: UsersIcon },
-  { id: 6, title: 'Ayuda', url: '/admin/help', icon: HelpCircleIcon },
-  { id: 7, title: 'Shared Links', url: '/admin/shared-links', icon: ShareIcon },
-  { id: 8, title: 'ESG', url: '/admin/esg', icon: BarChartIcon },
-  { id: 9, title: 'Mas', url: '/admin/more', icon: MoreHorizontalIcon }
+  { id: 2, title: 'Gráficas', url: '/dashboard', icon: PieChartIcon },
+  { id: 3, title: 'Facturas', url: '/dashboard', icon: FileTextIcon },
+  { id: 4, title: 'Ventas', url: '/dashboard', icon: FileTextIcon },
+  { id: 5, title: 'Usuarios', url: '/dashboard', icon: UsersIcon },
+  { id: 6, title: 'Ayuda', url: '/dashboard', icon: HelpCircleIcon },
+  { id: 7, title: 'Shared Links', url: '/dashboard', icon: ShareIcon },
+  { id: 8, title: 'ESG', url: '/dashboard', icon: BarChartIcon },
+  { id: 9, title: 'Mas', url: '/dashboard', icon: MoreHorizontalIcon }
 ]
 
 interface Item {

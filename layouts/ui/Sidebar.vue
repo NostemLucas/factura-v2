@@ -5,9 +5,6 @@ import { NuxtLink } from '#components'
 
 const router = useRoute()
 
-console.log('lol xD')
-console.log(router.fullPath)
-
 const dashboard = useDashboard()
 const { openDrawer } = storeToRefs(dashboard)
 const { toggleDrawer } = dashboard
