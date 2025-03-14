@@ -19,7 +19,7 @@ const toggleTheme = () => {
 
 <template>
   <header
-    class="z-20 sticky top-0 flex flex-col border-b border-gray-200 bg-white"
+    class="z-40 sticky top-0 flex flex-col border-b border-gray-200 bg-white"
   >
     <div class="flex h-14 items-center justify-between px-4">
       <!-- Logo -->

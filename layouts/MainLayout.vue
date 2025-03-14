@@ -10,7 +10,12 @@ const { openDrawer } = storeToRefs(dashboard)
   <div class="relative flex w-full overflow-hidden bg-gray-50">
     <div class="w-full flex-1">
       <Topbar />
-      <div :class="['w-full', openDrawer ? 'lg:pl-48' : 'lg:pl-16']">
+      <div
+        :class="[
+          'w-full transition-all duration-300',
+          openDrawer ? 'lg:pl-48' : 'lg:pl-16'
+        ]"
+      >
         <Sidebar />
         <main
           class="min-h-[80vh] flex-1 overflow-auto bg-gray-50 p-4 flex justify-center"

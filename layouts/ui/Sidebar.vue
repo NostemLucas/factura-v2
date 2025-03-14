@@ -21,13 +21,9 @@ const { toggleDrawer } = dashboard
   ></div>
   <aside
     :class="[
-      'fixed inset-y-0 left-0 z-50 h-screen flex w-32 lg:w-16 flex-col border-r border-gray-200 bg-white transition-all duration-300  overflow-x-hidden',
-      openDrawer && lgUp ? 'lg:w-48' : 'lg:w-16',
-      !lgUp
-        ? openDrawer
-          ? 'translate-x-0 w-48'
-          : '-translate-x-full w-16'
-        : ''
+      'fixed inset-y-0 left-0 z-0 h-screen flex w-32 flex-col border-r border-gray-200 bg-white transition-all pt-16 duration-300  overflow-x-hidden',
+      lgUp && (openDrawer ? 'lg:w-48' : 'lg:w-16'),
+      !lgUp && (openDrawer ? 'translate-x-0' : '-translate-x-full')
     ]"
   >
     <nav class="flex-1 overflow-y-auto overflow-x-hidden py-2">
