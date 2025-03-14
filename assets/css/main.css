@@ -62,11 +62,11 @@
 .gradient-bar {
   background: linear-gradient(
     90deg,
-    #6366f1,
-    #8b5cf6,
+    var(--color-primary-400),
+    var(--color-primary-700),
     #ec4899,
-    #8b5cf6,
-    #6366f1
+    var(--color-primary-400),
+    var(--color-primary-600)
   );
   background-size: 200% 200%;
   animation: gradientMove 5s ease infinite;
@@ -75,11 +75,11 @@
 .dark .gradient-bar {
   background: linear-gradient(
     90deg,
+    var(--color-primary-400),
     #44b4ff,
     #4ad0f1,
-    #1168ec,
-    #4ad0f1,
-    #44b4ff
+    #44b4ff,
+    var(--color-primary-600)
   );
   background-size: 200% 200%;
   animation: gradientMove 5s ease infinite;
@@ -99,15 +99,54 @@
   }
 }
 
+@keyframes gradientText {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 body {
   font-family: Helvetica, sans-serif;
 }
 
 /* Animación para el texto CODEX */
 .gradient-text {
-  @apply bg-linear-90 from-primary-400 via-primary-700  to-primary-400;
+  background: linear-gradient(
+    45deg,
+    var(--color-primary-400),
+    var(--color-primary-700),
+    #ec4899,
+    var(--color-primary-400),
+    var(--color-primary-600),
+    white
+  );
   background-size: 200% 200%;
-  animation: gradientMove 5s ease infinite;
+  animation: gradientText 5s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.dark .gradient-text {
+  background: linear-gradient(
+    45deg,
+    var(--color-primary-400),
+    #44b4ff,
+    #4ad0f1,
+    #44b4ff,
+    var(--color-primary-600),
+    white
+  );
+  background-size: 200% 200%;
+  animation: gradientText 5s linear infinite;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

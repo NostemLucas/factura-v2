@@ -1,3 +1,29 @@
+gradient-bar {
+  background: linear-gradient(
+    90deg,
+        #6366f1
+    #8b5cf6,
+    #ec4899,
+    #8b5cf6,
+    #6366f1
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+}
+
+.dark .gradient-bar {
+  background: linear-gradient(
+    90deg,
+    #44b4ff,
+    #4ad0f1,
+    #1168ec,
+    #4ad0f1,
+    #44b4ff
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+}
+
 <template>
   <div
     class="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500 relative"

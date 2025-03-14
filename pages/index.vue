@@ -2,6 +2,228 @@
   <div
     class="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500 relative"
   >
+    <!-- Patrones de fondo mejorados - diferentes para modo claro y oscuro -->
+    <div
+      class="absolute inset-0 overflow-hidden pointer-events-none h-full w-full"
+    >
+      <!-- Gradient base layer -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-blue-950 dark:to-slate-950 transition-colors duration-500"
+      ></div>
+
+      <!-- Light mode pattern - Geometric shapes -->
+      <div
+        class="absolute inset-0 opacity-20 dark:opacity-0 transition-opacity duration-500"
+      >
+        <!-- Hexagon grid pattern -->
+        <svg
+          width="100%"
+          height="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          class="absolute inset-0"
+        >
+          <defs>
+            <pattern
+              id="hexagons"
+              width="50"
+              height="43.4"
+              patternUnits="userSpaceOnUse"
+              patternTransform="scale(2)"
+            >
+              <path
+                d="M25,0 L50,14.4 L50,38.4 L25,51.7 L0,38.4 L0,14.4 Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.5"
+                class="text-blue-500"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hexagons)" />
+        </svg>
+
+        <!-- Decorative elements -->
+        <div class="absolute top-0 right-0 w-1/3 h-1/3 opacity-30">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="#4B91F1"
+              d="M40.8,-69.7C51.9,-61.3,59.5,-47.7,65.6,-33.8C71.7,-19.9,76.3,-5.7,74.8,7.9C73.3,21.5,65.8,34.5,56.1,45.3C46.4,56.1,34.5,64.7,20.7,70.1C6.9,75.5,-8.8,77.7,-22.9,73.5C-37,69.3,-49.5,58.7,-59.3,46.1C-69.1,33.5,-76.2,18.8,-77.4,3.5C-78.6,-11.9,-73.9,-28,-64.7,-40.5C-55.5,-53,-41.8,-61.9,-28.3,-68.9C-14.8,-75.9,-1.5,-81.1,12.2,-79.8C25.8,-78.5,29.7,-78.1,40.8,-69.7Z"
+              transform="translate(100 100)"
+            />
+          </svg>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-1/2 h-1/2 opacity-20">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="#4B91F1"
+              d="M47.7,-79.9C62.4,-72.2,75.2,-60.3,83.1,-45.7C91,-31.1,94,-13.8,92.1,2.8C90.3,19.3,83.6,35.1,73.4,48.1C63.2,61.1,49.5,71.3,34.4,77.7C19.3,84.1,2.8,86.7,-13.8,84.9C-30.4,83.1,-47.1,76.9,-60.3,65.9C-73.5,54.9,-83.2,39.1,-87.8,21.9C-92.4,4.7,-91.9,-13.8,-85.2,-29.4C-78.5,-45,-65.6,-57.6,-50.9,-65.3C-36.2,-73,-18.1,-75.8,-0.6,-74.9C16.9,-74,33.1,-87.5,47.7,-79.9Z"
+              transform="translate(100 100)"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Dark mode pattern - Professional abstract elements -->
+      <div
+        class="absolute inset-0 opacity-0 dark:opacity-100 transition-opacity duration-500"
+      >
+        <!-- Subtle grid -->
+        <div
+          class="absolute inset-0"
+          style="
+            background-image:
+              linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+              linear-gradient(
+                to right,
+                rgba(59, 130, 246, 0.05) 1px,
+                transparent 1px
+              );
+            background-size: 40px 40px;
+          "
+        ></div>
+        <ClientOnly>
+          <!-- Glowing orbs -->
+          <div class="absolute inset-0">
+            <div
+              v-for="i in 15"
+              :key="i + '-orbs'"
+              class="absolute rounded-full bg-blue-500/10 blur-xl"
+              :style="{
+                width: `${Math.random() * 300 + 100}px`,
+                height: `${Math.random() * 300 + 100}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                opacity: `${Math.random() * 0.15 + 0.05}`,
+                transform: `scale(${Math.random() * 1 + 0.5})`
+              }"
+            ></div>
+          </div>
+        </ClientOnly>
+        <!-- Professional accent lines -->
+        <svg
+          width="100%"
+          height="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          class="absolute inset-0 opacity-10"
+        >
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop
+                offset="0%"
+                style="stop-color: rgb(59, 130, 246); stop-opacity: 0.3"
+              />
+              <stop
+                offset="100%"
+                style="stop-color: rgb(59, 130, 246); stop-opacity: 0"
+              />
+            </linearGradient>
+          </defs>
+          <line
+            x1="0"
+            y1="0"
+            x2="100%"
+            y2="100%"
+            stroke="url(#grad1)"
+            stroke-width="1"
+          />
+          <line
+            x1="20%"
+            y1="0"
+            x2="100%"
+            y2="80%"
+            stroke="url(#grad1)"
+            stroke-width="0.8"
+          />
+          <line
+            x1="40%"
+            y1="0"
+            x2="100%"
+            y2="60%"
+            stroke="url(#grad1)"
+            stroke-width="0.6"
+          />
+          <line
+            x1="60%"
+            y1="0"
+            x2="100%"
+            y2="40%"
+            stroke="url(#grad1)"
+            stroke-width="0.4"
+          />
+          <line
+            x1="80%"
+            y1="0"
+            x2="100%"
+            y2="20%"
+            stroke="url(#grad1)"
+            stroke-width="0.2"
+          />
+
+          <line
+            x1="100%"
+            y1="0"
+            x2="0"
+            y2="100%"
+            stroke="url(#grad1)"
+            stroke-width="1"
+          />
+          <line
+            x1="80%"
+            y1="0"
+            x2="0"
+            y2="80%"
+            stroke="url(#grad1)"
+            stroke-width="0.8"
+          />
+          <line
+            x1="60%"
+            y1="0"
+            x2="0"
+            y2="60%"
+            stroke="url(#grad1)"
+            stroke-width="0.6"
+          />
+          <line
+            x1="40%"
+            y1="0"
+            x2="0"
+            y2="40%"
+            stroke="url(#grad1)"
+            stroke-width="0.4"
+          />
+          <line
+            x1="20%"
+            y1="0"
+            x2="0"
+            y2="20%"
+            stroke="url(#grad1)"
+            stroke-width="0.2"
+          />
+        </svg>
+
+        <!-- Subtle particles -->
+        <ClientOnly>
+          <div class="particles-container">
+            <div
+              v-for="n in 30"
+              :key="`particle-${n}`"
+              class="particle"
+              :style="{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                width: `${Math.random() * 3 + 1}px`,
+                height: `${Math.random() * 3 + 1}px`,
+                opacity: Math.random() * 0.3 + 0.1,
+                animationDuration: `${Math.random() * 20 + 10}s`,
+                animationDelay: `${Math.random() * 5}s`
+              }"
+            ></div>
+          </div>
+        </ClientOnly>
+      </div>
+    </div>
+
     <!-- Dark mode glow effect -->
     <div
       class="absolute inset-0 overflow-hidden pointer-events-none dark:block hidden"
@@ -13,73 +235,6 @@
         class="absolute bottom-1/3 right-1/3 w-1/3 h-1/3 rounded-full bg-primary-600/10 blur-[80px]"
       ></div>
     </div>
-
-    <!-- Patrones de fondo mejorados - diferentes para modo claro y oscuro -->
-    <div
-      class="absolute inset-0 overflow-hidden pointer-events-none h-full w-full"
-    >
-      <!-- Pattern for light mode -->
-      <svg
-        width="100%"
-        height="100%"
-        xmlns="http://www.w3.org/2000/svg"
-        class="absolute inset-0 opacity-10 dark:opacity-0 transition-opacity duration-500"
-      >
-        <defs>
-          <pattern
-            id="smallGrid"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 20 0 L 0 0 0 20"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="0.5"
-              class="text-primary-500"
-            />
-          </pattern>
-          <pattern
-            id="grid"
-            width="80"
-            height="80"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect width="80" height="80" fill="url(#smallGrid)" />
-            <path
-              d="M 80 0 L 0 0 0 80"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1"
-              class="text-primary-400"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
-
-      <!-- Pattern for dark mode - stars/dots pattern -->
-      <div
-        class="absolute inset-0 opacity-0 dark:opacity-100 transition-opacity duration-500"
-      >
-        <div class="stars-container">
-          <div
-            v-for="n in 100"
-            :key="n"
-            class="star"
-            :style="{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              width: `${Math.random() * 2 + 1}px`,
-              height: `${Math.random() * 2 + 1}px`
-            }"
-          ></div>
-        </div>
-      </div>
-    </div>
-
     <!-- Contenido principal -->
     <div class="flex-grow flex items-center justify-center p-4 relative z-10">
       <div class="w-full max-w-md flex flex-col items-center">
@@ -114,17 +269,16 @@
           </div>
           <div class="flex items-center">
             <div class="flex flex-col">
-              <span
-                class="text-5xl font-bold text-transparent bg-clip-text gradient-text"
+              <span class="text-6xl font-bold text-foreground tracking-wider"
                 >Code</span
               >
               <span
-                class="text-sm font-extralight tracking-wider text-transparent bg-clip-text gradient-text"
+                class="text-lg font-extralight tracking-wider text-transparent bg-clip-text gradient-text"
                 >Software</span
               >
             </div>
             <span
-              class="text-foreground text-5xl font-bold ml-1 h-full flex items-center"
+              class="text-foreground text-8xl l font-bold ml-1 h-full flex items-center"
               >X</span
             >
           </div>
@@ -616,5 +770,34 @@ const onSubmit = async (values: any) => {
     opacity: 1;
     transform: scale(1);
   }
+}
+.particle {
+  position: absolute;
+  background-color: rgba(59, 130, 246, 0.5);
+  border-radius: 50%;
+  animation: float 15s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(20px);
+  }
+  75% {
+    transform: translateY(10px) translateX(-10px);
+  }
+}
+
+.particles-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 </style>
