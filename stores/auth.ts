@@ -1,74 +1,70 @@
-import { defineStore } from "pinia";
-import { toast } from "vue-sonner";
+import { defineStore } from 'pinia'
+import { toast } from 'vue-sonner'
+import { http, httpLogin } from '~/services/request.service'
 
 interface User {
-  id: string;
-  username: string;
-  name: string;
+  access_token: string
+  token_type: string
+  refresh_token: string
+  expires_in: number
+  scope: string
+  jti: string
+  usuario: {
+    fidUsuarioSistema: number
+    estado: string
+    fidPersona: string
+    fidUsuario: string
+    fidEntidad: string
+    fidIdentificacionTributaria: string
+    username: string
+  }
 }
 
 interface LoginPayload {
-  username: string;
-  password: string;
+  username: string
+  password: string
 }
 
-export const useAuthStore = defineStore("auth", {
+export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null as User | null,
     isAuthenticated: false,
-    token: null as string | null,
+    token: null as string | null
   }),
 
   actions: {
     async login(payload: LoginPayload) {
       try {
-        // Aquí iría la llamada a tu API de autenticación
-        // Por ahora simulamos una respuesta exitosa
-        if (payload.username !== "admin" || payload.password !== "admin") {
-          console.log(payload.username, payload.password);
-          toast.error("Credenciales Invalidas");
-          throw new Error("Credenciales inválidas");
+        const { data } = await httpLogin().post('/usuario/login', payload)
+        if (!data) {
+          toast.error('Credenciales Invalidas')
+          throw Error
         }
-        const response = {
-          user: {
-            id: "1",
-            username: payload.username,
-            name: "Usuario Demo",
-          },
-          token: "token-demo",
-        };
 
-        this.user = response.user;
-        this.token = response.token;
-        this.isAuthenticated = true;
-
-        // Guardar en localStorage
-        localStorage.setItem("token", response.token);
-
-        // Redirigir al dashboard o página principal
-        navigateTo("/dashboard");
+        toast.success('Bienvenido')
+        navigateTo('/dashboard')
       } catch (error) {
-        console.error("Error en login:", error);
-        throw error;
+        console.error('Error en login:', error)
+        throw error
       }
     },
 
     logout() {
-      this.user = null;
-      this.token = null;
-      this.isAuthenticated = false;
-      localStorage.removeItem("token");
-      navigateTo("/login");
+      this.user = null
+      this.token = null
+      this.isAuthenticated = false
+      localStorage.removeItem('token')
+      navigateTo('/login')
     },
 
     async checkAuth() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token')
       if (token) {
         // Aquí podrías validar el token con tu backend
-        this.token = token;
-        this.isAuthenticated = true;
+        this.token = token
+        this.isAuthenticated = true
         // Cargar información del usuario si es necesario
       }
-    },
-  },
-});
+    }
+  }
+})
