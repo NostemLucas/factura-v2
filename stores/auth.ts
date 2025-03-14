@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', {
           throw Error
         }
 
-        toast.success('Bienvenido')
+        toast.info('Bienvenido')
         navigateTo('/dashboard')
       } catch (error) {
         console.error('Error en login:', error)
