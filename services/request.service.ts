@@ -1,12 +1,27 @@
-import type { UseFetchOptions } from 'nuxt/app'
+import axios from 'axios'
+import {
+  getHeaderFile,
+  getHeader,
+  getHeaderLogin,
+  useConstants
+} from '~/config/constants'
 
-const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD']
-export async function useAPI<T>(
-  url: string | (() => string),
-  options?: UseFetchOptions<T>
-) {
-  return await useFetch('http://165.227.92.147:9079/api/v1/' + url, {
-    ...options,
-    $fetch: useNuxtApp().$api as typeof $fetch
+export function http() {
+  return axios.create({
+    baseURL: useConstants().api.toString(),
+    headers: getHeader()
+  })
+}
+export function httpLogin() {
+  return axios.create({
+    baseURL: useConstants().api.toString(),
+    headers: getHeaderLogin()
+  })
+}
+
+export function httpFile() {
+  return axios.create({
+    baseURL: useConstants().api.toString(),
+    headers: getHeaderFile()
   })
 }

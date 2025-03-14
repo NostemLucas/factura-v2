@@ -82,24 +82,24 @@
             background-size: 40px 40px;
           "
         ></div>
-        <ClientOnly>
-          <!-- Glowing orbs -->
-          <div class="absolute inset-0">
-            <div
-              v-for="i in 15"
-              :key="i + '-orbs'"
-              class="absolute rounded-full bg-blue-500/10 blur-xl"
-              :style="{
-                width: `${Math.random() * 300 + 100}px`,
-                height: `${Math.random() * 300 + 100}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                opacity: `${Math.random() * 0.15 + 0.05}`,
-                transform: `scale(${Math.random() * 1 + 0.5})`
-              }"
-            ></div>
-          </div>
-        </ClientOnly>
+
+        <!-- Glowing orbs -->
+        <div class="absolute inset-0">
+          <div
+            v-for="i in 15"
+            :key="i + '-orbs'"
+            class="absolute rounded-full bg-blue-500/10 blur-xl"
+            :style="{
+              width: `${Math.random() * 300 + 100}px`,
+              height: `${Math.random() * 300 + 100}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              opacity: `${Math.random() * 0.15 + 0.05}`,
+              transform: `scale(${Math.random() * 1 + 0.5})`
+            }"
+          ></div>
+        </div>
+
         <!-- Professional accent lines -->
         <svg
           width="100%"
@@ -203,24 +203,23 @@
         </svg>
 
         <!-- Subtle particles -->
-        <ClientOnly>
-          <div class="particles-container">
-            <div
-              v-for="n in 30"
-              :key="`particle-${n}`"
-              class="particle"
-              :style="{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 3 + 1}px`,
-                height: `${Math.random() * 3 + 1}px`,
-                opacity: Math.random() * 0.3 + 0.1,
-                animationDuration: `${Math.random() * 20 + 10}s`,
-                animationDelay: `${Math.random() * 5}s`
-              }"
-            ></div>
-          </div>
-        </ClientOnly>
+
+        <div class="particles-container">
+          <div
+            v-for="n in 30"
+            :key="`particle-${n}`"
+            class="particle"
+            :style="{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${Math.random() * 3 + 1}px`,
+              height: `${Math.random() * 3 + 1}px`,
+              opacity: Math.random() * 0.3 + 0.1,
+              animationDuration: `${Math.random() * 20 + 10}s`,
+              animationDelay: `${Math.random() * 5}s`
+            }"
+          ></div>
+        </div>
       </div>
     </div>
 
@@ -707,33 +706,6 @@ const onSubmit = async (values: any) => {
 </script>
 
 <style>
-/* Stars background for dark mode */
-.stars-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.star {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  animation: twinkle 5s infinite;
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.1;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.2);
-  }
-}
-
 /* Enhanced checkbox styles */
 .custom-checkbox .checkbox-bg {
   width: 20px;
@@ -799,5 +771,10 @@ const onSubmit = async (values: any) => {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
 }
 </style>

@@ -1,11 +1,23 @@
 import { defineStore } from 'pinia'
 import { toast } from 'vue-sonner'
-import { useAPI } from '~/services/request.service'
+import { http, httpLogin } from '~/services/request.service'
 
 interface User {
-  id: string
-  username: string
-  name: string
+  access_token: string
+  token_type: string
+  refresh_token: string
+  expires_in: number
+  scope: string
+  jti: string
+  usuario: {
+    fidUsuarioSistema: number
+    estado: string
+    fidPersona: string
+    fidUsuario: string
+    fidEntidad: string
+    fidIdentificacionTributaria: string
+    username: string
+  }
 }
 
 interface LoginPayload {
@@ -23,44 +35,13 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(payload: LoginPayload) {
       try {
-        // Aquí iría la llamada a tu API de autenticación
-        /*         const responses = await $fetch(
-          'http://165.227.92.147:9079/api/v1/usuario/login',
-          {
-            method: 'POST',
-            body: payload
-          }
-        ) */
-
-        const responses = useAPI('usuario/login', {
-          method: 'POST',
-          body: payload
-        })
-        console.log(responses)
-
-        // Por ahora simulamos una respuesta exitosa
-        if (payload.username !== 'admin' || payload.password !== 'admin') {
-          console.log(payload.username, payload.password)
+        const { data } = await httpLogin().post('/usuario/login', payload)
+        if (!data) {
           toast.error('Credenciales Invalidas')
-          throw new Error('Credenciales inválidas')
-        }
-        const response = {
-          user: {
-            id: '1',
-            username: payload.username,
-            name: 'Usuario Demo'
-          },
-          token: 'token-demo'
+          throw Error
         }
 
-        this.user = response.user
-        this.token = response.token
-        this.isAuthenticated = true
-
-        // Guardar en localStorage
-        localStorage.setItem('token', response.token)
-
-        // Redirigir al dashboard o página principal
+        toast.success('Bienvenido')
         navigateTo('/dashboard')
       } catch (error) {
         console.error('Error en login:', error)
