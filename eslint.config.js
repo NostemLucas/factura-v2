@@ -2,6 +2,7 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginVue from "eslint-plugin-vue";
+import nuxtEslint from "@nuxtjs/eslint-config-typescript"
 
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -11,12 +12,14 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   ...pluginVue.configs["flat/essential"],
+  ...nuxtEslint,
   {
     rules: {
+
       "vue/multi-word-component-names": "off",
       "eslint/no-undef": "error"
     }
+
   },
-  
   {files: ["**/*.vue"], languageOptions: {parserOptions: {parser: tseslint.parser}}},
 ];
