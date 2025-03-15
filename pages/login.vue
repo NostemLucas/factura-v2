@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <LoginForm />
-  </div>
+  <Button variant="primary" la />
 </template>
-
 <script setup lang="ts">
-import LoginForm from '~/components/auth/LoginForm.vue'
+import Button from '@/components/ui/buttons/Button.vue'
 </script>

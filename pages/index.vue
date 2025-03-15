@@ -294,27 +294,7 @@
             <!-- Header con toggle de tema -->
             <div class="flex justify-end items-center mb-6">
               <!-- Toggle Dark/Light Mode con animación mejorada -->
-              <button
-                type="button"
-                @click="toggleTheme"
-                class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 hover:rotate-45"
-                :aria-label="
-                  colorMode.value === 'dark'
-                    ? 'Cambiar a modo claro'
-                    : 'Cambiar a modo oscuro'
-                "
-              >
-                <div class="relative w-5 h-5">
-                  <sun-icon
-                    v-if="colorMode.value === 'dark'"
-                    class="h-5 w-5 text-yellow-400 absolute top-0 left-0 transform rotate-0 transition-all duration-300 opacity-100 scale-100"
-                  />
-                  <moon-icon
-                    v-else
-                    class="h-5 w-5 text-indigo-600 absolute top-0 left-0 transform rotate-0 transition-all duration-300 opacity-100 scale-100"
-                  />
-                </div>
-              </button>
+              <ThemeButton />
             </div>
 
             <!-- Título -->
@@ -639,13 +619,12 @@ import { Form, Field } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import { useAuthStore } from '~/stores/auth'
+import ThemeButton from '~/components/ui/buttons/ThemeButton.vue'
 import {
   User as UserIcon,
   Lock as LockIcon,
   Eye as EyeIcon,
   EyeOff as EyeOffIcon,
-  Sun as SunIcon,
-  Moon as MoonIcon,
   ExternalLink as ExternalLinkIcon,
   Smartphone as SmartphoneIcon,
   Loader as LoaderIcon,
@@ -656,24 +635,10 @@ import {
 
 // Estado y configuración
 const authStore = useAuthStore()
-const colorMode = useColorMode()
 const showPassword = ref(false)
 const rememberMe = ref(false)
 
-const toggleTheme = () => {
-  // Añadir clase para la animación
-  document.body.classList.add('theme-transition')
-
-  // Cambiar el tema
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-
-  // Eliminar la clase después de la transición
-  setTimeout(() => {
-    document.body.classList.remove('theme-transition')
-  }, 500)
-}
-
-// Esquema de validación en español
+// Esquema de validación
 const schema = computed(() => {
   return toTypedSchema(
     z.object({
