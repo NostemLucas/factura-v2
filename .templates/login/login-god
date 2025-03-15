@@ -6,286 +6,66 @@
     <div
       class="absolute inset-0 overflow-hidden pointer-events-none h-full w-full"
     >
-      <!-- Gradient base layer -->
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-blue-950 dark:to-slate-950 transition-colors duration-500"
-      ></div>
-
-      <!-- Light mode pattern - Geometric shapes -->
-      <div
-        class="absolute inset-0 opacity-20 dark:opacity-0 transition-opacity duration-500"
+      <!-- Pattern for light mode -->
+      <svg
+        width="100%"
+        height="100%"
+        xmlns="http://www.w3.org/2000/svg"
+        class="absolute inset-0 opacity-10 dark:opacity-0 transition-opacity duration-500"
       >
-        <!-- Hexagon grid pattern -->
-        <svg
-          width="100%"
-          height="100%"
-          xmlns="http://www.w3.org/2000/svg"
-          class="absolute inset-0"
-        >
-          <defs>
-            <pattern
-              id="hexagons"
-              width="50"
-              height="43.4"
-              patternUnits="userSpaceOnUse"
-              patternTransform="scale(2)"
-            >
-              <path
-                d="M25,0 L50,14.4 L50,38.4 L25,51.7 L0,38.4 L0,14.4 Z"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="0.5"
-                class="text-blue-500"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#hexagons)" />
-        </svg>
-
-        <!-- Decorative elements -->
-        <div class="absolute top-0 right-0 w-1/3 h-1/3 opacity-30">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern
+            id="smallGrid"
+            width="20"
+            height="20"
+            patternUnits="userSpaceOnUse"
+          >
             <path
-              fill="#4B91F1"
-              d="M40.8,-69.7C51.9,-61.3,59.5,-47.7,65.6,-33.8C71.7,-19.9,76.3,-5.7,74.8,7.9C73.3,21.5,65.8,34.5,56.1,45.3C46.4,56.1,34.5,64.7,20.7,70.1C6.9,75.5,-8.8,77.7,-22.9,73.5C-37,69.3,-49.5,58.7,-59.3,46.1C-69.1,33.5,-76.2,18.8,-77.4,3.5C-78.6,-11.9,-73.9,-28,-64.7,-40.5C-55.5,-53,-41.8,-61.9,-28.3,-68.9C-14.8,-75.9,-1.5,-81.1,12.2,-79.8C25.8,-78.5,29.7,-78.1,40.8,-69.7Z"
-              transform="translate(100 100)"
+              d="M 20 0 L 0 0 0 20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="0.5"
+              class="text-primary-500"
             />
-          </svg>
-        </div>
-
-        <div class="absolute bottom-0 left-0 w-1/2 h-1/2 opacity-20">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          </pattern>
+          <pattern
+            id="grid"
+            width="80"
+            height="80"
+            patternUnits="userSpaceOnUse"
+          >
+            <rect width="80" height="80" fill="url(#smallGrid)" />
             <path
-              fill="#4B91F1"
-              d="M47.7,-79.9C62.4,-72.2,75.2,-60.3,83.1,-45.7C91,-31.1,94,-13.8,92.1,2.8C90.3,19.3,83.6,35.1,73.4,48.1C63.2,61.1,49.5,71.3,34.4,77.7C19.3,84.1,2.8,86.7,-13.8,84.9C-30.4,83.1,-47.1,76.9,-60.3,65.9C-73.5,54.9,-83.2,39.1,-87.8,21.9C-92.4,4.7,-91.9,-13.8,-85.2,-29.4C-78.5,-45,-65.6,-57.6,-50.9,-65.3C-36.2,-73,-18.1,-75.8,-0.6,-74.9C16.9,-74,33.1,-87.5,47.7,-79.9Z"
-              transform="translate(100 100)"
+              d="M 80 0 L 0 0 0 80"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1"
+              class="text-primary-400"
             />
-          </svg>
-        </div>
-      </div>
-
-      <!-- Dark mode pattern - Professional abstract elements -->
-      <div
-        class="absolute inset-0 opacity-0 dark:opacity-100 transition-opacity duration-500"
-      >
-        <!-- Subtle grid -->
-        <div
-          class="absolute inset-0"
-          style="
-            background-image:
-              linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-              linear-gradient(
-                to right,
-                rgba(59, 130, 246, 0.05) 1px,
-                transparent 1px
-              );
-            background-size: 40px 40px;
-          "
-        ></div>
-
-        <!-- Glowing orbs -->
-        <div class="absolute inset-0">
-          <div
-            v-for="i in 15"
-            :key="i + '-orbs'"
-            class="absolute rounded-full bg-blue-500/10 blur-xl"
-            :style="{
-              width: `${Math.random() * 300 + 100}px`,
-              height: `${Math.random() * 300 + 100}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: `${Math.random() * 0.15 + 0.05}`,
-              transform: `scale(${Math.random() * 1 + 0.5})`
-            }"
-          ></div>
-        </div>
-
-        <!-- Professional accent lines -->
-        <svg
-          width="100%"
-          height="100%"
-          xmlns="http://www.w3.org/2000/svg"
-          class="absolute inset-0 opacity-10"
-        >
-          <defs>
-            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop
-                offset="0%"
-                style="stop-color: rgb(59, 130, 246); stop-opacity: 0.3"
-              />
-              <stop
-                offset="100%"
-                style="stop-color: rgb(59, 130, 246); stop-opacity: 0"
-              />
-            </linearGradient>
-          </defs>
-          <line
-            x1="0"
-            y1="0"
-            x2="100%"
-            y2="100%"
-            stroke="url(#grad1)"
-            stroke-width="1"
-          />
-          <line
-            x1="20%"
-            y1="0"
-            x2="100%"
-            y2="80%"
-            stroke="url(#grad1)"
-            stroke-width="0.8"
-          />
-          <line
-            x1="40%"
-            y1="0"
-            x2="100%"
-            y2="60%"
-            stroke="url(#grad1)"
-            stroke-width="0.6"
-          />
-          <line
-            x1="60%"
-            y1="0"
-            x2="100%"
-            y2="40%"
-            stroke="url(#grad1)"
-            stroke-width="0.4"
-          />
-          <line
-            x1="80%"
-            y1="0"
-            x2="100%"
-            y2="20%"
-            stroke="url(#grad1)"
-            stroke-width="0.2"
-          />
-
-          <line
-            x1="100%"
-            y1="0"
-            x2="0"
-            y2="100%"
-            stroke="url(#grad1)"
-            stroke-width="1"
-          />
-          <line
-            x1="80%"
-            y1="0"
-            x2="0"
-            y2="80%"
-            stroke="url(#grad1)"
-            stroke-width="0.8"
-          />
-          <line
-            x1="60%"
-            y1="0"
-            x2="0"
-            y2="60%"
-            stroke="url(#grad1)"
-            stroke-width="0.6"
-          />
-          <line
-            x1="40%"
-            y1="0"
-            x2="0"
-            y2="40%"
-            stroke="url(#grad1)"
-            stroke-width="0.4"
-          />
-          <line
-            x1="20%"
-            y1="0"
-            x2="0"
-            y2="20%"
-            stroke="url(#grad1)"
-            stroke-width="0.2"
-          />
-        </svg>
-
-        <!-- Subtle particles -->
-
-        <div class="particles-container">
-          <div
-            v-for="n in 30"
-            :key="`particle-${n}`"
-            class="particle"
-            :style="{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              opacity: Math.random() * 0.3 + 0.1,
-              animationDuration: `${Math.random() * 20 + 10}s`,
-              animationDelay: `${Math.random() * 5}s`
-            }"
-          ></div>
-        </div>
-      </div>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
     </div>
 
-    <!-- Dark mode glow effect -->
-    <div
-      class="absolute inset-0 overflow-hidden pointer-events-none dark:block hidden"
-    >
-      <div
-        class="absolute top-1/4 left-1/4 w-1/2 h-1/2 rounded-full bg-primary-500/10 blur-[100px]"
-      ></div>
-      <div
-        class="absolute bottom-1/3 right-1/3 w-1/3 h-1/3 rounded-full bg-primary-600/10 blur-[80px]"
-      ></div>
-    </div>
     <!-- Contenido principal -->
     <div class="flex-grow flex items-center justify-center p-4 relative z-10">
       <div class="w-full max-w-md flex flex-col items-center">
-        <!-- Logo SVG with animation -->
-        <div class="mb-8 flex items-center justify-center gap-3">
-          <!-- SVG Logo con efecto de brillo -->
-          <div class="h-full -w-full flex items-center justify-center">
-            <!-- SVG Logo with transparent cutouts -->
-            <svg
-              width="80"
-              height="80"
-              viewBox="0 0 400 400"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <mask id="barsMask">
-                  <rect width="400" height="400" fill="white" />
-                  <rect x="80" y="240" width="60" height="100" fill="black" />
-                  <rect x="170" y="180" width="60" height="160" fill="black" />
-                  <rect x="260" y="120" width="60" height="220" fill="black" />
-                </mask>
-              </defs>
-              <rect
-                width="400"
-                height="400"
-                rx="40"
-                fill="currentColor"
-                class="text-primary-500"
-                mask="url(#barsMask)"
-              />
-            </svg>
-          </div>
-          <div class="flex items-center">
-            <div class="flex flex-col">
-              <span class="text-6xl font-bold text-foreground tracking-wider"
-                >Code</span
-              >
-              <span
-                class="text-lg font-extralight tracking-wider text-transparent bg-clip-text gradient-text"
-                >Software</span
-              >
-            </div>
+        <!-- Animated CODEX text instead of logo -->
+        <div class="mb-8 flex justify-center">
+          <h1
+            class="text-5xl font-bold tracking-wider relative overflow-hidden py-2"
+          >
             <span
-              class="text-foreground text-8xl l font-bold ml-1 h-full flex items-center"
-              >X</span
+              class="relative z-10 text-transparent bg-clip-text gradient-text"
+              >CODEX</span
             >
-          </div>
+          </h1>
         </div>
 
         <!-- Card de login -->
         <div
-          class="w-full bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden transition-all duration-500 border border-gray-100 dark:border-gray-700 dark:shadow-glow"
+          class="w-full bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden transition-all duration-500 border border-gray-100 dark:border-gray-700"
         >
           <!-- Barra superior con animación de gradiente -->
           <div class="h-2 gradient-bar" />
@@ -297,7 +77,7 @@
               <button
                 type="button"
                 @click="toggleTheme"
-                class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 hover:rotate-45"
+                class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 theme-toggle"
                 :aria-label="
                   colorMode.value === 'dark'
                     ? 'Cambiar a modo claro'
@@ -324,7 +104,7 @@
             <p class="text-gray-500 dark:text-gray-400 mb-6">
               Ingresa tus credenciales para continuar
             </p>
-
+            <div class="cuadrado"></div>
             <!-- Formulario -->
             <Form
               @submit="onSubmit"
@@ -436,14 +216,14 @@
                       <div
                         class="checkbox-bg w-5 h-5 border-2 border-gray-300 dark:border-gray-600 rounded transition-colors duration-200 flex items-center justify-center"
                         :class="{
-                          'bg-primary-500 border-primary-500 dark:bg-primary-600 dark:border-primary-600 checkbox-active':
+                          'bg-primary-500 border-primary-500 dark:bg-primary-600 dark:border-primary-600':
                             rememberMe
                         }"
                       >
                         <svg
                           class="w-3 h-3 text-white"
                           :class="{
-                            'opacity-100 check-animation': rememberMe,
+                            'opacity-100': rememberMe,
                             'opacity-0': !rememberMe
                           }"
                           fill="none"
@@ -476,7 +256,7 @@
                 <!-- Botón de login con animación -->
                 <button
                   type="submit"
-                  class="w-full py-2.5 px-4 bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center login-button"
+                  class="w-full py-2.5 px-4 bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-800 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center login-button"
                   :disabled="isSubmitting"
                 >
                   <loader-icon
@@ -491,7 +271,7 @@
                   <div class="absolute inset-0 flex items-center">
                     <div
                       class="w-full border-t border-gray-300 dark:border-gray-600"
-                    />
+                    ></div>
                   </div>
                   <div class="relative flex justify-center text-sm">
                     <span
@@ -502,32 +282,23 @@
                   </div>
                 </div>
 
-                <!-- Botones de contacto con colores de marca -->
+                <!-- Botones de contacto -->
                 <div class="grid grid-cols-2 gap-3">
                   <a
                     href="mailto:contact@synergy.com"
-                    class="py-2.5 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center hover:-translate-y-1 hover:shadow-md group"
+                    class="py-2.5 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center contact-button"
                   >
-                    <mail-icon
-                      class="h-5 w-5 mr-2 text-red-600 group-hover:text-red-700"
-                    />
-                    <span class="text-sm text-red-600 group-hover:text-red-700"
-                      >Gmail</span
-                    >
+                    <mail-icon class="h-5 w-5 mr-2 text-red-500" />
+                    <span class="text-sm">Gmail</span>
                   </a>
                   <a
                     href="https://wa.me/1234567890"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="py-2.5 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 hover:bg-green-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center hover:-translate-y-1 hover:shadow-md group"
+                    class="py-2.5 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center contact-button"
                   >
-                    <message-circle-icon
-                      class="h-5 w-5 mr-2 text-green-600 group-hover:text-green-700"
-                    />
-                    <span
-                      class="text-sm text-green-600 group-hover:text-green-700"
-                      >WhatsApp</span
-                    >
+                    <message-circle-icon class="h-5 w-5 mr-2 text-green-500" />
+                    <span class="text-sm">WhatsApp</span>
                   </a>
                 </div>
 
@@ -634,7 +405,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, defineComponent, h } from 'vue'
 import { Form, Field } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
@@ -650,16 +421,18 @@ import {
   Smartphone as SmartphoneIcon,
   Loader as LoaderIcon,
   Mail as MailIcon,
-  MessageCircle as MessageCircleIcon,
-  Apple as AppleIcon
+  MessageCircle as MessageCircleIcon
 } from 'lucide-vue-next'
+import { Apple as AppleIcon } from 'lucide-vue-next'
 
 // Estado y configuración
 const authStore = useAuthStore()
 const colorMode = useColorMode()
 const showPassword = ref(false)
 const rememberMe = ref(false)
+// Eliminamos la referencia a language ya que trabajaremos solo en español
 
+// Función para cambiar el tema con animación
 const toggleTheme = () => {
   // Añadir clase para la animación
   document.body.classList.add('theme-transition')
@@ -699,15 +472,221 @@ const onSubmit = async (values: any) => {
     }
 
     await authStore.login(loginData)
+
+    // Mostrar notificación de éxito (si tienes un sistema de notificaciones)
+    // toast.success('Inicio de sesión exitoso');
   } catch (error) {
     console.error('Error al iniciar sesión:', error)
+
+    // Mostrar notificación de error (si tienes un sistema de notificaciones)
+    // toast.error('Error al iniciar sesión');
   }
 }
 </script>
 
 <style>
-/* Enhanced checkbox styles */
+/* Animación para la barra de gradiente */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-bar {
+  background: linear-gradient(
+    90deg,
+    var(--primary-400),
+    var(--primary-600),
+    var(--primary-800),
+    var(--primary-600),
+    var(--primary-400)
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+}
+
+/* Animación para el texto CODEX */
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--primary-400),
+    var(--primary-600),
+    var(--primary-800),
+    var(--primary-600),
+    var(--primary-400)
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 5px rgba(var(--color-primary-500), 0.3);
+}
+
+/* Neon effects for dark mode */
+.neon-line {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-primary-400), 0),
+    rgba(var(--color-primary-500), 0.8),
+    rgba(var(--color-primary-400), 0)
+  );
+  animation: neonPulse 3s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(var(--color-primary-500), 0.8);
+}
+
+.neon-dot {
+  background-color: rgba(var(--color-primary-500), 0.8);
+  box-shadow:
+    0 0 5px rgba(var(--color-primary-500), 0.8),
+    0 0 10px rgba(var(--color-primary-500), 0.5),
+    0 0 15px rgba(var(--color-primary-500), 0.3);
+  animation: neonDotPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0% {
+    opacity: 0.3;
+    box-shadow: 0 0 5px rgba(var(--color-primary-500), 0.5);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 10px rgba(var(--color-primary-500), 0.8);
+  }
+  100% {
+    opacity: 0.3;
+    box-shadow: 0 0 5px rgba(var(--color-primary-500), 0.5);
+  }
+}
+
+@keyframes neonDotPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+}
+
+/* Dark mode text glow effect */
+.dark .gradient-text {
+  text-shadow:
+    0 0 5px rgba(var(--color-primary-500), 0.5),
+    0 0 10px rgba(var(--color-primary-500), 0.3),
+    0 0 15px rgba(var(--color-primary-500), 0.1);
+  animation: textGlow 3s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow:
+      0 0 5px rgba(var(--color-primary-500), 0.5),
+      0 0 10px rgba(var(--color-primary-500), 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(var(--color-primary-500), 0.8),
+      0 0 20px rgba(var(--color-primary-500), 0.5),
+      0 0 30px rgba(var(--color-primary-500), 0.3);
+  }
+  100% {
+    text-shadow:
+      0 0 5px rgba(var(--color-primary-500), 0.5),
+      0 0 10px rgba(var(--color-primary-500), 0.3);
+  }
+}
+
+/* Animación para el botón de login */
+@keyframes buttonGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(var(--color-primary-500), 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(var(--color-primary-500), 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(var(--color-primary-500), 0.5);
+  }
+}
+
+.login-button:hover {
+  animation: buttonGlow 1.5s infinite;
+}
+
+/* Animación para los botones de contacto */
+.contact-button {
+  transition: all 0.3s ease;
+}
+
+.contact-button:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 7px 14px rgba(50, 50, 93, 0.1),
+    0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Animación para el cambio de tema */
+.theme-toggle {
+  overflow: hidden;
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg);
+}
+
+/* Animación para la transición de tema */
+.theme-transition * {
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease !important;
+}
+
+button:focus,
+a:focus,
+input:focus {
+  outline: 2px solid rgb(var(--color-primary-500));
+  outline-offset: 2px;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+/* Custom checkbox styles */
+.custom-checkbox input[type='checkbox'] {
+  /* Hide the default checkbox */
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
 .custom-checkbox .checkbox-bg {
+  /* Style the visual part of the checkbox */
   width: 20px;
   height: 20px;
   border: 2px solid #ccc;
@@ -717,64 +696,73 @@ const onSubmit = async (values: any) => {
   justify-content: center;
   transition:
     background-color 0.2s,
-    border-color 0.2s,
-    transform 0.2s;
+    border-color 0.2s;
 }
 
-.checkbox-active {
-  transform: scale(1.05);
+.custom-checkbox .checkbox-bg svg {
+  /* Style the checkmark */
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: white;
+  stroke-width: 3;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-.check-animation {
-  animation: checkmark 0.3s ease-in-out forwards;
+/* When the checkbox is checked */
+.custom-checkbox input[type='checkbox']:checked + .checkbox-bg {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
 }
 
-@keyframes checkmark {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-.particle {
-  position: absolute;
-  background-color: rgba(59, 130, 246, 0.5);
-  border-radius: 50%;
-  animation: float 15s ease-in-out infinite;
+.custom-checkbox input[type='checkbox']:checked + .checkbox-bg svg {
+  opacity: 1;
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
-  }
-  25% {
-    transform: translateY(-20px) translateX(10px);
-  }
-  50% {
-    transform: translateY(-10px) translateX(20px);
-  }
-  75% {
-    transform: translateY(10px) translateX(-10px);
-  }
+/* Hover state */
+.custom-checkbox:hover .checkbox-bg {
+  border-color: #9ca3af;
 }
 
-.particles-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.custom-checkbox input[type='checkbox']:checked + .checkbox-bg {
+  border-color: #6366f1;
 }
 
-input[type='password']::-ms-reveal,
-input[type='password']::-ms-clear {
-  display: none;
+/* Focus state */
+.custom-checkbox input[type='checkbox']:focus + .checkbox-bg {
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
+}
+
+/* Dark mode enhancements */
+.dark .neon-line {
+  box-shadow:
+    0 0 10px rgba(var(--color-primary-500), 0.8),
+    0 0 20px rgba(var(--color-primary-500), 0.5);
+}
+
+.dark .neon-dot {
+  box-shadow: 0 0 10px rgba(var(--color-primary-500), 0.8 0.5);
+}
+
+.dark .neon-dot {
+  box-shadow:
+    0 0 10px rgba(var(--color-primary-500), 0.8),
+    0 0 20px rgba(var(--color-primary-500), 0.5),
+    0 0 30px rgba(var(--color-primary-500), 0.3);
+}
+
+/* Enhanced dark mode text effects */
+.dark .text-primary-600 {
+  text-shadow: 0 0 8px rgba(var(--color-primary-500), 0.6);
+}
+
+/* Custom checkbox dark mode */
+.dark .custom-checkbox:hover .checkbox-bg {
+  border-color: rgba(var(--color-primary-500), 0.8);
+}
+
+.dark .custom-checkbox input[type='checkbox']:checked + .checkbox-bg {
+  box-shadow: 0 0 10px rgba(var(--color-primary-500), 0.5);
 }
 </style>

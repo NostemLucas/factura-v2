@@ -15,8 +15,11 @@ export default [
   ...nuxtEslint,
   {
     rules: {
-      "vue/multi-word-component-names": "off"
-    }, 
+
+      "vue/multi-word-component-names": "off",
+      "eslint/no-undef": "error"
+    }
+
   },
   {files: ["**/*.vue"], languageOptions: {parserOptions: {parser: tseslint.parser}}},
 ];

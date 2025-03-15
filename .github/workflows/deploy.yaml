@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 permissions:
   contents: read
   id-token: write
@@ -13,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NUXT_APP_BASE_URL: ${{ vars.NUXT_APP_BASE_URL }}
+      NUXT_API_URL: ${{ vars.NUXT_API_URL }}
+      NUXT_APP_ENV: ${{ vars.NUXT_APP_ENV }}
     steps:
       - name: Clone the repository
         uses: actions/checkout@v4
