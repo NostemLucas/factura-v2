@@ -1295,7 +1295,7 @@ const newPayment = ref({
 // Client data
 const clientSearch = ref('')
 const showClientSearch = ref(false)
-const selectedClient = ref(null)
+const selectedClient = ref<{ email: string; phone: string } | null>(null)
 const showClientModal = ref(false)
 const newClient = ref({
   name: '',
@@ -1514,15 +1514,15 @@ const getPaymentMethodName = (method: string | number) => {
     Check: 'Cheque',
     Transfer: 'Transferencia'
   }
-  return methodNames[method as string] || method
+  return methodNames[method as keyof typeof methodNames] || method
 }
 
-const selectClient = (client) => {
+const selectClient = (client: { email: string; phone: string } | null) => {
   selectedClient.value = client
   showClientSearch.value = false
 
   // Auto-fill contact info for modals
-  emailRecipient.value = client.email
+  emailRecipient.value = client ? client.email : ''
   whatsappNumber.value = client.phone
 }
 
