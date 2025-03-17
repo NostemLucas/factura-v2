@@ -1282,7 +1282,9 @@ const showDiscountModal = ref(false)
 
 // Payment data
 const showPaymentModal = ref(false)
-const payments = ref([])
+const payments = ref<
+  { method: string; amount: number; reference: string; date: string }[]
+>([])
 const paymentMethods = ['QR', 'Cash', 'Check', 'Transfer']
 const newPayment = ref({
   method: 'Cash',
@@ -1345,7 +1347,9 @@ const clients = ref([
 const serviceSearch = ref('')
 const showServiceSearch = ref(false)
 const showServiceModal = ref(false)
-const selectedServices = ref([])
+const selectedServices = ref<
+  { id: number; name: string; price: number; quantity: number; tax: string }[]
+>([])
 const newService = ref({
   name: '',
   price: 0,
@@ -1499,18 +1503,18 @@ const totalPaid = computed(() => {
 })
 
 // Methods
-const formatCurrency = (value) => {
+const formatCurrency = (value: { toString: () => string }) => {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-const getPaymentMethodName = (method) => {
+const getPaymentMethodName = (method: string | number) => {
   const methodNames = {
     QR: 'QR',
     Cash: 'Efectivo',
     Check: 'Cheque',
     Transfer: 'Transferencia'
   }
-  return methodNames[method] || method
+  return methodNames[method as string] || method
 }
 
 const selectClient = (client) => {

@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <UApp>
     <NuxtPage />
     <Toaster
       rich-colors
       position="top-right"
       :theme="colorMode.value === 'dark' ? 'dark' : 'light'"
     />
-  </div>
+  </UApp>
 </template>
 
 <script setup lang="ts">

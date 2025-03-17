@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   ssr: false,
-  modules: ['@pinia/nuxt', '@nuxtjs/color-mode', '@nuxt/image'],
+  modules: ['@pinia/nuxt', '@nuxtjs/color-mode', '@nuxt/image', '@nuxt/ui'],
   colorMode: {
     classSuffix: ''
   },
