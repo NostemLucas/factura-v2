@@ -10,35 +10,87 @@
 
 @layer base {
   @theme static {
+    /* Primary Colors (Red) */
     --color-primary-50: hsl(0 100% 98%);
-    --color-primary-100: hsl(0 100% 90%);
-    --color-primary-200: hsl(0 95% 80%);
-    --color-primary-300: hsl(0 90% 70%);
-    --color-primary-400: hsl(0 85% 60%);
-    --color-primary-500: hsl(0 80% 50%);
-    --color-primary-600: hsl(0 70% 40%);
-    --color-primary-700: hsl(0 60% 30%);
-    --color-primary-800: hsl(0 50% 20%);
+    --color-primary-100: hsl(0 95% 90%);
+    --color-primary-200: hsl(0 90% 80%);
+    --color-primary-300: hsl(0 85% 70%);
+    --color-primary-400: hsl(0 80% 60%);
+    --color-primary-500: hsl(0 75% 50%);
+    --color-primary-600: hsl(0 65% 40%);
+    --color-primary-700: hsl(0 55% 30%);
+    --color-primary-800: hsl(0 45% 20%);
     --color-primary-900: hsl(0 40% 15%);
     --color-primary-950: hsl(0 35% 10%);
-    --color-foreground: hsl(0 0% 3.9%);
-    --color-background: hsl(210 0% 98%);
+
+    /* Secondary Colors (Teal) */
+    --color-secondary-50: hsl(180 100% 98%);
+    --color-secondary-100: hsl(180 95% 90%);
+    --color-secondary-200: hsl(180 90% 80%);
+    --color-secondary-300: hsl(180 85% 70%);
+    --color-secondary-400: hsl(180 80% 60%);
+    --color-secondary-500: hsl(180 75% 50%);
+    --color-secondary-600: hsl(180 65% 40%);
+    --color-secondary-700: hsl(180 55% 30%);
+    --color-secondary-800: hsl(180 45% 20%);
+    --color-secondary-900: hsl(180 40% 15%);
+    --color-secondary-950: hsl(180 35% 10%);
+
+    /* Foreground & Background */
+    --color-foreground: hsl(0 0% 10%);
+    --color-background: hsl(0 0% 96%);
+
+    /* Card / Paper */
+    --color-card: hsl(0 0% 100%);
+    --color-muted: hsl(0 0% 90%);
+
+    /* Status Colors */
+    --color-success: hsl(140 60% 45%);
+    --color-warning: hsl(45 85% 50%);
+    --color-error: hsl(0 70% 50%);
+    --color-info: hsl(210 90% 55%);
   }
 
   .dark {
+    /* Primary Colors (Blue) */
     --color-primary-50: hsl(210 100% 98%);
-    --color-primary-100: hsl(210 100% 90%);
-    --color-primary-200: hsl(210 95% 80%);
-    --color-primary-300: hsl(210 90% 70%);
-    --color-primary-400: hsl(210 85% 60%);
-    --color-primary-500: hsl(210 80% 50%);
-    --color-primary-600: hsl(210 70% 40%);
-    --color-primary-700: hsl(210 60% 30%);
-    --color-primary-800: hsl(210 50% 20%);
+    --color-primary-100: hsl(210 95% 90%);
+    --color-primary-200: hsl(210 90% 80%);
+    --color-primary-300: hsl(210 85% 70%);
+    --color-primary-400: hsl(210 80% 60%);
+    --color-primary-500: hsl(210 75% 50%);
+    --color-primary-600: hsl(210 65% 40%);
+    --color-primary-700: hsl(210 55% 30%);
+    --color-primary-800: hsl(210 45% 20%);
     --color-primary-900: hsl(210 40% 15%);
     --color-primary-950: hsl(210 35% 10%);
-    --color-foreground: hsl(210 0% 98%);
-    --color-background: hsl(210 0% 3.9%);
+
+    /* Secondary Colors (Teal) */
+    --color-secondary-50: hsl(180 100% 98%);
+    --color-secondary-100: hsl(180 95% 90%);
+    --color-secondary-200: hsl(180 90% 80%);
+    --color-secondary-300: hsl(180 85% 70%);
+    --color-secondary-400: hsl(180 80% 60%);
+    --color-secondary-500: hsl(180 75% 50%);
+    --color-secondary-600: hsl(180 65% 40%);
+    --color-secondary-700: hsl(180 55% 30%);
+    --color-secondary-800: hsl(180 45% 20%);
+    --color-secondary-900: hsl(180 40% 15%);
+    --color-secondary-950: hsl(180 35% 10%);
+
+    /* Foreground & Background */
+    --color-foreground: hsl(0 0% 95%);
+    --color-background: hsl(0 0% 8%);
+
+    /* Card / Paper */
+    --color-card: hsl(0 0% 12%);
+    --color-muted: hsl(0 0% 18%);
+
+    /* Status Colors */
+    --color-success: hsl(140 60% 55%);
+    --color-warning: hsl(45 85% 55%);
+    --color-error: hsl(0 70% 55%);
+    --color-info: hsl(210 90% 60%);
   }
 }
 
