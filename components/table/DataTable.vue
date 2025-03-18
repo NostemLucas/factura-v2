@@ -12,6 +12,7 @@ const props = defineProps<{
   secondaryTitle?: string
   totalItems?: number
   isLoading?: boolean
+  limite?: number
   itemsPerPageOptions?: number[]
 }>()
 
@@ -32,9 +33,6 @@ const pagination = ref({
   pageSize: 7
 })
 
-const selectLimit = ref('10')
-const selectedTab = ref(defaultTitle)
-
 const currentPage = computed(() => pagination.value.pageIndex + 1)
 const totalPages = computed(() =>
   Math.ceil(defaultTotalItems / pagination.value.pageSize)
@@ -48,7 +46,6 @@ const showingEnd = computed(() =>
     defaultTotalItems
   )
 )
-const selectedItemsPerPage = ref(pagination.value.pageSize)
 
 const handlePageChange = (page: number) => {
   pagination.value.pageIndex = page - 1
@@ -173,7 +170,7 @@ defineExpose({
         <div class="flex items-center gap-2">
           <span>Limite</span>
           <USelect
-            v-model="selectLimit"
+            :v-model="limite"
             :items="LimitItems"
             class="w-18 shadow-md"
           />

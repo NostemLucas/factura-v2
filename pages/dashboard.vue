@@ -167,6 +167,7 @@ const handleRowClick = (row: any) => {
       :columns="columns"
       :is-loading="isLoading"
       :total-items="10"
+      :limite="10"
       :items-per-page-options="[5, 10, 20, 50]"
       @update:page="handlePageChange"
       @update:page-size="handlePageSizeChange"
