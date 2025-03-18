@@ -11,19 +11,18 @@
 @layer base {
   @theme static {
     /* Primary Colors (Red) */
-    --color-primary-50: hsl(0 100% 98%);
-    --color-primary-100: hsl(0 95% 90%);
-    --color-primary-200: hsl(0 90% 80%);
-    --color-primary-300: hsl(0 85% 70%);
-    --color-primary-400: hsl(0 80% 60%);
-    --color-primary-500: hsl(0 75% 50%);
-    --color-primary-600: hsl(0 65% 40%);
-    --color-primary-700: hsl(0 55% 30%);
-    --color-primary-800: hsl(0 45% 20%);
-    --color-primary-900: hsl(0 40% 15%);
-    --color-primary-950: hsl(0 35% 10%);
+    --color-primary-50: hsl(0, 100%, 97%);
+    --color-primary-100: hsl(0, 100%, 93%);
+    --color-primary-200: hsl(0, 100%, 87%);
+    --color-primary-300: hsl(0, 99%, 81%);
+    --color-primary-400: hsl(0, 96%, 68%);
+    --color-primary-500: hsl(0, 88%, 60%);
+    --color-primary-600: hsl(0, 76%, 49%);
+    --color-primary-700: hsl(0, 75%, 41%);
+    --color-primary-800: hsl(0, 69%, 35%);
+    --color-primary-900: hsl(0, 65%, 30%);
+    --color-primary-950: hsl(0, 74%, 16%);
 
-    /* Secondary Colors (Teal) */
     --color-secondary-50: hsl(180 100% 98%);
     --color-secondary-100: hsl(180 95% 90%);
     --color-secondary-200: hsl(180 90% 80%);
@@ -37,8 +36,8 @@
     --color-secondary-950: hsl(180 35% 10%);
 
     /* Foreground & Background */
-    --color-foreground: hsl(0 0% 10%);
-    --color-background: hsl(0 0% 96%);
+    --color-foreground: hsl(0, 0%, 18%);
+    --color-background: hsl(0, 0%, 98%);
 
     /* Card / Paper */
     --color-card: hsl(0 0% 100%);
@@ -53,34 +52,45 @@
 
   .dark {
     /* Primary Colors (Blue) */
-    --color-primary-50: hsl(210 100% 98%);
-    --color-primary-100: hsl(210 95% 90%);
-    --color-primary-200: hsl(210 90% 80%);
-    --color-primary-300: hsl(210 85% 70%);
-    --color-primary-400: hsl(210 80% 60%);
-    --color-primary-500: hsl(210 75% 50%);
-    --color-primary-600: hsl(210 65% 40%);
-    --color-primary-700: hsl(210 55% 30%);
-    --color-primary-800: hsl(210 45% 20%);
-    --color-primary-900: hsl(210 40% 15%);
-    --color-primary-950: hsl(210 35% 10%);
+    /*     --color-primary-50: hsl(193, 100%, 97%);
+    --color-primary-100: hsl(193, 92%, 90%);
+    --color-primary-200: hsl(193, 88%, 87%);
+    --color-primary-300: hsl(193, 91%, 77%);
+    --color-primary-400: hsl(193, 91%, 66%);
+    --color-primary-500: hsl(203, 88%, 60%);
+    --color-primary-600: hsl(207, 82%, 56%);
+    --color-primary-700: hsl(209, 73%, 49%);
+    --color-primary-800: hsl(211, 70%, 39%);
+    --color-primary-900: hsl(213, 63%, 31%);
+    --color-primary-950: hsl(213, 54%, 21%); */
+    --color-primary-50: hsl(225, 60%, 96%);
+    --color-primary-100: hsl(225, 60%, 90%);
+    --color-primary-200: hsl(225, 60%, 85%);
+    --color-primary-300: hsl(225, 60%, 75%);
+    --color-primary-400: hsl(225, 60%, 65%);
+    --color-primary-500: hsl(225, 60%, 58%);
+    --color-primary-600: hsl(225, 60%, 50%);
+    --color-primary-700: hsl(225, 60%, 45%);
+    --color-primary-800: hsl(225, 60%, 35%);
+    --color-primary-900: hsl(225, 60%, 30%);
+    --color-primary-950: hsl(225, 60%, 20%);
 
     /* Secondary Colors (Teal) */
-    --color-secondary-50: hsl(180 100% 98%);
-    --color-secondary-100: hsl(180 95% 90%);
-    --color-secondary-200: hsl(180 90% 80%);
-    --color-secondary-300: hsl(180 85% 70%);
-    --color-secondary-400: hsl(180 80% 60%);
-    --color-secondary-500: hsl(180 75% 50%);
-    --color-secondary-600: hsl(180 65% 40%);
-    --color-secondary-700: hsl(180 55% 30%);
-    --color-secondary-800: hsl(180 45% 20%);
-    --color-secondary-900: hsl(180 40% 15%);
-    --color-secondary-950: hsl(180 35% 10%);
+    --color-secondary-50: hsl(30, 100%, 98%);
+    --color-secondary-100: hsl(30, 95%, 90%);
+    --color-secondary-200: hsl(30, 90%, 80%);
+    --color-secondary-300: hsl(30, 85%, 70%);
+    --color-secondary-400: hsl(30, 80%, 60%);
+    --color-secondary-500: hsl(30, 75%, 50%);
+    --color-secondary-600: hsl(30, 65%, 40%);
+    --color-secondary-700: hsl(30, 55%, 30%);
+    --color-secondary-800: hsl(30, 45%, 20%);
+    --color-secondary-900: hsl(30, 40%, 15%);
+    --color-secondary-950: hsl(30, 35%, 10%);
 
     /* Foreground & Background */
-    --color-foreground: hsl(0 0% 95%);
-    --color-background: hsl(0 0% 8%);
+    --color-foreground: hsl(0, 0%, 90%);
+    --color-background: #1d2939;
 
     /* Card / Paper */
     --color-card: hsl(0 0% 12%);

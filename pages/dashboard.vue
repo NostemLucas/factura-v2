@@ -5,7 +5,7 @@
     <!-- Sidebar -->
     <aside
       :class="[
-        'fixed inset-y-0 left-0 z-30 flex flex-col transition-all duration-300 ease-in-out dark:bg-background border-r dark:border-gray-800 bg-background  border-gray-100',
+        'fixed inset-y-0 left-0 z-30 flex flex-col transition-all duration-300 ease-in-out border-r dark:border-gray-800 bg-background  border-gray-100',
         store.isCollapsed ? 'w-[70px]' : 'w-64',
         isMobile
           ? store.isOpenDrawer
