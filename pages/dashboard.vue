@@ -3,10 +3,21 @@ import { h, ref } from 'vue'
 import type { TableColumn } from '@nuxt/ui'
 import DataTable from '~/components/table/DataTable.vue'
 
-const isLoading = ref(false)
+const loading = ref(false)
+const total = ref(100)
+const limit = ref(10)
+const page = ref(1)
+
+const setLimit = (value: number) => {
+  limit.value = value
+}
+
+const setPage = (value: number) => {
+  page.value = value
+}
 
 const toggleLoading = () => {
-  isLoading.value = !isLoading.value
+  loading.value = !loading.value
 }
 
 type Product = {
@@ -140,16 +151,8 @@ const columns: TableColumn<Product>[] = [
   }
 ]
 
-const handlePageChange = (page: number) => {
-  console.log('Page changed to:', page)
-}
-
 const handlePageSizeChange = (size: number) => {
   console.log('Page size changed to:', size)
-}
-
-const handleRowClick = (row: any) => {
-  console.log('Row clicked:', row)
 }
 </script>
 
@@ -158,20 +161,19 @@ const handleRowClick = (row: any) => {
     <div class="flex justify-between mb-4">
       <h2 class="text-lg font-medium">Ejemplo tabla</h2>
       <UButton size="sm" color="info" @click="toggleLoading">
-        {{ isLoading ? 'Stop Loading' : 'Test Loading' }}
+        {{ loading ? 'Stop Loading' : 'Test Loading' }}
       </UButton>
     </div>
 
     <DataTable
       :data="products"
       :columns="columns"
-      :is-loading="isLoading"
-      :total-items="10"
-      :limite="10"
-      :items-per-page-options="[5, 10, 20, 50]"
-      @update:page="handlePageChange"
-      @update:page-size="handlePageSizeChange"
-      @row:click="handleRowClick"
+      :total="total"
+      :limite="limit"
+      :page="page"
+      :loading="loading"
+      @update:limit="setLimit"
+      @update:page="setPage"
     />
   </div>
 </template>

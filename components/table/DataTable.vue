@@ -10,65 +10,41 @@ const props = defineProps<{
   columns: TableColumn<any>[]
   title?: string
   secondaryTitle?: string
-  totalItems?: number
-  isLoading?: boolean
-  limite?: number
-  itemsPerPageOptions?: number[]
+  loading: boolean
+  limite: number
+  total: number
+  page: number
 }>()
 
 const emits = defineEmits<{
+  'update:limit': [elem: number]
   'update:page': [page: number]
-  'update:pageSize': [pageSize: number]
-  'row:select': [rows: any[]]
-  'row:click': [row: any]
 }>()
-
-const table = useTemplateRef('table')
-
-const defaultTitle = props.title || 'Product Analytics'
-const defaultTotalItems = props.totalItems || props.data.length
 
 const pagination = ref({
   pageIndex: 0,
   pageSize: 7
 })
 
-const currentPage = computed(() => pagination.value.pageIndex + 1)
-const totalPages = computed(() =>
-  Math.ceil(defaultTotalItems / pagination.value.pageSize)
-)
-const showingStart = computed(
-  () => pagination.value.pageIndex * pagination.value.pageSize + 1
-)
-const showingEnd = computed(() =>
-  Math.min(
-    (pagination.value.pageIndex + 1) * pagination.value.pageSize,
-    defaultTotalItems
-  )
-)
+const currentPage = computed(() => props.page)
+
+const totalPages = computed(() => Math.ceil(props.total / props.limite))
 
 const handlePageChange = (page: number) => {
   pagination.value.pageIndex = page - 1
   emits('update:page', page)
 }
 
-const handlePageSizeChange = (size: number) => {
-  pagination.value.pageSize = size
-  pagination.value.pageIndex = 0
-  emits('update:pageSize', size)
-}
-
-const handleRowClick = (row: any) => {
-  emits('row:click', row)
-}
-
-const selectedRows = computed(() => {
-  return table.value?.tableApi?.getFilteredSelectedRowModel().rows || []
+const limiteModel = computed({
+  get: () => props.limite,
+  set: (val) => {
+    emits('update:page', 1)
+    emits('update:limit', val)
+  }
 })
 
 defineExpose({
-  pagination,
-  selectedRows
+  pagination
 })
 </script>
 
@@ -76,47 +52,51 @@ defineExpose({
   <div class="font-sans rounded-lg shadow-sm bg-white overflow-hidden m-2">
     <div class="overflow-x-auto">
       <UTable
-        ref="table"
-        :data="isLoading ? Array(10).fill({}) : data"
-        :columns="columns"
+        :data="props.data"
+        :columns="props.columns"
+        :loading="props.loading"
         class="w-full"
         :class="[
           'w-full [&_th]:text-left [&_th]:py-3 [&_th]:px-4 [&_th]:font-medium [&_th]:text-gray-600 [&_th]:border-b [&_th]:border-gray-200 [&_th]:bg-gray-50',
           '[&_td]:py-4 [&_td]:px-4 [&_td]:border-b [&_td]:border-gray-200 [&_td]:text-gray-800',
           '[&_tr:hover]:bg-gray-50 [&_tr:last-child_td]:border-b-0'
         ]"
-        @row:click="handleRowClick"
       >
         <template #loading>
-          <tr
-            v-for="(_, rowIndex) in 10"
-            :key="`skeleton-row-${rowIndex}`"
-            class="border-b border-gray-200"
-          >
-            <td
-              v-for="(_, colIndex) in columns"
-              :key="`skeleton-cell-${rowIndex}-${colIndex}`"
-              class="py-4 px-4"
-            >
-              <USkeleton class="h-4 w-full" />
+          <tr v-for="i in 5" :key="i" class="animate-pulse">
+            <td class="p-3">
+              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+            </td>
+            <td class="p-3">
+              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
+            </td>
+            <td class="p-3">
+              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+            </td>
+            <td class="p-3">
+              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+            </td>
+            <td class="p-3">
+              <div class="flex space-x-2">
+                <div class="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                <div class="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+              </div>
             </td>
           </tr>
         </template>
       </UTable>
     </div>
 
-    <div
-      class="flex justify-between items-center p-3 border-t border-gray-200 text-sm text-gray-600"
-    >
+    <div v-if="!loading" class="flex justify-between items-center p-3 text-sm">
       <p>
         Mostrando:
-        <span class="font-semibold">{{ showingEnd - showingStart }}</span
+        <span class="font-semibold">{{ data.length }}</span
         >&nbsp;de&nbsp;<span class="font-semibold">{{
-          numberLiteral(defaultTotalItems)
+          numberLiteral(total)
         }}</span>
       </p>
-
       <div class="flex gap-12">
+        <!-- Paginación -->
         <div class="flex items-center gap-2">
           <UButton
             color="neutral"
@@ -127,66 +107,45 @@ defineExpose({
           >
             <ChevronLeft :size="18" />
           </UButton>
-
           <div class="flex items-center gap-1">
-            <button
+            <UButton
               v-for="page in Math.min(5, totalPages)"
               :key="page"
-              :class="[
-                'flex items-center justify-center w-8 h-8 rounded',
-                page === currentPage
-                  ? 'bg-gray-100 font-medium'
-                  : 'hover:bg-gray-50'
-              ]"
-              @click="handlePageChange(page)"
+              :color="page === currentPage ? 'info' : 'neutral'"
+              variant="soft"
+              class="cursor-pointer"
             >
               {{ page }}
-            </button>
+            </UButton>
             <span v-if="totalPages > 5" class="mx-1">...</span>
-            <button
+            <UButton
               v-if="totalPages > 5"
-              :class="[
-                'flex items-center justify-center w-8 h-8 rounded',
-                totalPages === currentPage
-                  ? 'bg-gray-100 font-medium'
-                  : 'hover:bg-gray-50'
-              ]"
+              :color="currentPage === totalPages ? 'info' : 'neutral'"
+              variant="soft"
+              class="cursor-pointer"
               @click="handlePageChange(totalPages)"
             >
               {{ totalPages }}
-            </button>
+            </UButton>
           </div>
           <UButton
             color="neutral"
             variant="soft"
-            class="cursor-pointer border-slate-400"
             :disabled="currentPage === totalPages"
+            class="cursor-pointer border-slate-400"
             @click="handlePageChange(currentPage + 1)"
           >
             <ChevronRight :size="18" />
           </UButton>
         </div>
-
+        <!-- Limite -->
         <div class="flex items-center gap-2">
           <span>Limite</span>
           <USelect
-            :v-model="limite"
+            v-model="limiteModel"
+            class="w-20 shadow-md"
             :items="LimitItems"
-            class="w-18 shadow-md"
           />
-          <!-- <select
-            v-model="selectedItemsPerPage"
-            @change="handlePageSizeChange(selectedItemsPerPage)"
-            class="px-2 py-1 rounded border border-gray-200 bg-white text-sm"
-          >
-            <option
-              v-for="option in defaultItemsPerPageOptions"
-              :key="option"
-              :value="option"
-            >
-              {{ option }}
-            </option>
-          </select> -->
         </div>
       </div>
     </div>
