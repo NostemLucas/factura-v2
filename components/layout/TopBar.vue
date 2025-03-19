@@ -5,7 +5,7 @@
       'dark:bg-gray-950/90 dark:border-gray-800',
       'bg-white/90 backdrop-blur-sm border-b border-gray-100',
       'flex-1 flex flex-col transition-all duration-300 ease-in-out',
-      store.isCollapsed ? 'md:ml-[70px] isMobile ml-0 ' : 'ml-64'
+      store.isOpenDrawer ? 'md:ml-[70px]' : 'md:ml-64'
     ]"
   >
     <!-- Main Topbar -->

@@ -1,20 +1,38 @@
 interface DashboardState {
   isOpenDrawer: boolean
+  isLoading: boolean
   isCollapsed: boolean
+  originalCollapsedState: boolean
 }
 export const useDashboard = defineStore('dashboard', {
   state: (): DashboardState => ({
     isOpenDrawer: false,
-    isCollapsed: false
+    isLoading: false,
+    isCollapsed: true,
+    originalCollapsedState: false
   }),
   actions: {
-    toggleDrawer(state?: boolean) {
-      console.log(this.isOpenDrawer)
-      this.isOpenDrawer = state ? state : !this.isOpenDrawer
+    toggleDrawer() {
+      console.log('open-drawer', this.isOpenDrawer)
+      this.isOpenDrawer = !this.isOpenDrawer
+      if (this.isOpenDrawer) {
+        this.originalCollapsedState = this.isCollapsed
+        this.isCollapsed = false
+      } else {
+        this.isCollapsed = this.originalCollapsedState
+      }
     },
-    toggleCollapse(state?: boolean) {
+    showLoading() {
       console.log(this.isOpenDrawer)
-      this.isCollapsed = state ? state : !this.isCollapsed
+      this.isLoading = true
+    },
+    hiddenLoading() {
+      console.log(this.isOpenDrawer)
+      this.isLoading = false
+    },
+    toggleCollapse() {
+      console.log('open-drawer', this.isCollapsed)
+      this.isCollapsed = !this.isCollapsed
     }
   }
 })

@@ -67,7 +67,7 @@
     --color-primary-100: hsl(225, 60%, 90%);
     --color-primary-200: hsl(225, 60%, 85%);
     --color-primary-300: hsl(225, 60%, 75%);
-    --color-primary-400: hsl(225, 60%, 65%);
+    --color-primary-400: rgb(112, 139, 219);
     --color-primary-500: hsl(225, 60%, 58%);
     --color-primary-600: hsl(225, 60%, 50%);
     --color-primary-700: hsl(225, 60%, 45%);
