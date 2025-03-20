@@ -20,11 +20,12 @@ const store = useDashboard()
 
 //breakpoints
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const isLowerThanMd = ref(breakpoints.isSmaller('md'))
+const isLowerThanMd = ref(breakpoints.isSmaller('lg'))
 
 //TODO REMPLAZAR CON LOGICA DE VERDAD
 const activeSection = ref(0)
 const activeItem = ref(0)
+
 const setActiveItem = (sectionIndex: number, itemIndex: number) => {
   activeSection.value = sectionIndex
   activeItem.value = itemIndex
@@ -78,7 +79,6 @@ const navigation = reactive([
 ])
 </script>
 <template>
-  <!-- Sidebar -->
   <UDrawer
     direction="left"
     portal
