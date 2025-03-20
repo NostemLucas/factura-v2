@@ -1,11 +1,11 @@
 <template>
   <header
     :class="[
-      'z-10 transition-all duration-300 sticky top-0',
+      'z-10 sticky top-0',
       'dark:bg-gray-950/90 dark:border-gray-800',
       'bg-white/90 backdrop-blur-sm border-b border-gray-100',
-      'flex-1 flex flex-col transition-all duration-300 ease-in-out',
-      store.isOpenDrawer ? 'md:ml-[70px]' : 'md:ml-64'
+      'flex-1 flex flex-col',
+      xs ? 'ml-0' : store.isCollapsed ? 'ml-[70px]' : 'ml-62'
     ]"
   >
     <!-- Main Topbar -->
@@ -15,7 +15,7 @@
         <!-- Mobile menu button -->
         <button
           @click="store.toggleDrawer()"
-          class="p-1.5 rounded-md transition-colors duration-200 md:hidden dark:text-gray-300 dark:hover:text-primary-400 dark:hover:bg-gray-800 text-gray-500 hover:text-primary-600 hover:bg-gray-100"
+          class="p-1.5 rounded-md md:hidden dark:text-gray-300 dark:hover:text-primary-400 dark:hover:bg-gray-800 text-gray-500 hover:text-primary-600 hover:bg-gray-100"
           aria-label="Toggle sidebar"
         >
           <MenuIcon v-if="!store.isOpenDrawer" class="h-5 w-5" />
@@ -27,7 +27,7 @@
           <div class="flex items-center">
             <button
               :class="[
-                'flex items-center font-medium transition-colors duration-200 rounded-md px-2 py-1',
+                'flex items-center font-medium rounded-md px-2 py-1',
                 'dark:text-primary-400 dark:hover:text-primary-300 dark:hover:bg-gray-800/70',
                 'text-primary-600 hover:text-primary-700 hover:bg-primary-500 '
               ]"
@@ -43,7 +43,7 @@
             <div class="flex items-center">
               <div
                 :class="[
-                  'flex items-center rounded-md px-2 py-1 text-sm transition-colors duration-200',
+                  'flex items-center rounded-md px-2 py-1 text-sm  duration-200',
                   'bg-primary-400 dark:text-primary-600/90 text-white hover:bg-primtext-primary-700',
                   'bg-primtext-primary-600/90 text-white hover:bg-primtext-primary-700'
                 ]"
@@ -64,14 +64,14 @@
             type="text"
             placeholder="Search"
             :class="[
-              'w-full h-9 pl-9 pr-4 rounded-md text-sm transition-all duration-200',
+              'w-full h-9 pl-9 pr-4 rounded-md text-sm ',
               'dark:bg-gray-800/70 dark:text-gray-200 dark:placeholder-gray-500 dark:focus:bg-gray-800 dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-blue-500/50',
               'bg-gray-50/70 text-gray-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/50'
             ]"
           />
           <SearchIcon
             :class="[
-              'h-4 w-4 absolute left-3 top-2.5 transition-colors duration-200',
+              'h-4 w-4 absolute left-3 top-2.5 ',
               'dark:text-gray-500 dark:group-focus-within:text-blue-400',
               'text-gray-400 group-focus-within:text-blue-600'
             ]"
@@ -82,7 +82,7 @@
       <div class="flex items-center space-x-1 sm:space-x-2">
         <button
           :class="[
-            'p-1.5 rounded-md transition-colors duration-200 md:hidden',
+            'p-1.5 rounded-md md:hidden',
             'dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800',
             'text-gray-500 hover:text-blue-600 hover:bg-gray-100'
           ]"
@@ -93,7 +93,7 @@
         <ToggleButton />
         <button
           :class="[
-            'p-1.5 rounded-md transition-colors duration-200 ',
+            'p-1.5 rounded-md  ',
             'dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800',
             'text-gray-500 hover:text-blue-600 hover:bg-gray-100'
           ]"
@@ -104,7 +104,7 @@
           ></span>
         </button>
         <button
-          class="ml-1 w-8 h-8 rounded-full overflow-hidden border-2 transition-all duration-200"
+          class="ml-1 w-8 h-8 rounded-full overflow-hidden border-2"
           :class="[
             'dark:border-blue-500 dark:ring-2 dark:ring-blue-500/30',
             'border-gray-700 hover:border-blue-500'
@@ -165,6 +165,13 @@ import {
   Sun as SunIcon,
   Moon as MoonIcon
 } from 'lucide-vue-next'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+
 const store = useDashboard()
+
+//breakpoints
+const breakpoints = useBreakpoints(breakpointsTailwind)
+
+const xs = breakpoints.smaller('md')
 // Responsive state
 </script>

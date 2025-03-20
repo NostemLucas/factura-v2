@@ -1,40 +1,47 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div
+    class="min-h-screen bg-white transition-colors duration-300 dark:bg-gray-900"
+  >
+    <!-- Browser compatibility notice -->
     <div
       v-if="mounted && !supportsViewTransitions"
-      class="fixed bottom-4 left-4 right-4 bg-yellow-100 text-yellow-800 p-2 text-sm rounded-md z-50 md:left-auto md:right-4 md:w-72"
+      class="fixed bottom-4 right-4 z-50 w-72 rounded-md bg-yellow-100 p-3 text-sm text-yellow-800 shadow-lg"
     >
       Tu navegador no soporta la View Transitions API. La animación no
-      funcionará, pero el cambio de tema sí.
+      funcionará.
     </div>
 
+    <!-- Header -->
     <header class="border-b border-gray-200 dark:border-gray-700">
       <div
-        class="container mx-auto px-4 py-4 flex justify-between items-center"
+        class="container mx-auto flex items-center justify-between px-4 py-4"
       >
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
-          Demo Telegram en Nuxt 3
+          Water Drop Theme
         </h1>
 
         <button
           @click="toggleTheme"
-          class="relative z-10 rounded-full bg-gray-200 p-3 text-gray-800 shadow-md dark:bg-gray-800 dark:text-gray-200"
+          class="relative z-10 rounded-full bg-gray-200 p-3 text-gray-800 shadow-lg transition-all hover:shadow-xl dark:bg-gray-800 dark:text-gray-200"
+          aria-label="Toggle theme"
         >
-          <Moon v-if="isDark" class="h-6 w-6" />
-          <Sun v-else class="h-6 w-6" />
+          <component :is="isDark ? Moon : Sun" class="h-6 w-6" />
         </button>
       </div>
     </header>
 
-    <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
+    <!-- Main content area -->
+    <div class="container mx-auto flex flex-col gap-8 px-4 py-8 md:flex-row">
       <!-- Sidebar -->
-      <aside class="w-full md:w-64 bg-gray-100 rounded-lg p-4 dark:bg-gray-800">
+      <aside
+        class="w-full rounded-lg bg-gray-100 p-4 shadow-md dark:bg-gray-800 md:w-64"
+      >
         <nav>
           <ul class="space-y-2">
             <li v-for="(item, index) in menuItems" :key="index">
               <a
                 href="#"
-                class="flex items-center gap-3 px-4 py-2 rounded-md text-gray-700 hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-700"
+                class="flex items-center gap-3 rounded-md px-4 py-2 text-gray-700 transition-colors hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-700"
               >
                 <component :is="item.icon" class="h-5 w-5" />
                 <span>{{ item.label }}</span>
@@ -46,65 +53,67 @@
 
       <!-- Main content -->
       <main class="flex-1">
-        <div class="bg-white rounded-lg shadow-md p-6 dark:bg-gray-800">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-            Cambio de tema estilo Telegram con View Transitions API en Nuxt 3
+        <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
+          <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
+            Water Drop Theme Transition
           </h2>
-          <p class="text-gray-600 mb-6 dark:text-gray-300">
-            Esta demostración muestra cómo el cambio de tema se propaga desde el
-            botón hacia todos los elementos de la interfaz, similar a cómo
-            funciona en Telegram, pero usando la API nativa de View Transitions
-            en Nuxt 3.
+          <p class="mb-6 text-gray-600 dark:text-gray-300">
+            Esta demostración muestra un efecto de gota de agua al cambiar entre
+            temas claro y oscuro, utilizando la API nativa de View Transitions.
           </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-gray-50 rounded-lg p-4 dark:bg-gray-700">
-              <h3 class="font-medium mb-2 text-gray-800 dark:text-white">
-                Tarjeta de información
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div
+              class="rounded-lg bg-gray-50 p-4 shadow-inner dark:bg-gray-700"
+            >
+              <h3 class="mb-2 font-medium text-gray-800 dark:text-white">
+                Efecto de gota
               </h3>
-              <p class="text-gray-600 text-sm dark:text-gray-300">
-                Observa cómo el color se expande y cambia todos los elementos.
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                Observa cómo el color se expande como una gota de agua.
               </p>
             </div>
 
-            <div class="bg-gray-50 rounded-lg p-4 dark:bg-gray-700">
-              <h3 class="font-medium mb-2 text-gray-800 dark:text-white">
-                Otra tarjeta
+            <div
+              class="rounded-lg bg-gray-50 p-4 shadow-inner dark:bg-gray-700"
+            >
+              <h3 class="mb-2 font-medium text-gray-800 dark:text-white">
+                Transición fluida
               </h3>
-              <p class="text-gray-600 text-sm dark:text-gray-300">
-                El efecto de expansión circular afecta a todos los componentes.
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                La animación tiene un efecto de rebote sutil al final.
               </p>
             </div>
           </div>
 
           <div class="mt-8 space-y-4">
             <button
-              class="w-full bg-primary-500 text-white py-2 px-4 rounded-md hover:bg-primary-600 dark:bg-primary-600 dark:hover:bg-primary-700"
+              class="w-full rounded-md bg-primary-500 px-4 py-2 text-white transition-colors hover:bg-primary-600 dark:bg-primary-600 dark:hover:bg-primary-700"
             >
               Botón primario
             </button>
 
             <button
-              class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              class="w-full rounded-md bg-gray-200 px-4 py-2 text-gray-800 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
             >
               Botón secundario
             </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+        <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
           <div
             v-for="item in 3"
             :key="item"
-            class="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-800"
+            class="rounded-lg bg-white p-4 shadow-sm transition-colors dark:bg-gray-800"
           >
             <div
-              class="h-32 bg-gray-100 rounded-md mb-3 dark:bg-gray-700"
+              class="mb-3 h-32 rounded-md bg-gray-100 dark:bg-gray-700"
             ></div>
             <h3 class="font-medium text-gray-800 dark:text-white">
               Elemento {{ item }}
             </h3>
-            <p class="text-gray-500 text-sm mt-1 dark:text-gray-400">
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
               Descripción breve del elemento
             </p>
           </div>
@@ -114,29 +123,39 @@
 
     <footer class="mt-12 border-t border-gray-200 dark:border-gray-700">
       <div class="container mx-auto px-4 py-6">
-        <p class="text-center text-gray-500 text-sm dark:text-gray-400">
-          Demostración de cambio de tema estilo Telegram con View Transitions
-          API en Nuxt 3
+        <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+          Water Drop Theme Transition - Vue 3 + TypeScript
         </p>
       </div>
     </footer>
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useHead } from '#app'
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Moon, Sun, Home, Settings, User, Mail, Bell } from 'lucide-vue-next'
+
+// Types
+type Icon =
+  | typeof Moon
+  | typeof Sun
+  | typeof Home
+  | typeof Settings
+  | typeof User
+  | typeof Mail
+  | typeof Bell
+interface MenuItem {
+  icon: Icon
+  label: string
+}
 
 // State
 const isDark = ref(false)
 const mounted = ref(false)
-const clickPosition = ref({ x: 0, y: 0 })
-const viewportSize = ref({ width: 0, height: 0 })
 const supportsViewTransitions = ref(false)
 
 // Menu items
-const menuItems = [
+const menuItems: MenuItem[] = [
   { icon: Home, label: 'Inicio' },
   { icon: User, label: 'Perfil' },
   { icon: Mail, label: 'Mensajes' },
@@ -144,44 +163,22 @@ const menuItems = [
   { icon: Settings, label: 'Configuración' }
 ]
 
-// Add meta tag for View Transitions API
-useHead({
-  meta: [{ name: 'view-transition', content: 'same-origin' }]
-})
+// Toggle theme with water drop effect
+const toggleTheme = async (e: MouseEvent): Promise<void> => {
+  // Get click coordinates for the water drop origin
+  const x = e.clientX
+  const y = e.clientY
 
-// Calculate the maximum radius needed to cover the screen from click position
-const getMaxRadius = () => {
-  const corners = [
-    { x: 0, y: 0 },
-    { x: viewportSize.value.width, y: 0 },
-    { x: 0, y: viewportSize.value.height },
-    { x: viewportSize.value.width, y: viewportSize.value.height }
-  ]
+  // Calculate max radius (diagonal of the viewport)
+  const maxRadius =
+    Math.sqrt(
+      Math.pow(Math.max(x, window.innerWidth - x), 2) +
+        Math.pow(Math.max(y, window.innerHeight - y), 2)
+    ) * 1.1
 
-  let maxDistance = 0
-  corners.forEach((corner) => {
-    const distance = Math.sqrt(
-      Math.pow(clickPosition.value.x - corner.x, 2) +
-        Math.pow(clickPosition.value.y - corner.y, 2)
-    )
-    maxDistance = Math.max(maxDistance, distance)
-  })
-
-  return maxDistance * 1.1 // Add a little extra to ensure full coverage
-}
-
-// Toggle theme function
-const toggleTheme = async (e) => {
-  // Store click position for the transition
-  clickPosition.value = {
-    x: e.clientX,
-    y: e.clientY
-  }
-
-  // Create custom transition styles
-  const maxRadius = getMaxRadius()
-  const transitionStyles = document.createElement('style')
-  transitionStyles.textContent = `
+  // Create water drop animation styles
+  const styles = document.createElement('style')
+  styles.textContent = `
     ::view-transition-old(root),
     ::view-transition-new(root) {
       animation: none;
@@ -194,79 +191,69 @@ const toggleTheme = async (e) => {
     
     ::view-transition-new(root) {
       z-index: 2;
-      animation-name: circle-reveal;
-      animation-duration: 1.5s;
-      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      animation: water-drop 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
     
-    @keyframes circle-reveal {
-      from {
-        clip-path: circle(0% at ${clickPosition.value.x}px ${clickPosition.value.y}px);
+    @keyframes water-drop {
+      0% {
+        clip-path: circle(0% at ${x}px ${y}px);
+        transform: scale(0.95);
       }
-      to {
-        clip-path: circle(${maxRadius}px at ${clickPosition.value.x}px ${clickPosition.value.y}px);
+      60% {
+        transform: scale(1.02);
+      }
+      100% {
+        clip-path: circle(${maxRadius}px at ${x}px ${y}px);
+        transform: scale(1);
       }
     }
   `
+  document.head.appendChild(styles)
 
-  document.head.appendChild(transitionStyles)
-
-  if (document.startViewTransition) {
-    try {
+  try {
+    if (document.startViewTransition) {
       // Start the view transition
       const transition = document.startViewTransition(() => {
-        // Toggle dark mode
+        // Toggle theme
         isDark.value = !isDark.value
-
-        if (isDark.value) {
-          document.documentElement.classList.add('dark')
-          localStorage.setItem('theme', 'dark')
-        } else {
-          document.documentElement.classList.remove('dark')
-          localStorage.setItem('theme', 'light')
-        }
+        updateTheme()
       })
 
-      // Clean up after transition
+      // Wait for animation to complete
       await transition.finished
-      document.head.removeChild(transitionStyles)
-    } catch (error) {
-      console.error('Error during view transition:', error)
-      document.head.removeChild(transitionStyles)
-
-      // Fallback if transition fails
-      isDark.value = !isDark.value
-
-      if (isDark.value) {
-        document.documentElement.classList.add('dark')
-        localStorage.setItem('theme', 'dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-        localStorage.setItem('theme', 'light')
-      }
-    }
-  } else {
-    // Fallback for browsers that don't support View Transitions API
-    isDark.value = !isDark.value
-
-    if (isDark.value) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
     } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
+      // Fallback for browsers without View Transitions API
+      isDark.value = !isDark.value
+      updateTheme()
     }
-
-    document.head.removeChild(transitionStyles)
+  } catch (error) {
+    console.error('Theme transition failed:', error)
+    isDark.value = !isDark.value
+    updateTheme()
+  } finally {
+    // Clean up
+    document.head.removeChild(styles)
   }
 }
 
-// Initialize on component mount
+// Apply theme to document
+const updateTheme = (): void => {
+  if (isDark.value) {
+    document.documentElement.classList.add('dark')
+    localStorage.setItem('theme', 'dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+    localStorage.setItem('theme', 'light')
+  }
+}
+
+// Initialize
 onMounted(() => {
   mounted.value = true
 
   // Check for View Transitions API support
-  supportsViewTransitions.value = !!document.startViewTransition
+  supportsViewTransitions.value =
+    typeof document.startViewTransition === 'function'
 
   // Set initial theme based on localStorage or system preference
   const savedTheme = localStorage.getItem('theme')
@@ -277,18 +264,43 @@ onMounted(() => {
     document.documentElement.classList.add('dark')
   }
 
-  // Get viewport dimensions
-  viewportSize.value = {
-    width: window.innerWidth,
-    height: window.innerHeight
-  }
-
-  // Add resize listener
-  window.addEventListener('resize', () => {
-    viewportSize.value = {
-      width: window.innerWidth,
-      height: window.innerHeight
-    }
-  })
+  // Add meta tag for View Transitions API
+  const meta = document.createElement('meta')
+  meta.name = 'view-transition'
+  meta.content = 'same-origin'
+  document.head.appendChild(meta)
 })
 </script>
+
+<style>
+:root {
+  --primary-500: #6366f1;
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+}
+
+/* Smooth transitions for non-View Transitions API browsers */
+* {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: 300ms;
+}
+
+/* Disable transitions during View Transitions API animation */
+.view-transition-active * {
+  transition-property: none !important;
+}
+
+/* Add subtle water ripple effect to cards on hover */
+.rounded-lg:hover {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+  transform: translateY(-2px);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Dark mode adjustments */
+.dark .rounded-lg:hover {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+</style>

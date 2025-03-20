@@ -1,9 +1,7 @@
 <template>
   <UApp>
     <NuxtLayout>
-      <div class="bg-(--ui-bg)" vaul-drawer-wrapper>
-        <NuxtPage />
-      </div>
+      <NuxtPage />
     </NuxtLayout>
     <Toaster
       rich-colors
