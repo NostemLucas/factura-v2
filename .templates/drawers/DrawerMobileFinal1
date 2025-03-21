@@ -59,7 +59,7 @@ const setHoverIndex = (index: string | null) => {
       >
         <!-- Drawer Header with Gradient -->
         <div
-          class="flex items-center justify-between h-20 pl-5 pr-4 border-b dark:border-gray-800/70 border-gray-100 bg-gradient-to-r from-primary-500/10 to-transparent dark:from-primary-900/20 dark:to-transparent"
+          class="flex items-center justify-between h-20 px-5 border-b dark:border-gray-800/70 border-gray-100 bg-gradient-to-r from-primary-500/10 to-transparent dark:from-primary-900/20 dark:to-transparent"
         >
           <div class="flex items-center space-x-3">
             <div
@@ -120,7 +120,7 @@ const setHoverIndex = (index: string | null) => {
             class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 hover:rotate-90"
             aria-label="Close menu"
           >
-            <X class="w-6 h-6 text-gray-500 dark:text-gray-400" />
+            <X class="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </UButton>
         </div>
 
@@ -234,6 +234,10 @@ const setHoverIndex = (index: string | null) => {
                     </div>
 
                     <!-- Active indicator line -->
+                    <div
+                      v-if="activeRoute === item.route"
+                      class="absolute left-0 top-1/4 bottom-1/4 w-1 bg-primary-500 rounded-r-full"
+                    />
                   </UButton>
                 </div>
               </div>
@@ -271,6 +275,25 @@ const setHoverIndex = (index: string | null) => {
 </template>
 
 <style scoped>
+/* Enhanced scrollbar for better mobile experience */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 20px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(75, 85, 99, 0.5);
+}
+
+/* Prevent content from being selectable in the drawer */
 aside {
   -webkit-tap-highlight-color: transparent;
   user-select: none;

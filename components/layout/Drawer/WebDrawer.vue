@@ -18,16 +18,23 @@ defineProps<{
 const store = useDashboard()
 
 //breakpoints
+const route = useRouter()
+const activeRoute = computed(() => route.currentRoute.value.path)
+const hoverIndex = ref<string | null>(null)
 
-//TODO: REMPLAZAR CON LOGICA DE VERDAD
-const activeSection = ref(0)
-const activeItem = ref(0)
-const setActiveItem = (sectionIndex: number, itemIndex: number) => {
-  activeSection.value = sectionIndex
-  activeItem.value = itemIndex
+// Add smooth navigation function with transition effect
+const navigateTo = (path: string | null) => {
+  if (!path) return
+
+  // Add a small delay before closing drawer for better UX
+  setTimeout(() => {
+    store.isOpenDrawer = false
+  }, 300)
+
+  route.push(path)
 }
-const isActive = (sectionIndex: number, itemIndex: number) => {
-  return activeSection.value === sectionIndex && activeItem.value === itemIndex
+const setHoverIndex = (index: string | null) => {
+  hoverIndex.value = index
 }
 </script>
 <template>
@@ -123,13 +130,13 @@ const isActive = (sectionIndex: number, itemIndex: number) => {
                 sideOffset: 2
               }"
             >
-              <button
-                @click="setActiveItem(sectionIndex, itemIndex)"
+              <Button
+                @click="navigateTo(item.route)"
                 :class="[
                   'group w-full flex items-center text-base font-normal tracking-wider rounded-md  relative cursor-pointer',
                   store.isCollapsed ? 'h-14' : 'py-4',
                   store.isCollapsed ? 'justify-center px-2' : 'px-4',
-                  isActive(sectionIndex, itemIndex)
+                  activeRoute === item.route
                     ? 'dark:text-primary-400 dark:bg-gray-800/70 dark:before:w-1 dark:before:bg-primary-500 text-primary-600 bg-blue-50/70 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-4/8 before:w-1 before:bg-primary-600 before:rounded-r-md'
                     : 'dark:text-gray-300 dark:hover:bg-gray-800/50 dark:hover:text-gray-100 text-gray-700 hover:bg-gray-100/70 hover:text-gray-900'
                 ]"
@@ -139,7 +146,7 @@ const isActive = (sectionIndex: number, itemIndex: number) => {
                   :class="[
                     'flex-shrink-0 h-6 w-6  duration-200 ',
                     store.isCollapsed ? 'mr-0' : 'mr-3',
-                    isActive(sectionIndex, itemIndex)
+                    activeRoute === item.route
                       ? 'dark:text-primary-400 text-primary-600'
                       : 'dark:text-gray-500 dark:group-hover:text-gray-900 text-foreground group-hover:text-gray-900'
                   ]"
@@ -151,33 +158,12 @@ const isActive = (sectionIndex: number, itemIndex: number) => {
                     store.isCollapsed
                       ? 'opacity-0 w-0 overflow-hidden -translate-x-5'
                       : 'opacity-100 w-auto translate-x-0',
-                    isActive(sectionIndex, itemIndex)
-                      ? 'font-semibold'
-                      : 'font-light'
+                    activeRoute === item.route ? 'font-semibold' : 'font-light'
                   ]"
                 >
                   {{ item.name }}
                 </span>
-
-                <span
-                  v-if="item.badge && !store.isCollapsed"
-                  :class="[
-                    'ml-auto inline-flex items-center px-2 py-0.0 rounded-full text-xs font-medium  ',
-                    isActive(sectionIndex, itemIndex)
-                      ? 'dark:bg-primary-500/80 text-white bg-primary-600/80'
-                      : 'dark:bg-gray-800 dark:text-gray-300 bg-gray-100 text-gray-600'
-                  ]"
-                >
-                  {{ item.badge }}
-                </span>
-
-                <span
-                  v-if="item.badge && store.isCollapsed"
-                  class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold text-white transition-all duration-200 bg-primary-400 animate-pulse"
-                >
-                  {{ item.badge }}
-                </span>
-              </button>
+              </Button>
             </UTooltip>
           </div>
         </div>

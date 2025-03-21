@@ -35,24 +35,16 @@ const navigation = reactive([
   {
     title: 'Data',
     items: [
-      { name: 'Data hub', icon: DatabaseIcon, route: '/' },
-      { name: 'Monitoring hub', icon: ActivityIcon, route: '/' },
-      { name: 'Metrics', icon: AwardIcon, route: '/' }
+      { name: 'Usuarios', icon: DatabaseIcon, route: '/usuarios' },
+      { name: 'Clientes', icon: ActivityIcon, route: '/clientes' },
+      { name: 'Productos', icon: AwardIcon, route: '/productos' }
     ]
   },
   {
     title: 'Workspaces',
     items: [
-      { name: 'Workspaces', icon: GridIcon, route: '/' },
-      { name: 'My workspace', icon: UsersIcon, route: '/' },
-      { name: 'ESG Indicators', icon: BarChartIcon, route: '/' }
-    ]
-  },
-  {
-    title: 'More',
-    items: [
-      { name: 'More...', icon: MoreHorizontalIcon, route: '/' },
-      { name: 'Power BI', icon: PowerIcon, route: '/' }
+      { name: 'Metricas', icon: GridIcon, route: '/metricas' },
+      { name: 'Tablero', icon: UsersIcon, route: '/tablero' }
     ]
   }
 ])

@@ -661,16 +661,7 @@ const showPassword = ref(false)
 const rememberMe = ref(false)
 
 const toggleTheme = () => {
-  // Añadir clase para la animación
-  document.body.classList.add('theme-transition')
-
-  // Cambiar el tema
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-
-  // Eliminar la clase después de la transición
-  setTimeout(() => {
-    document.body.classList.remove('theme-transition')
-  }, 500)
 }
 
 // Esquema de validación en español
