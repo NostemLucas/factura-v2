@@ -3,13 +3,9 @@
     type="button"
     @click="toggleTheme"
     class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 hover:rotate-45"
-    :aria-label="
-      isDark === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'
-    "
   >
     <div class="relative w-5 h-5">
-      <Moon v-if="isDark === 'ligth'" class="h-6 w-6" />
-      <Sun v-else class="h-6 w-6" />
+      <component :is="colorMode.value === 'dark' ? Sun : Moon" />
     </div>
   </button>
 </template>
@@ -20,18 +16,16 @@ import { useHead } from '#app'
 import { Moon, Sun } from 'lucide-vue-next'
 
 // State
-const isDark = ref(false)
 const mounted = ref(false)
 const clickPosition = ref({ x: 0, y: 0 })
 const viewportSize = ref({ width: 0, height: 0 })
 const supportsViewTransitions = ref(false)
+const colorMode = useColorMode()
 
-// Add meta tag for View Transitions API
 useHead({
   meta: [{ name: 'view-transition', content: 'same-origin' }]
 })
 
-// Calculate the maximum radius needed to cover the screen from click position
 const getMaxRadius = () => {
   const corners = [
     { x: 0, y: 0 },
@@ -52,7 +46,6 @@ const getMaxRadius = () => {
   return maxDistance * 1.1
 }
 
-// Toggle theme function
 const toggleTheme = async (e: any) => {
   // Store click position for the transition
   clickPosition.value = {
@@ -73,14 +66,14 @@ const toggleTheme = async (e: any) => {
     ::view-transition-old(root) {
       z-index: 1;
     }
-    
+
     ::view-transition-new(root) {
       z-index: 2;
       animation-name: circle-reveal;
       animation-duration: 1.5s;
       animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     }
-    
+
     @keyframes circle-reveal {
       from {
         clip-path: circle(0% at ${clickPosition.value.x}px ${clickPosition.value.y}px);
@@ -97,15 +90,18 @@ const toggleTheme = async (e: any) => {
     try {
       // Start the view transition
       const transition = document.startViewTransition(() => {
-        // Toggle dark mode
-        isDark.value = !isDark.value
-
-        if (isDark.value) {
-          document.documentElement.classList.add('dark')
-          localStorage.setItem('theme', 'dark')
+        // Check if preference is system, then toggle theme accordingly
+        if (colorMode.preference === 'system') {
+          // If the system mode is dark, change to light; if light, change to dark
+          if (colorMode.value === 'dark') {
+            colorMode.preference = 'light'
+          } else {
+            colorMode.preference = 'dark'
+          }
         } else {
-          document.documentElement.classList.remove('dark')
-          localStorage.setItem('theme', 'light')
+          // Toggle preference between light/dark
+          colorMode.preference =
+            colorMode.preference === 'dark' ? 'light' : 'dark'
         }
       })
 
@@ -115,30 +111,18 @@ const toggleTheme = async (e: any) => {
     } catch (error) {
       console.error('Error during view transition:', error)
       document.head.removeChild(transitionStyles)
-
-      // Fallback if transition fails
-      isDark.value = !isDark.value
-
-      if (isDark.value) {
-        document.documentElement.classList.add('dark')
-        localStorage.setItem('theme', 'dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-        localStorage.setItem('theme', 'light')
-      }
     }
   } else {
-    // Fallback for browsers that don't support View Transitions API
-    isDark.value = !isDark.value
-
-    if (isDark.value) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
+    // Fallback if View Transitions API is not supported
+    if (colorMode.preference === 'system') {
+      // Invert the system preference if it's system
+      colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
     } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
+      // Toggle between light and dark modes manually
+      colorMode.preference = colorMode.preference === 'dark' ? 'light' : 'dark'
     }
 
+    console.log('color-pref:', colorMode.preference)
     document.head.removeChild(transitionStyles)
   }
 }
@@ -146,18 +130,7 @@ const toggleTheme = async (e: any) => {
 // Initialize on component mount
 onMounted(() => {
   mounted.value = true
-
-  // Check for View Transitions API support
   supportsViewTransitions.value = !!document.startViewTransition
-
-  // Set initial theme based on localStorage or system preference
-  const savedTheme = localStorage.getItem('theme')
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-
-  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-    isDark.value = true
-    document.documentElement.classList.add('dark')
-  }
 
   // Get viewport dimensions
   viewportSize.value = {

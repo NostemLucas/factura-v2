@@ -1,15 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { Power, X, ChevronRight, Bell, Settings } from 'lucide-vue-next'
-
-export interface SideBar {
-  title: string
-  items: {
-    name: string
-    icon: Object
-    route: string | null
-  }[]
-}
+import type { SideBar } from '~/layouts/default.vue'
 
 defineProps<{
   navigation: SideBar[]
