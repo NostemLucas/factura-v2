@@ -2,7 +2,7 @@
   <button
     type="button"
     @click="toggleTheme"
-    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 hover:rotate-45"
+    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 hover:rotate-y-180"
   >
     <div class="relative w-5 h-5">
       <component :is="colorMode.value === 'dark' ? Sun : Moon" />

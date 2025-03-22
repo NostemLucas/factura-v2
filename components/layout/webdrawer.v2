@@ -15,9 +15,7 @@ import {
   FileText as FileTextIcon,
   BarChart2 as BarChartIcon,
   Layers as LayersIcon,
-  Check as CheckIcon,
-  Trash as TrashIcon,
-  X as XIcon
+  Check as CheckIcon
 } from 'lucide-vue-next'
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import type { SideBar } from '~/layouts/default.vue'
@@ -33,7 +31,7 @@ const store = useDashboard()
 const route = useRouter()
 
 const activeRoute = computed(() => route.currentRoute.value.path)
-const hoverIndex = ref<string | null>(null)
+
 const searchQuery = ref('')
 const showSearch = ref(false)
 const searchInputRef = ref<HTMLInputElement | null>(null)
@@ -71,7 +69,6 @@ const toggleThemeSelector = () => {
       showSearch.value = false
       showQuickActions.value = false
       showUserMenu.value = false
-      showRecentMenu.value = false
     })
   }
 }
@@ -81,37 +78,8 @@ const setTheme = (theme) => {
   showThemeSelector.value = false
 }
 
-// Recent pages management
+// Recent pages (replacing favorites)
 const recentPages = ref<{ path: string; timestamp: number }[]>([])
-const showRecentMenu = ref(false)
-const recentItemToDelete = ref<number | null>(null)
-
-// Toggle recent pages menu
-const toggleRecentMenu = () => {
-  showRecentMenu.value = !showRecentMenu.value
-  if (showRecentMenu.value) {
-    nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
-      showThemeSelector.value = false
-      showQuickActions.value = false
-      showUserMenu.value = false
-    })
-  }
-}
-
-// Clear all recent pages
-const clearAllRecentPages = () => {
-  recentPages.value = []
-  localStorage.setItem('recentPages', JSON.stringify(recentPages.value))
-  showRecentMenu.value = false
-}
-
-// Remove a specific recent page
-const removeRecentPage = (index: number) => {
-  recentPages.value.splice(index, 1)
-  localStorage.setItem('recentPages', JSON.stringify(recentPages.value))
-}
 
 // Track recent pages
 const addToRecentPages = (path: string | null) => {
@@ -171,7 +139,6 @@ const toggleQuickActions = () => {
       showSearch.value = false
       showThemeSelector.value = false
       showUserMenu.value = false
-      showRecentMenu.value = false
     })
   }
 }
@@ -186,7 +153,6 @@ const toggleUserMenu = () => {
       showSearch.value = false
       showThemeSelector.value = false
       showQuickActions.value = false
-      showRecentMenu.value = false
     })
   }
 }
@@ -211,10 +177,6 @@ const navigateTo = (path: string | null) => {
   }, 100)
 }
 
-const setHoverIndex = (index: string | null) => {
-  hoverIndex.value = index
-}
-
 const toggleSearch = () => {
   showSearch.value = !showSearch.value
   if (showSearch.value) {
@@ -224,7 +186,6 @@ const toggleSearch = () => {
       showThemeSelector.value = false
       showQuickActions.value = false
       showUserMenu.value = false
-      showRecentMenu.value = false
     })
   } else {
     searchQuery.value = ''
@@ -319,7 +280,7 @@ watch(
     >
       <div class="flex items-center space-x-3 overflow-hidden">
         <div
-          class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-400 to-primary-600 text-white transition-all duration-300 group shadow-md shadow-primary-500/20 dark:shadow-primary-900/30 cursor-pointer hover:shadow-lg hover:scale-105"
+          class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-400 to-primary-600 text-white transition-all duration-300 group shadow-md shadow-primary-500/20 dark:shadow-primary-900/30"
           :class="[store.isCollapsed ? 'scale-105' : 'scale-100']"
         >
           <svg
@@ -385,14 +346,14 @@ watch(
       >
         <button
           @click="toggleSearch"
-          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110 hover:shadow-sm"
+          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           :class="{ 'bg-gray-100 dark:bg-gray-800': showSearch }"
         >
           <SearchIcon class="h-4 w-4 text-gray-500 dark:text-gray-400" />
         </button>
         <button
           @click="toggleThemeSelector"
-          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative hover:scale-110 hover:shadow-sm"
+          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative"
           :class="{ 'bg-gray-100 dark:bg-gray-800': showThemeSelector }"
         >
           <SunIcon
@@ -410,7 +371,7 @@ watch(
         </button>
         <button
           @click="toggleQuickActions"
-          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative hover:scale-110 hover:shadow-sm"
+          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative"
           :class="{ 'bg-gray-100 dark:bg-gray-800': showQuickActions }"
         >
           <ZapIcon class="h-4 w-4 text-gray-500 dark:text-gray-400" />
@@ -433,7 +394,7 @@ watch(
           v-for="theme in themeOptions"
           :key="theme.value"
           @click="setTheme(theme.value)"
-          class="flex flex-col items-center p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800/70 hover:scale-105 hover:shadow-sm"
+          class="flex flex-col items-center p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800/70"
           :class="[
             colorMode.preference === theme.value
               ? 'bg-gray-100 dark:bg-gray-800/70 ring-2 ring-primary-500/50'
@@ -495,7 +456,7 @@ watch(
           v-for="item in filteredNavigationItems"
           :key="item.name"
           @click="navigateTo(item.route)"
-          class="w-full flex items-center px-3 py-1.5 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors hover:scale-[1.02]"
+          class="w-full flex items-center px-3 py-1.5 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
         >
           <component
             :is="item.icon"
@@ -527,7 +488,7 @@ watch(
           v-for="action in quickActions"
           :key="action.name"
           @click="action.action"
-          class="w-full flex items-center px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors hover:scale-[1.02] hover:shadow-sm"
+          class="w-full flex items-center px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
         >
           <component
             :is="action.icon"
@@ -562,7 +523,7 @@ watch(
 
     <!-- Navigation -->
     <nav class="flex-1 overflow-hidden py-4 px-3 scrollbar-thin">
-      <div class="space-y-4">
+      <div class="space-y-7">
         <!-- Recent Pages Section -->
         <div
           class="relative transition-all duration-300 overflow-hidden"
@@ -572,108 +533,63 @@ watch(
               : 'max-h-[500px] opacity-100 my-2'
           ]"
         >
-          <div class="flex items-center justify-between mb-3 px-3">
+          <div
+            class="mb-3 transition-transform duration-300"
+            :class="[store.isCollapsed ? 'translate-x-5' : 'translate-x-0']"
+          >
             <h3
-              class="text-xs font-bold uppercase tracking-widest transition-all duration-200 dark:text-gray-400 text-gray-500 flex items-center"
+              class="px-3 text-xs font-bold uppercase tracking-widest transition-all duration-200 dark:text-gray-400 text-gray-500 flex items-center"
             >
               <ClockIcon class="h-3 w-3 mr-1.5" />
-              Recientes
+              Recent Pages
             </h3>
-
-            <!-- Recent Pages Management Button -->
-            <button
-              @click="toggleRecentMenu"
-              class="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110 text-gray-500 dark:text-gray-400"
-              :class="{ 'bg-gray-100 dark:bg-gray-800': showRecentMenu }"
-            >
-              <TrashIcon class="h-3 w-3" />
-            </button>
-          </div>
-
-          <!-- Recent Pages Management Menu -->
-          <div
-            v-if="showRecentMenu"
-            class="mb-3 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-md animate-fadeIn"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs text-gray-600 dark:text-gray-300"
-                >Gestionar recientes</span
-              >
-              <button
-                @click="showRecentMenu = false"
-                class="p-0.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
-              >
-                <XIcon class="h-3 w-3 text-gray-500 dark:text-gray-400" />
-              </button>
-            </div>
-            <button
-              @click="clearAllRecentPages"
-              class="w-full text-xs py-1.5 px-2 rounded-md text-rose-600 dark:text-rose-400 hover:bg-gray-200/70 dark:hover:bg-gray-700/50 transition-colors flex items-center"
-            >
-              <TrashIcon class="h-3 w-3 mr-1.5" />
-              Eliminar todos los recientes
-            </button>
           </div>
 
           <div class="space-y-1">
-            <div
+            <button
               v-for="(item, index) in recentPages"
               :key="`recent-${index}`"
-              class="group relative"
+              @click="navigateTo(item.path)"
+              class="group w-full flex items-center text-sm font-normal tracking-wide rounded-md relative cursor-pointer transition-all duration-200 h-9 px-4"
+              :class="[
+                activeRoute === item.path
+                  ? 'dark:text-primary-400 dark:bg-gray-800/70 text-primary-600 bg-primary-50/70 font-medium'
+                  : 'dark:text-gray-300 dark:hover:bg-gray-800/50 dark:hover:text-gray-100 text-gray-700 hover:bg-gray-100/70 hover:text-gray-900'
+              ]"
             >
-              <button
-                @click="navigateTo(item.path)"
-                class="w-full flex items-center text-sm font-normal tracking-wide rounded-md relative cursor-pointer transition-all duration-200 h-9 px-4"
+              <!-- Active indicator -->
+              <div
+                v-if="activeRoute === item.path"
+                class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-primary-500 rounded-r-md"
+              ></div>
+
+              <!-- Find the icon for this path -->
+              <component
+                :is="
+                  allNavigationItems.find(
+                    (navItem) => navItem.route === item.path
+                  )?.icon || ClockIcon
+                "
+                class="flex-shrink-0 h-4 w-4 mr-3 transition-all duration-200"
                 :class="[
                   activeRoute === item.path
-                    ? 'dark:text-primary-400 dark:bg-gray-800/70 text-primary-600 bg-primary-50/70 font-medium'
-                    : 'dark:text-gray-300 dark:hover:bg-gray-800/50 dark:hover:text-gray-100 text-gray-700 hover:bg-gray-100/70 hover:text-gray-900'
+                    ? 'dark:text-primary-400 text-primary-600'
+                    : 'dark:text-gray-400 dark:group-hover:text-gray-200 text-gray-500 group-hover:text-gray-900'
                 ]"
-              >
-                <!-- Active indicator -->
-                <div
-                  v-if="activeRoute === item.path"
-                  class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-primary-500 rounded-r-md"
-                />
+              />
 
-                <!-- Find the icon for this path -->
-                <component
-                  :is="
-                    allNavigationItems.find(
-                      (navItem) => navItem.route === item.path
-                    )?.icon || ClockIcon
-                  "
-                  class="flex-shrink-0 h-4 w-4 mr-3 transition-all duration-200"
-                  :class="[
-                    activeRoute === item.path
-                      ? 'dark:text-primary-400 text-primary-600'
-                      : 'dark:text-gray-400 dark:group-hover:text-gray-200 text-gray-500 group-hover:text-gray-900'
-                  ]"
-                />
+              <span class="truncate">
+                {{
+                  allNavigationItems.find(
+                    (navItem) => navItem.route === item.path
+                  )?.name || 'Page'
+                }}
+              </span>
 
-                <span class="truncate">
-                  {{
-                    allNavigationItems.find(
-                      (navItem) => navItem.route === item.path
-                    )?.name || 'Page'
-                  }}
-                </span>
-
-                <span class="ml-auto text-xs text-gray-400 dark:text-gray-500">
-                  {{ formatTimeAgo(item.timestamp) }}
-                </span>
-                <button
-                  @click="removeRecentPage(index)"
-                  class="h-6 w-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                >
-                  <XIcon
-                    class="h-3.5 w-3.5 text-gray-400 group-hover:text-red-400 group-dark:text-gray-500 group-dark:hover:text-red-500"
-                  />
-                </button>
-              </button>
-
-              <!-- Delete button for individual recent item -->
-            </div>
+              <span class="ml-auto text-xs text-gray-400 dark:text-gray-500">
+                {{ formatTimeAgo(item.timestamp) }}
+              </span>
+            </button>
           </div>
         </div>
 
@@ -684,7 +600,7 @@ watch(
           class="relative"
         >
           <!-- Section Title or Divider -->
-          <div v-if="section.title" class="mb-2">
+          <div v-if="section.title" class="mb-3">
             <h3
               class="px-3 text-xs font-bold uppercase tracking-widest transition-all duration-300 dark:text-gray-400 text-gray-500 flex items-center"
               :class="[
@@ -696,7 +612,7 @@ watch(
             <!-- Divider for collapsed mode -->
             <div
               v-if="store.isCollapsed && sectionIndex > 0"
-              class="h-px w-10 mx-auto my-2 dark:bg-gray-800 bg-gray-200 rounded-full transition-all duration-300"
+              class="h-px w-10 mx-auto my-4 dark:bg-gray-800 bg-gray-200 rounded-full transition-all duration-300"
               :class="[
                 store.isCollapsed
                   ? 'opacity-100 scale-100'
@@ -725,13 +641,9 @@ watch(
             >
               <button
                 @click="navigateTo(item.route)"
-                @mouseenter="setHoverIndex(`${sectionIndex}-${itemIndex}`)"
-                @mouseleave="setHoverIndex(null)"
                 :class="[
                   'group w-full flex items-center text-sm font-normal tracking-wide rounded-md relative cursor-pointer transition-all duration-300',
-                  store.isCollapsed
-                    ? 'h-10 w-10 justify-center mx-auto'
-                    : 'h-10 px-4',
+                  store.isCollapsed ? 'h-12 justify-center' : 'h-10 px-4',
                   activeRoute === item.route
                     ? 'dark:text-primary-400 dark:bg-gray-800/70 text-primary-600 bg-primary-50/70 font-medium'
                     : 'dark:text-gray-300 dark:hover:bg-gray-800/50 dark:hover:text-gray-100 text-gray-700 hover:bg-gray-100/70 hover:text-gray-900'
@@ -741,10 +653,6 @@ watch(
                 <div
                   v-if="activeRoute === item.route"
                   class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-primary-500 rounded-r-md"
-                  :class="{
-                    'left-0': !store.isCollapsed,
-                    'left-0 hidden': store.isCollapsed
-                  }"
                 >
                   <div
                     class="absolute inset-0 bg-primary-400 rounded-r-md animate-pulse-slow opacity-70"
@@ -755,28 +663,19 @@ watch(
                 <div
                   class="relative flex items-center justify-center transition-all duration-300"
                   :class="[
-                    store.isCollapsed ? 'w-full scale-110' : 'mr-3 scale-100'
+                    store.isCollapsed ? 'w-full scale-125' : 'mr-3 scale-100'
                   ]"
                 >
                   <component
                     :is="item.icon"
                     :class="[
                       'flex-shrink-0 transition-all duration-300 z-10',
-                      store.isCollapsed ? 'h-5 w-5' : 'h-5 w-5',
+                      store.isCollapsed ? 'h-4 w-4' : 'h-5 w-5',
                       activeRoute === item.route
                         ? 'dark:text-primary-400 text-primary-600'
                         : 'dark:text-gray-400 dark:group-hover:text-gray-200 text-gray-500 group-hover:text-gray-900'
                     ]"
                   />
-
-                  <!-- Hover effect -->
-                  <div
-                    v-if="
-                      hoverIndex === `${sectionIndex}-${itemIndex}` &&
-                      activeRoute !== item.route
-                    "
-                    class="absolute inset-0 bg-primary-100 dark:bg-primary-900/20 rounded-full scale-0 animate-ping-slow opacity-0"
-                  ></div>
                 </div>
 
                 <!-- Text label with transition -->
@@ -818,7 +717,7 @@ watch(
     >
       <div
         :class="[
-          'flex items-center rounded-lg group transition-all duration-300 dark:hover:bg-gray-800/50 hover:bg-gray-100/70 cursor-pointer relative hover:shadow-sm',
+          'flex items-center rounded-lg group transition-all duration-300 dark:hover:bg-gray-800/50 hover:bg-gray-100/70 cursor-pointer relative',
           store.isCollapsed ? 'justify-center py-2' : 'justify-start p-2'
         ]"
         @click="toggleUserMenu"
@@ -872,39 +771,39 @@ watch(
           class="absolute bottom-full left-0 mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-1 animate-fadeIn z-50"
         >
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <UserIcon class="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400" />
-            Perfil
+            Profile
           </button>
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <SettingsIcon
               class="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400"
             />
-            Configuración
+            Settings
           </button>
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <HelpCircleIcon
               class="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400"
             />
-            ¿Necesitas Ayuda?
+            Help
           </button>
           <div class="border-t border-gray-100 dark:border-gray-700 my-1"></div>
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <LogOutIcon class="h-4 w-4 mr-2" />
-            Cerrar Sesión
+            Logout
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Collapse Toggle Button -->
+    <!-- Collapse Toggle Button with improved design -->
     <button
       @click="store.toggleCollapse"
       class="absolute top-16 -right-3 flex items-center justify-center h-6 w-6 rounded-full shadow-md z-10 transition-all duration-300 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:scale-110"
@@ -917,11 +816,6 @@ watch(
 </template>
 
 <style scoped>
-/* Cursor effects */
-button {
-  cursor: pointer;
-}
-
 .animate-ping-slow {
   animation: ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }

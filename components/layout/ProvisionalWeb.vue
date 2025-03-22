@@ -1,26 +1,38 @@
 <script setup lang="ts">
 import { UTooltip } from '#components'
+import { ref, computed, watch, onMounted } from 'vue'
+
 import {
   ChevronLeft as ChevronLeftIcon,
   Settings as SettingsIcon,
+  Bell as BellIcon,
   Sun as SunIcon,
   Moon as MoonIcon,
-  Monitor as MonitorIcon,
   Search as SearchIcon,
   LogOut as LogOutIcon,
   User as UserIcon,
   HelpCircle as HelpCircleIcon,
+  Bookmark as BookmarkIcon,
+  Star as StarIcon,
   Clock as ClockIcon,
   Zap as ZapIcon,
   FileText as FileTextIcon,
   BarChart2 as BarChartIcon,
-  Layers as LayersIcon,
-  Check as CheckIcon,
-  Trash as TrashIcon,
-  X as XIcon
+  Layers as LayersIcon
 } from 'lucide-vue-next'
-import { ref, computed, watch, onMounted, nextTick } from 'vue'
-import type { SideBar } from '~/layouts/default.vue'
+
+export interface SideBar {
+  title: string
+  items: {
+    name: string
+    icon: any
+    route: string | null
+    badge?: {
+      count: number
+      variant: 'primary' | 'success' | 'warning' | 'danger'
+    }
+  }[]
+}
 
 const props = defineProps<{
   navigation: SideBar[]
@@ -31,87 +43,15 @@ const store = useDashboard()
 
 // Router and active route
 const route = useRouter()
-
 const activeRoute = computed(() => route.currentRoute.value.path)
 const hoverIndex = ref<string | null>(null)
 const searchQuery = ref('')
 const showSearch = ref(false)
 const searchInputRef = ref<HTMLInputElement | null>(null)
-
 const colorMode = useColorMode()
 
-// Theme selector
-const showThemeSelector = ref(false)
-const themeOptions = [
-  {
-    name: 'Light',
-    value: 'light',
-    icon: SunIcon,
-    preview: 'bg-white border border-gray-200'
-  },
-  {
-    name: 'Dark',
-    value: 'dark',
-    icon: MoonIcon,
-    preview: 'bg-gray-900 border border-gray-700'
-  },
-  {
-    name: 'System',
-    value: 'system',
-    icon: MonitorIcon,
-    preview: 'bg-gradient-to-br from-white to-gray-900 border border-gray-400'
-  }
-]
-
-const toggleThemeSelector = () => {
-  showThemeSelector.value = !showThemeSelector.value
-  if (showThemeSelector.value) {
-    nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
-      showQuickActions.value = false
-      showUserMenu.value = false
-      showRecentMenu.value = false
-    })
-  }
-}
-
-const setTheme = (theme) => {
-  colorMode.preference = theme
-  showThemeSelector.value = false
-}
-
-// Recent pages management
+// Recent pages (replacing favorites)
 const recentPages = ref<{ path: string; timestamp: number }[]>([])
-const showRecentMenu = ref(false)
-const recentItemToDelete = ref<number | null>(null)
-
-// Toggle recent pages menu
-const toggleRecentMenu = () => {
-  showRecentMenu.value = !showRecentMenu.value
-  if (showRecentMenu.value) {
-    nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
-      showThemeSelector.value = false
-      showQuickActions.value = false
-      showUserMenu.value = false
-    })
-  }
-}
-
-// Clear all recent pages
-const clearAllRecentPages = () => {
-  recentPages.value = []
-  localStorage.setItem('recentPages', JSON.stringify(recentPages.value))
-  showRecentMenu.value = false
-}
-
-// Remove a specific recent page
-const removeRecentPage = (index: number) => {
-  recentPages.value.splice(index, 1)
-  localStorage.setItem('recentPages', JSON.stringify(recentPages.value))
-}
 
 // Track recent pages
 const addToRecentPages = (path: string | null) => {
@@ -165,30 +105,12 @@ const quickActions = [
 const showQuickActions = ref(false)
 const toggleQuickActions = () => {
   showQuickActions.value = !showQuickActions.value
-  if (showQuickActions.value) {
-    nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
-      showThemeSelector.value = false
-      showUserMenu.value = false
-      showRecentMenu.value = false
-    })
-  }
 }
 
 // User menu
 const showUserMenu = ref(false)
 const toggleUserMenu = () => {
   showUserMenu.value = !showUserMenu.value
-  if (showUserMenu.value) {
-    nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
-      showThemeSelector.value = false
-      showQuickActions.value = false
-      showRecentMenu.value = false
-    })
-  }
 }
 
 // Navigation with transition effect and recent pages tracking
@@ -218,14 +140,9 @@ const setHoverIndex = (index: string | null) => {
 const toggleSearch = () => {
   showSearch.value = !showSearch.value
   if (showSearch.value) {
-    nextTick(() => {
+    setTimeout(() => {
       searchInputRef.value?.focus()
-      // Close other dropdowns
-      showThemeSelector.value = false
-      showQuickActions.value = false
-      showUserMenu.value = false
-      showRecentMenu.value = false
-    })
+    }, 100)
   } else {
     searchQuery.value = ''
   }
@@ -246,8 +163,7 @@ const filteredNavigationItems = computed(() => {
   )
 })
 
-// Saludo Basado en la hora
-//Todo: Evluar si es necesario la rehidratacion
+// Time-based greeting
 const greeting = computed(() => {
   const hour = new Date().getHours()
   if (hour < 12) return 'Buenos Días'
@@ -255,20 +171,20 @@ const greeting = computed(() => {
   return 'Buenas Noches'
 })
 
-// Formateo de hora para el saludo
+// Format timestamp for recent pages
 const formatTimeAgo = (timestamp: number) => {
   const seconds = Math.floor((Date.now() - timestamp) / 1000)
 
-  if (seconds < 60) return 'justo ahora'
+  if (seconds < 60) return 'just now'
 
   const minutes = Math.floor(seconds / 60)
-  if (minutes < 60) return `${minutes} min. atrás`
+  if (minutes < 60) return `${minutes}m ago`
 
   const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `${hours} h. atrás`
+  if (hours < 24) return `${hours}h ago`
 
   const days = Math.floor(hours / 24)
-  return `${days} d. atrás`
+  return `${days}d ago`
 }
 
 // Badge variant classes
@@ -287,22 +203,19 @@ const getBadgeClasses = (variant: string) => {
   }
 }
 
+const toggleTheme = () => {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+}
+
 // Track sidebar width for smooth transitions
 const sidebarWidth = ref(store.isCollapsed ? '84px' : '288px')
-const isAnimating = ref(false)
 
 // Watch for collapse state changes to update width smoothly
 watch(
   () => store.isCollapsed,
   (collapsed) => {
-    isAnimating.value = true
     // Let CSS transition handle the animation
     sidebarWidth.value = collapsed ? '84px' : '288px'
-
-    // Reset animation flag after transition completes
-    setTimeout(() => {
-      isAnimating.value = false
-    }, 400) // slightly longer than transition duration
   }
 )
 </script>
@@ -319,7 +232,7 @@ watch(
     >
       <div class="flex items-center space-x-3 overflow-hidden">
         <div
-          class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-400 to-primary-600 text-white transition-all duration-300 group shadow-md shadow-primary-500/20 dark:shadow-primary-900/30 cursor-pointer hover:shadow-lg hover:scale-105"
+          class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-400 to-primary-600 text-white transition-all duration-300 group shadow-md shadow-primary-500/20 dark:shadow-primary-900/30"
           :class="[store.isCollapsed ? 'scale-105' : 'scale-100']"
         >
           <svg
@@ -358,11 +271,7 @@ watch(
         </div>
         <div
           class="flex flex-col transition-all duration-300 overflow-hidden"
-          :class="[
-            store.isCollapsed
-              ? 'opacity-0 w-0 translate-x-5'
-              : 'opacity-100 w-auto translate-x-0'
-          ]"
+          :class="[store.isCollapsed ? 'opacity-0 w-0' : 'opacity-100 w-auto']"
         >
           <span
             class="text-lg font-bold whitespace-nowrap dark:text-white text-gray-800"
@@ -376,94 +285,29 @@ watch(
       </div>
 
       <div
-        class="flex items-center space-x-1 transition-all duration-300"
-        :class="[
-          store.isCollapsed
-            ? 'opacity-0 scale-75 absolute -right-20'
-            : 'opacity-100 scale-100 relative right-0'
-        ]"
+        v-if="!store.isCollapsed"
+        class="flex items-center space-x-1 transition-opacity duration-300"
+        :class="[store.isCollapsed ? 'opacity-0' : 'opacity-100']"
       >
         <button
           @click="toggleSearch"
-          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110 hover:shadow-sm"
+          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           :class="{ 'bg-gray-100 dark:bg-gray-800': showSearch }"
         >
           <SearchIcon class="h-4 w-4 text-gray-500 dark:text-gray-400" />
         </button>
         <button
-          @click="toggleThemeSelector"
-          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative hover:scale-110 hover:shadow-sm"
-          :class="{ 'bg-gray-100 dark:bg-gray-800': showThemeSelector }"
+          @click="toggleTheme"
+          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         >
-          <SunIcon
-            v-if="colorMode.preference === 'light'"
-            class="h-4 w-4 text-amber-500"
-          />
-          <MoonIcon
-            v-else-if="colorMode.preference === 'dark'"
-            class="h-4 w-4 text-indigo-400"
-          />
-          <MonitorIcon
-            v-else
-            class="h-4 w-4 text-gray-500 dark:text-gray-400"
-          />
+          <SunIcon v-if="!colorMode" class="h-4 w-4 text-amber-500" />
+          <MoonIcon v-else class="h-4 w-4 text-indigo-400" />
         </button>
         <button
           @click="toggleQuickActions"
-          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative hover:scale-110 hover:shadow-sm"
-          :class="{ 'bg-gray-100 dark:bg-gray-800': showQuickActions }"
+          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative"
         >
           <ZapIcon class="h-4 w-4 text-gray-500 dark:text-gray-400" />
-        </button>
-      </div>
-    </div>
-
-    <!-- Theme Selector Dropdown -->
-    <div
-      v-if="showThemeSelector && !store.isCollapsed"
-      class="px-4 py-3 border-b border-gray-100/70 dark:border-gray-800/40 animate-fadeIn"
-    >
-      <h3
-        class="text-xs font-bold uppercase tracking-widest mb-3 dark:text-gray-400 text-gray-500"
-      >
-        Seleccionar Tema
-      </h3>
-      <div class="grid grid-cols-3 gap-2">
-        <button
-          v-for="theme in themeOptions"
-          :key="theme.value"
-          @click="setTheme(theme.value)"
-          class="flex flex-col items-center p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800/70 hover:scale-105 hover:shadow-sm"
-          :class="[
-            colorMode.preference === theme.value
-              ? 'bg-gray-100 dark:bg-gray-800/70 ring-2 ring-primary-500/50'
-              : ''
-          ]"
-        >
-          <!-- Theme Preview -->
-          <div
-            class="relative w-full aspect-video rounded-md overflow-hidden mb-2"
-          >
-            <div :class="['absolute inset-0', theme.preview]"></div>
-            <div
-              v-if="colorMode.preference === theme.value"
-              class="absolute inset-0 flex items-center justify-center bg-primary-500/20"
-            >
-              <CheckIcon class="h-5 w-5 text-primary-500" />
-            </div>
-          </div>
-
-          <!-- Theme Name -->
-          <div class="flex items-center justify-center space-x-1.5">
-            <component
-              :is="theme.icon"
-              class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400"
-            />
-            <span
-              class="text-xs font-medium text-gray-700 dark:text-gray-300"
-              >{{ theme.name }}</span
-            >
-          </div>
         </button>
       </div>
     </div>
@@ -478,8 +322,8 @@ watch(
           ref="searchInputRef"
           v-model="searchQuery"
           type="text"
-          placeholder="Buscar..."
-          class="w-full h-9 pl-9 pr-4 rounded-lg text-sm bg-gray-100/70 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-primary-500/30 dark:focus:ring-primary-500/20 focus:border-transparent transition-all duration-200 text-foreground"
+          placeholder="Search..."
+          class="w-full h-9 pl-9 pr-4 rounded-lg text-sm bg-gray-100/70 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-primary-500/30 dark:focus:ring-primary-500/20 focus:border-transparent transition-all duration-200"
         />
         <SearchIcon
           class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
@@ -495,7 +339,7 @@ watch(
           v-for="item in filteredNavigationItems"
           :key="item.name"
           @click="navigateTo(item.route)"
-          class="w-full flex items-center px-3 py-1.5 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors hover:scale-[1.02]"
+          class="w-full flex items-center px-3 py-1.5 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
         >
           <component
             :is="item.icon"
@@ -508,7 +352,7 @@ watch(
         v-else-if="searchQuery && filteredNavigationItems.length === 0"
         class="mt-2 py-2 text-center text-sm text-gray-500 dark:text-gray-400"
       >
-        Sin Coincidencías
+        No results found
       </div>
     </div>
 
@@ -527,7 +371,7 @@ watch(
           v-for="action in quickActions"
           :key="action.name"
           @click="action.action"
-          class="w-full flex items-center px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors hover:scale-[1.02] hover:shadow-sm"
+          class="w-full flex items-center px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
         >
           <component
             :is="action.icon"
@@ -541,139 +385,79 @@ watch(
     <!-- User Greeting (when not collapsed) -->
     <div
       v-if="!store.isCollapsed"
-      class="px-5 py-4 border-b border-gray-100/70 dark:border-gray-800/40 transition-all duration-300 overflow-hidden"
+      class="px-5 py-4 border-b border-gray-100/70 dark:border-gray-800/40 transition-all duration-300"
       :class="[
-        store.isCollapsed ? 'max-h-0 opacity-0 py-0' : 'max-h-20 opacity-100'
+        store.isCollapsed ? 'opacity-0 h-0 py-0 overflow-hidden' : 'opacity-100'
       ]"
     >
-      <p
-        class="text-xs text-gray-500 dark:text-gray-400 transition-transform duration-300"
-        :class="[store.isCollapsed ? 'translate-y-3' : 'translate-y-0']"
-      >
-        {{ greeting }},
-      </p>
-      <p
-        class="text-sm font-medium dark:text-white text-gray-800 transition-transform duration-300"
-        :class="[store.isCollapsed ? 'translate-y-3' : 'translate-y-0']"
-      >
+      <p class="text-xs text-gray-500 dark:text-gray-400">{{ greeting }},</p>
+      <p class="text-sm font-medium dark:text-white text-gray-800">
         Alex Johnson
       </p>
     </div>
 
     <!-- Navigation -->
-    <nav class="flex-1 overflow-hidden py-4 px-3 scrollbar-thin">
-      <div class="space-y-4">
-        <!-- Recent Pages Section -->
+    <nav class="flex-1 overflow-y-auto py-4 px-3 scrollbar-thin">
+      <div class="space-y-7">
+        <!-- Recent Pages Section (replacing Favorites) -->
         <div
-          class="relative transition-all duration-300 overflow-hidden"
-          :class="[
-            store.isCollapsed || recentPages.length === 0
-              ? 'max-h-0 opacity-0 my-0'
-              : 'max-h-[500px] opacity-100 my-2'
-          ]"
+          v-if="recentPages.length > 0 && !store.isCollapsed"
+          class="relative transition-all duration-300"
         >
-          <div class="flex items-center justify-between mb-3 px-3">
+          <div class="mb-3">
             <h3
-              class="text-xs font-bold uppercase tracking-widest transition-all duration-200 dark:text-gray-400 text-gray-500 flex items-center"
+              class="px-3 text-xs font-bold uppercase tracking-widest transition-all duration-200 dark:text-gray-400 text-gray-500 flex items-center"
             >
               <ClockIcon class="h-3 w-3 mr-1.5" />
-              Recientes
+              Recent Pages
             </h3>
-
-            <!-- Recent Pages Management Button -->
-            <button
-              @click="toggleRecentMenu"
-              class="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110 text-gray-500 dark:text-gray-400"
-              :class="{ 'bg-gray-100 dark:bg-gray-800': showRecentMenu }"
-            >
-              <TrashIcon class="h-3 w-3" />
-            </button>
-          </div>
-
-          <!-- Recent Pages Management Menu -->
-          <div
-            v-if="showRecentMenu"
-            class="mb-3 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-md animate-fadeIn"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs text-gray-600 dark:text-gray-300"
-                >Gestionar recientes</span
-              >
-              <button
-                @click="showRecentMenu = false"
-                class="p-0.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
-              >
-                <XIcon class="h-3 w-3 text-gray-500 dark:text-gray-400" />
-              </button>
-            </div>
-            <button
-              @click="clearAllRecentPages"
-              class="w-full text-xs py-1.5 px-2 rounded-md text-rose-600 dark:text-rose-400 hover:bg-gray-200/70 dark:hover:bg-gray-700/50 transition-colors flex items-center"
-            >
-              <TrashIcon class="h-3 w-3 mr-1.5" />
-              Eliminar todos los recientes
-            </button>
           </div>
 
           <div class="space-y-1">
-            <div
+            <button
               v-for="(item, index) in recentPages"
               :key="`recent-${index}`"
-              class="group relative"
+              @click="navigateTo(item.path)"
+              class="group w-full flex items-center text-sm font-normal tracking-wide rounded-md relative cursor-pointer transition-all duration-200 h-9 px-4"
+              :class="[
+                activeRoute === item.path
+                  ? 'dark:text-primary-400 dark:bg-gray-800/70 text-primary-600 bg-primary-50/70 font-medium'
+                  : 'dark:text-gray-300 dark:hover:bg-gray-800/50 dark:hover:text-gray-100 text-gray-700 hover:bg-gray-100/70 hover:text-gray-900'
+              ]"
             >
-              <button
-                @click="navigateTo(item.path)"
-                class="w-full flex items-center text-sm font-normal tracking-wide rounded-md relative cursor-pointer transition-all duration-200 h-9 px-4"
+              <!-- Active indicator -->
+              <div
+                v-if="activeRoute === item.path"
+                class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-primary-500 rounded-r-md"
+              ></div>
+
+              <!-- Find the icon for this path -->
+              <component
+                :is="
+                  allNavigationItems.find(
+                    (navItem) => navItem.route === item.path
+                  )?.icon || ClockIcon
+                "
+                class="flex-shrink-0 h-4 w-4 mr-3 transition-all duration-200"
                 :class="[
                   activeRoute === item.path
-                    ? 'dark:text-primary-400 dark:bg-gray-800/70 text-primary-600 bg-primary-50/70 font-medium'
-                    : 'dark:text-gray-300 dark:hover:bg-gray-800/50 dark:hover:text-gray-100 text-gray-700 hover:bg-gray-100/70 hover:text-gray-900'
+                    ? 'dark:text-primary-400 text-primary-600'
+                    : 'dark:text-gray-400 dark:group-hover:text-gray-200 text-gray-500 group-hover:text-gray-900'
                 ]"
-              >
-                <!-- Active indicator -->
-                <div
-                  v-if="activeRoute === item.path"
-                  class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-primary-500 rounded-r-md"
-                />
+              />
 
-                <!-- Find the icon for this path -->
-                <component
-                  :is="
-                    allNavigationItems.find(
-                      (navItem) => navItem.route === item.path
-                    )?.icon || ClockIcon
-                  "
-                  class="flex-shrink-0 h-4 w-4 mr-3 transition-all duration-200"
-                  :class="[
-                    activeRoute === item.path
-                      ? 'dark:text-primary-400 text-primary-600'
-                      : 'dark:text-gray-400 dark:group-hover:text-gray-200 text-gray-500 group-hover:text-gray-900'
-                  ]"
-                />
+              <span class="truncate">
+                {{
+                  allNavigationItems.find(
+                    (navItem) => navItem.route === item.path
+                  )?.name || 'Page'
+                }}
+              </span>
 
-                <span class="truncate">
-                  {{
-                    allNavigationItems.find(
-                      (navItem) => navItem.route === item.path
-                    )?.name || 'Page'
-                  }}
-                </span>
-
-                <span class="ml-auto text-xs text-gray-400 dark:text-gray-500">
-                  {{ formatTimeAgo(item.timestamp) }}
-                </span>
-                <button
-                  @click="removeRecentPage(index)"
-                  class="h-6 w-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                >
-                  <XIcon
-                    class="h-3.5 w-3.5 text-gray-400 group-hover:text-red-400 group-dark:text-gray-500 group-dark:hover:text-red-500"
-                  />
-                </button>
-              </button>
-
-              <!-- Delete button for individual recent item -->
-            </div>
+              <span class="ml-auto text-xs text-gray-400 dark:text-gray-500">
+                {{ formatTimeAgo(item.timestamp) }}
+              </span>
+            </button>
           </div>
         </div>
 
@@ -684,24 +468,17 @@ watch(
           class="relative"
         >
           <!-- Section Title or Divider -->
-          <div v-if="section.title" class="mb-2">
+          <div v-if="section.title" class="mb-3">
             <h3
-              class="px-3 text-xs font-bold uppercase tracking-widest transition-all duration-300 dark:text-gray-400 text-gray-500 flex items-center"
-              :class="[
-                store.isCollapsed ? 'opacity-0 h-0' : 'opacity-100 h-auto'
-              ]"
+              v-if="!store.isCollapsed"
+              class="px-3 text-xs font-bold uppercase tracking-widest transition-all duration-200 dark:text-gray-400 text-gray-500 flex items-center"
             >
               {{ section.title }}
             </h3>
             <!-- Divider for collapsed mode -->
             <div
               v-if="store.isCollapsed && sectionIndex > 0"
-              class="h-px w-10 mx-auto my-2 dark:bg-gray-800 bg-gray-200 rounded-full transition-all duration-300"
-              :class="[
-                store.isCollapsed
-                  ? 'opacity-100 scale-100'
-                  : 'opacity-0 scale-0'
-              ]"
+              class="h-px w-10 mx-auto my-4 dark:bg-gray-800 bg-gray-200 rounded-full"
             />
           </div>
 
@@ -728,10 +505,8 @@ watch(
                 @mouseenter="setHoverIndex(`${sectionIndex}-${itemIndex}`)"
                 @mouseleave="setHoverIndex(null)"
                 :class="[
-                  'group w-full flex items-center text-sm font-normal tracking-wide rounded-md relative cursor-pointer transition-all duration-300',
-                  store.isCollapsed
-                    ? 'h-10 w-10 justify-center mx-auto'
-                    : 'h-10 px-4',
+                  'group w-full flex items-center text-sm font-normal tracking-wide rounded-md relative cursor-pointer transition-all duration-200',
+                  store.isCollapsed ? 'h-12 justify-center' : 'h-10 px-4',
                   activeRoute === item.route
                     ? 'dark:text-primary-400 dark:bg-gray-800/70 text-primary-600 bg-primary-50/70 font-medium'
                     : 'dark:text-gray-300 dark:hover:bg-gray-800/50 dark:hover:text-gray-100 text-gray-700 hover:bg-gray-100/70 hover:text-gray-900'
@@ -741,10 +516,6 @@ watch(
                 <div
                   v-if="activeRoute === item.route"
                   class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-primary-500 rounded-r-md"
-                  :class="{
-                    'left-0': !store.isCollapsed,
-                    'left-0 hidden': store.isCollapsed
-                  }"
                 >
                   <div
                     class="absolute inset-0 bg-primary-400 rounded-r-md animate-pulse-slow opacity-70"
@@ -754,15 +525,13 @@ watch(
                 <!-- Icon with pulse effect on hover -->
                 <div
                   class="relative flex items-center justify-center transition-all duration-300"
-                  :class="[
-                    store.isCollapsed ? 'w-full scale-110' : 'mr-3 scale-100'
-                  ]"
+                  :class="[store.isCollapsed ? 'w-full' : 'mr-3']"
                 >
                   <component
                     :is="item.icon"
                     :class="[
-                      'flex-shrink-0 transition-all duration-300 z-10',
-                      store.isCollapsed ? 'h-5 w-5' : 'h-5 w-5',
+                      'flex-shrink-0 transition-all duration-200 z-10',
+                      store.isCollapsed ? 'h-6 w-6' : 'h-5 w-5',
                       activeRoute === item.route
                         ? 'dark:text-primary-400 text-primary-600'
                         : 'dark:text-gray-400 dark:group-hover:text-gray-200 text-gray-500 group-hover:text-gray-900'
@@ -781,12 +550,10 @@ watch(
 
                 <!-- Text label with transition -->
                 <span
+                  v-if="!store.isCollapsed"
                   :class="[
                     'whitespace-nowrap transition-all duration-300 tracking-wide truncate',
-                    activeRoute === item.route ? 'font-medium' : 'font-normal',
-                    store.isCollapsed
-                      ? 'opacity-0 w-0 translate-x-5'
-                      : 'opacity-100 w-auto translate-x-0'
+                    activeRoute === item.route ? 'font-medium' : 'font-normal'
                   ]"
                 >
                   {{ item.name }}
@@ -794,13 +561,10 @@ watch(
 
                 <!-- Badge (if any) -->
                 <div
-                  v-if="item.badge"
+                  v-if="item.badge && !store.isCollapsed"
                   :class="[
-                    'flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-medium transition-all duration-300',
-                    getBadgeClasses(item.badge.variant),
-                    store.isCollapsed
-                      ? 'absolute -top-1 -right-1 scale-75 opacity-100'
-                      : 'relative top-0 right-0 ml-auto scale-100 opacity-100'
+                    'ml-auto flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-medium',
+                    getBadgeClasses(item.badge.variant)
                   ]"
                 >
                   {{ item.badge.count }}
@@ -818,7 +582,7 @@ watch(
     >
       <div
         :class="[
-          'flex items-center rounded-lg group transition-all duration-300 dark:hover:bg-gray-800/50 hover:bg-gray-100/70 cursor-pointer relative hover:shadow-sm',
+          'flex items-center rounded-lg group transition-all duration-200 dark:hover:bg-gray-800/50 hover:bg-gray-100/70 cursor-pointer relative',
           store.isCollapsed ? 'justify-center py-2' : 'justify-start p-2'
         ]"
         @click="toggleUserMenu"
@@ -841,12 +605,9 @@ watch(
         </div>
 
         <div
+          v-if="!store.isCollapsed"
           class="ml-3 transition-all duration-300 overflow-hidden"
-          :class="[
-            store.isCollapsed
-              ? 'w-0 opacity-0 translate-x-5'
-              : 'w-auto opacity-100 translate-x-0'
-          ]"
+          :class="[store.isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100']"
         >
           <p
             class="text-sm font-medium dark:text-white text-gray-800 line-clamp-1"
@@ -872,54 +633,70 @@ watch(
           class="absolute bottom-full left-0 mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-1 animate-fadeIn z-50"
         >
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <UserIcon class="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400" />
-            Perfil
+            Profile
           </button>
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <SettingsIcon
               class="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400"
             />
-            Configuración
+            Settings
           </button>
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <HelpCircleIcon
               class="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400"
             />
-            ¿Necesitas Ayuda?
+            Help
           </button>
           <div class="border-t border-gray-100 dark:border-gray-700 my-1"></div>
           <button
-            class="w-full flex items-center px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:scale-[1.02]"
+            class="w-full flex items-center px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-gray-100 dark:hover:bg-gray-700/50"
           >
             <LogOutIcon class="h-4 w-4 mr-2" />
-            Cerrar Sesión
+            Logout
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Collapse Toggle Button -->
+    <!-- Collapse Toggle Button with improved design -->
     <button
-      @click="store.toggleCollapse"
+      @click="store.toggleCollapse()"
       class="absolute top-16 -right-3 flex items-center justify-center h-6 w-6 rounded-full shadow-md z-10 transition-all duration-300 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:scale-110"
       :class="[store.isCollapsed ? 'rotate-180' : '']"
       aria-label="Toggle sidebar collapse"
     >
       <ChevronLeftIcon class="h-3.5 w-3.5" />
     </button>
+
+    <!-- Help Button (Fixed at bottom) -->
+    <button
+      v-if="store.isCollapsed"
+      class="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center justify-center h-8 w-8 rounded-full bg-primary-50 dark:bg-gray-800 text-primary-500 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-gray-700 transition-all duration-300 shadow-sm"
+      aria-label="Help"
+    >
+      <HelpCircleIcon class="h-4 w-4" />
+    </button>
   </aside>
 </template>
 
 <style scoped>
-/* Cursor effects */
-button {
-  cursor: pointer;
+/* Smooth transitions for all elements */
+* {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Specific transitions for sidebar elements */
+aside {
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .animate-ping-slow {
@@ -998,6 +775,13 @@ button {
 
 .dark ::-webkit-scrollbar-thumb {
   background-color: #374151;
+}
+
+/* Global styles for theme transition */
+:global(.theme-transition) {
+  transition:
+    background-color 0.5s ease-in-out,
+    color 0.5s ease-in-out;
 }
 
 :global(.page-transition) {
