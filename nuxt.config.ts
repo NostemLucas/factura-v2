@@ -7,7 +7,9 @@ export default defineNuxtConfig({
   ssr: false,
   modules: ['@pinia/nuxt', '@nuxtjs/color-mode', '@nuxt/image', '@nuxt/ui'],
   colorMode: {
-    classSuffix: ''
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'ligth'
   },
   runtimeConfig: {
     public: {
@@ -20,6 +22,7 @@ export default defineNuxtConfig({
   typescript: {
     strict: true
   },
+
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
