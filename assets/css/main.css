@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
   font-family: 'Helvetica';
   src: url('/fonts/Helvetica.ttf') format('truetype');
@@ -10,35 +12,84 @@
 
 @layer base {
   @theme static {
-    --color-primary-50: hsl(0 100% 98%);
-    --color-primary-100: hsl(0 100% 90%);
-    --color-primary-200: hsl(0 95% 80%);
-    --color-primary-300: hsl(0 90% 70%);
-    --color-primary-400: hsl(0 85% 60%);
-    --color-primary-500: hsl(0 80% 50%);
-    --color-primary-600: hsl(0 70% 40%);
-    --color-primary-700: hsl(0 60% 30%);
-    --color-primary-800: hsl(0 50% 20%);
-    --color-primary-900: hsl(0 40% 15%);
-    --color-primary-950: hsl(0 35% 10%);
-    --color-foreground: hsl(0 0% 3.9%);
-    --color-background: hsl(210 0% 98%);
+    /* Primary Colors (Red) */
+    --color-primary-50: hsl(0, 100%, 97%);
+    --color-primary-100: hsl(0, 100%, 93%);
+    --color-primary-200: hsl(0, 100%, 87%);
+    --color-primary-300: hsl(0, 99%, 81%);
+    --color-primary-400: hsl(0, 96%, 68%);
+    --color-primary-500: hsl(0, 88%, 60%);
+    --color-primary-600: hsl(0, 76%, 49%);
+    --color-primary-700: hsl(0, 75%, 41%);
+    --color-primary-800: hsl(0, 69%, 35%);
+    --color-primary-900: hsl(0, 65%, 30%);
+    --color-primary-950: hsl(0, 74%, 16%);
+
+    --color-secondary-50: hsl(340, 100%, 98%);
+    --color-secondary-100: hsl(340, 90%, 90%);
+    --color-secondary-200: hsl(340, 80%, 80%);
+    --color-secondary-300: hsl(340, 70%, 70%);
+    --color-secondary-400: hsl(340, 60%, 60%);
+    --color-secondary-500: hsl(340, 50%, 50%);
+    --color-secondary-600: hsl(340, 40%, 40%);
+    --color-secondary-700: hsl(340, 30%, 30%);
+    --color-secondary-800: hsl(340, 20%, 20%);
+    --color-secondary-900: hsl(340, 10%, 10%);
+    --color-secondary-950: hsl(340, 5%, 5%);
+
+    /* Foreground & Background */
+    --color-foreground: hsl(0, 0%, 18%);
+    --color-background: hsl(0, 0%, 98%);
+
+    /* Card / Paper */
+    --color-card: hsl(0 0% 100%);
+    --color-muted: hsl(0 0% 90%);
+
+    /* Status Colors */
+    --color-success: hsl(140 60% 45%);
+    --color-warning: hsl(45 85% 50%);
+    --color-error: hsl(0 70% 50%);
+    --color-info: hsl(210 90% 55%);
   }
 
   .dark {
-    --color-primary-50: hsl(210 100% 98%);
-    --color-primary-100: hsl(210 100% 90%);
-    --color-primary-200: hsl(210 95% 80%);
-    --color-primary-300: hsl(210 90% 70%);
-    --color-primary-400: hsl(210 85% 60%);
-    --color-primary-500: hsl(210 80% 50%);
-    --color-primary-600: hsl(210 70% 40%);
-    --color-primary-700: hsl(210 60% 30%);
-    --color-primary-800: hsl(210 50% 20%);
-    --color-primary-900: hsl(210 40% 15%);
-    --color-primary-950: hsl(210 35% 10%);
-    --color-foreground: hsl(210 0% 98%);
-    --color-background: hsl(210 0% 3.9%);
+    --color-primary-50: hsl(225, 60%, 96%);
+    --color-primary-100: hsl(225, 60%, 90%);
+    --color-primary-200: hsl(225, 60%, 85%);
+    --color-primary-300: hsl(225, 60%, 75%);
+    --color-primary-400: rgb(112, 139, 219);
+    --color-primary-500: hsl(225, 60%, 58%);
+    --color-primary-600: hsl(225, 60%, 50%);
+    --color-primary-700: hsl(225, 60%, 45%);
+    --color-primary-800: hsl(225, 60%, 35%);
+    --color-primary-900: hsl(225, 60%, 30%);
+    --color-primary-950: hsl(225, 60%, 20%);
+
+    --color-secondary-50: hsl(193, 100%, 97%);
+    --color-secondary-100: hsl(193, 92%, 90%);
+    --color-secondary-200: hsl(193, 88%, 87%);
+    --color-secondary-300: hsl(193, 91%, 77%);
+    --color-secondary-400: hsl(193, 91%, 66%);
+    --color-secondary-500: hsl(203, 88%, 60%);
+    --color-secondary-600: hsl(207, 82%, 56%);
+    --color-secondary-700: hsl(209, 73%, 49%);
+    --color-secondary-800: hsl(211, 70%, 39%);
+    --color-secondary-900: hsl(213, 63%, 31%);
+    --color-secondary-950: hsl(213, 54%, 21%);
+
+    /* Foreground & Background */
+    --color-foreground: hsl(0, 0%, 90%);
+    --color-background: #1d2939;
+
+    /* Card / Paper */
+    --color-card: hsl(0 0% 12%);
+    --color-muted: hsl(0 0% 18%);
+
+    /* Status Colors */
+    --color-success: hsl(140 60% 55%);
+    --color-warning: hsl(45 85% 55%);
+    --color-error: hsl(0 70% 55%);
+    --color-info: hsl(210 90% 60%);
   }
 }
 
@@ -77,8 +128,6 @@
   background-size: 200% 200%;
   animation: gradientMove 5s ease infinite;
 }
-
-@custom-variant dark (&:where(.dark, .dark *));
 
 @keyframes gradientMove {
   0% {
@@ -147,10 +196,20 @@ body {
   letter-spacing: 0.1em;
 }
 
-.theme-transition * {
-  transition:
-    background-color 0.5s ease,
-    color 0.5s ease,
-    border-color 0.5s ease,
-    box-shadow 0.5s ease !important;
+/* Evaluar Permanencia */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 20px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(75, 85, 99, 0.5);
 }

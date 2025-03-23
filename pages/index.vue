@@ -315,6 +315,22 @@
                   />
                 </div>
               </button>
+              <button
+                type="button"
+                @click="colorMode.preference = 'system'"
+                class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300 hover:rotate-45"
+                :aria-label="
+                  colorMode.value === 'dark'
+                    ? 'Cambiar a modo claro'
+                    : 'Cambiar a modo oscuro'
+                "
+              >
+                <div class="relative w-5 h-5">
+                  <sun-icon
+                    class="h-5 w-5 text-green-100 absolute top-0 left-0 transform rotate-0 transition-all duration-300 opacity-100 scale-100"
+                  />
+                </div>
+              </button>
             </div>
 
             <!-- Título -->
@@ -690,7 +706,7 @@ const schema = computed(() => {
 const onSubmit = async (values: any) => {
   try {
     // Simulamos un tiempo de carga
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    /*     await new Promise((resolve) => setTimeout(resolve, 1000)) */
 
     // Añadimos el estado de "recordarme"
     const loginData = {

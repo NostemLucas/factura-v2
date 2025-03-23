@@ -330,10 +330,10 @@
               <div>
                 <div class="text-sm text-gray-500 mb-1">Billed to</div>
                 <div>
-                  {{ selectedClient ? selectedClient.name : "Select a client" }}
+                  {{ selectedClient ? selectedClient.name : 'Select a client' }}
                 </div>
                 <div class="text-sm text-gray-500">
-                  {{ selectedClient ? selectedClient.email : "" }}
+                  {{ selectedClient ? selectedClient.email : '' }}
                 </div>
               </div>
               <div>
@@ -636,7 +636,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed } from 'vue'
 import {
   CircleIcon as CircleInfoIcon,
   X as XIcon,
@@ -659,229 +659,229 @@ import {
   Headphones as HeadphonesIcon,
   Laptop as LaptopIcon,
   Camera as CameraIcon,
-  Scissors as ScissorsIcon,
-} from "lucide-vue-next";
+  Scissors as ScissorsIcon
+} from 'lucide-vue-next'
 
 // Form data
-const subject = ref("Service per June 2023");
-const dueDate = ref("10 November 2023");
-const currency = ref("IDR");
-const hasDiscount = ref(true);
-const discountType = ref("Summer Sale 10%");
-const hasCoupon = ref(false);
-const selectedCoupon = ref("WELCOME10");
+const subject = ref('Service per June 2023')
+const dueDate = ref('10 November 2023')
+const currency = ref('IDR')
+const hasDiscount = ref(true)
+const discountType = ref('Summer Sale 10%')
+const hasCoupon = ref(false)
+const selectedCoupon = ref('WELCOME10')
 
 // Client data
-const clientSearch = ref("");
-const showClientDropdown = ref(false);
-const selectedClient = ref(null);
-const showClientModal = ref(false);
+const clientSearch = ref('')
+const showClientDropdown = ref(false)
+const selectedClient = ref(null)
+const showClientModal = ref(false)
 const newClient = ref({
-  name: "",
-  email: "",
-  phone: "",
-  address: "",
-});
+  name: '',
+  email: '',
+  phone: '',
+  address: ''
+})
 
 // Sample clients
 const clients = ref([
   {
     id: 1,
-    name: "John Smith",
-    email: "john_s@gmail.com",
-    phone: "+1 234 567 890",
-    address: "123 Main St, City",
+    name: 'John Smith',
+    email: 'john_s@gmail.com',
+    phone: '+1 234 567 890',
+    address: '123 Main St, City'
   },
   {
     id: 2,
-    name: "Maria Garcia",
-    email: "maria.g@company.com",
-    phone: "+1 987 654 321",
-    address: "456 Oak Ave, Town",
+    name: 'Maria Garcia',
+    email: 'maria.g@company.com',
+    phone: '+1 987 654 321',
+    address: '456 Oak Ave, Town'
   },
   {
     id: 3,
-    name: "Ahmed Khan",
-    email: "ahmed.k@business.net",
-    phone: "+1 555 123 456",
-    address: "789 Pine Rd, Village",
+    name: 'Ahmed Khan',
+    email: 'ahmed.k@business.net',
+    phone: '+1 555 123 456',
+    address: '789 Pine Rd, Village'
   },
   {
     id: 4,
-    name: "Sarah Johnson",
-    email: "sarah.j@example.org",
-    phone: "+1 444 333 222",
-    address: "101 Elm St, County",
+    name: 'Sarah Johnson',
+    email: 'sarah.j@example.org',
+    phone: '+1 444 333 222',
+    address: '101 Elm St, County'
   },
   {
     id: 5,
-    name: "Carlos Rodriguez",
-    email: "carlos.r@mail.com",
-    phone: "+1 777 888 999",
-    address: "202 Maple Dr, State",
-  },
-]);
+    name: 'Carlos Rodriguez',
+    email: 'carlos.r@mail.com',
+    phone: '+1 777 888 999',
+    address: '202 Maple Dr, State'
+  }
+])
 
 // Product data
-const productSearch = ref("");
-const showProductSearch = ref(false);
-const showProductModal = ref(false);
-const selectedProducts = ref([]);
+const productSearch = ref('')
+const showProductSearch = ref(false)
+const showProductModal = ref(false)
+const selectedProducts = ref([])
 const newProduct = ref({
-  name: "",
+  name: '',
   price: 0,
-  description: "",
-  category: "clothing",
-});
+  description: '',
+  category: 'clothing'
+})
 
 // Sample products with icons
 const products = ref([
   {
     id: 1,
-    name: "Summer 2K23 T-shirt",
+    name: 'Summer 2K23 T-shirt',
     price: 125000,
-    description: "Comfortable cotton t-shirt",
-    category: "clothing",
+    description: 'Comfortable cotton t-shirt',
+    category: 'clothing',
     icon: ShirtIcon,
-    iconBg: "bg-teal-100",
-    iconColor: "text-teal-600",
+    iconBg: 'bg-teal-100',
+    iconColor: 'text-teal-600'
   },
   {
     id: 2,
-    name: "Premium Headphones",
+    name: 'Premium Headphones',
     price: 250000,
-    description: "Noise cancelling headphones",
-    category: "electronics",
+    description: 'Noise cancelling headphones',
+    category: 'electronics',
     icon: HeadphonesIcon,
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-600",
+    iconBg: 'bg-purple-100',
+    iconColor: 'text-purple-600'
   },
   {
     id: 3,
-    name: "Smartphone Case",
+    name: 'Smartphone Case',
     price: 75000,
-    description: "Protective case for smartphones",
-    category: "electronics",
+    description: 'Protective case for smartphones',
+    category: 'electronics',
     icon: SmartphoneIcon,
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-600",
+    iconBg: 'bg-blue-100',
+    iconColor: 'text-blue-600'
   },
   {
     id: 4,
-    name: "Web Design Service",
+    name: 'Web Design Service',
     price: 1500000,
-    description: "Professional web design service",
-    category: "services",
+    description: 'Professional web design service',
+    category: 'services',
     icon: LaptopIcon,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-600",
+    iconBg: 'bg-green-100',
+    iconColor: 'text-green-600'
   },
   {
     id: 5,
-    name: "Coffee Subscription",
+    name: 'Coffee Subscription',
     price: 180000,
-    description: "Monthly coffee delivery",
-    category: "other",
+    description: 'Monthly coffee delivery',
+    category: 'other',
     icon: CoffeeIcon,
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
+    iconBg: 'bg-amber-100',
+    iconColor: 'text-amber-600'
   },
   {
     id: 6,
-    name: "Digital Camera",
+    name: 'Digital Camera',
     price: 3500000,
-    description: "High resolution digital camera",
-    category: "electronics",
+    description: 'High resolution digital camera',
+    category: 'electronics',
     icon: CameraIcon,
-    iconBg: "bg-red-100",
-    iconColor: "text-red-600",
+    iconBg: 'bg-red-100',
+    iconColor: 'text-red-600'
   },
   {
     id: 7,
-    name: "Haircut Service",
+    name: 'Haircut Service',
     price: 150000,
-    description: "Professional haircut service",
-    category: "services",
+    description: 'Professional haircut service',
+    category: 'services',
     icon: ScissorsIcon,
-    iconBg: "bg-pink-100",
-    iconColor: "text-pink-600",
-  },
-]);
+    iconBg: 'bg-pink-100',
+    iconColor: 'text-pink-600'
+  }
+])
 
 // Computed properties
 const currencyName = computed(() => {
   const currencies = {
-    IDR: "Indonesian Rupiah",
-    USD: "US Dollar",
-    EUR: "Euro",
-  };
-  return currencies[currency.value];
-});
+    IDR: 'Indonesian Rupiah',
+    USD: 'US Dollar',
+    EUR: 'Euro'
+  }
+  return currencies[currency.value]
+})
 
 const filteredClients = computed(() => {
-  if (!clientSearch.value) return clients.value;
-  const search = clientSearch.value.toLowerCase();
+  if (!clientSearch.value) return clients.value
+  const search = clientSearch.value.toLowerCase()
   return clients.value.filter(
     (client) =>
       client.name.toLowerCase().includes(search) ||
       client.email.toLowerCase().includes(search)
-  );
-});
+  )
+})
 
 const filteredProducts = computed(() => {
-  if (!productSearch.value) return products.value;
-  const search = productSearch.value.toLowerCase();
+  if (!productSearch.value) return products.value
+  const search = productSearch.value.toLowerCase()
   return products.value.filter(
     (product) =>
       product.name.toLowerCase().includes(search) ||
       product.description.toLowerCase().includes(search) ||
       product.category.toLowerCase().includes(search)
-  );
-});
+  )
+})
 
 const subtotal = computed(() => {
   return selectedProducts.value.reduce((total, product) => {
-    return total + product.price * product.quantity;
-  }, 0);
-});
+    return total + product.price * product.quantity
+  }, 0)
+})
 
 const discountAmount = computed(() => {
-  return hasDiscount.value ? subtotal.value * 0.1 : 0;
-});
+  return hasDiscount.value ? subtotal.value * 0.1 : 0
+})
 
 const couponAmount = computed(() => {
-  if (!hasCoupon.value) return 0;
+  if (!hasCoupon.value) return 0
 
   switch (selectedCoupon.value) {
-    case "WELCOME10":
-      return subtotal.value * 0.1;
-    case "SUMMER20":
-      return subtotal.value * 0.2;
-    case "FREESHIP":
-      return 15000; // Assuming shipping cost
+    case 'WELCOME10':
+      return subtotal.value * 0.1
+    case 'SUMMER20':
+      return subtotal.value * 0.2
+    case 'FREESHIP':
+      return 15000 // Assuming shipping cost
     default:
-      return 0;
+      return 0
   }
-});
+})
 
 const totalAmount = computed(() => {
-  return subtotal.value - discountAmount.value - couponAmount.value;
-});
+  return subtotal.value - discountAmount.value - couponAmount.value
+})
 
 // Methods
 const formatCurrency = (value) => {
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
 
 const selectClient = (client) => {
-  selectedClient.value = client;
-  showClientDropdown.value = false;
-};
+  selectedClient.value = client
+  showClientDropdown.value = false
+}
 
 const openClientModal = () => {
-  showClientModal.value = true;
-  showClientDropdown.value = false;
-};
+  showClientModal.value = true
+  showClientDropdown.value = false
+}
 
 const addNewClient = () => {
   if (newClient.value.name && newClient.value.email) {
@@ -890,78 +890,78 @@ const addNewClient = () => {
       name: newClient.value.name,
       email: newClient.value.email,
       phone: newClient.value.phone,
-      address: newClient.value.address,
-    };
-    clients.value.push(client);
-    selectedClient.value = client;
-    showClientModal.value = false;
+      address: newClient.value.address
+    }
+    clients.value.push(client)
+    selectedClient.value = client
+    showClientModal.value = false
 
     // Reset form
     newClient.value = {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-    };
+      name: '',
+      email: '',
+      phone: '',
+      address: ''
+    }
   }
-};
+}
 
 const openProductSearch = () => {
-  showProductSearch.value = true;
-  productSearch.value = "";
-};
+  showProductSearch.value = true
+  productSearch.value = ''
+}
 
 const openProductModal = () => {
-  showProductModal.value = true;
-  showProductSearch.value = false;
-};
+  showProductModal.value = true
+  showProductSearch.value = false
+}
 
 const addProduct = (product) => {
   // Check if product already exists in selected products
   const existingProduct = selectedProducts.value.find(
     (p) => p.id === product.id
-  );
+  )
 
   if (existingProduct) {
-    existingProduct.quantity++;
+    existingProduct.quantity++
   } else {
     selectedProducts.value.push({
       ...product,
       quantity: 1,
-      tax: "10",
-    });
+      tax: '10'
+    })
   }
 
-  showProductSearch.value = false;
-};
+  showProductSearch.value = false
+}
 
 const removeProduct = (index) => {
-  selectedProducts.value.splice(index, 1);
-};
+  selectedProducts.value.splice(index, 1)
+}
 
 const addNewProduct = () => {
   if (newProduct.value.name && newProduct.value.price > 0) {
     // Determine icon based on category
-    let icon = ShirtIcon;
-    let iconBg = "bg-teal-100";
-    let iconColor = "text-teal-600";
+    let icon = ShirtIcon
+    let iconBg = 'bg-teal-100'
+    let iconColor = 'text-teal-600'
 
     switch (newProduct.value.category) {
-      case "electronics":
-        icon = LaptopIcon;
-        iconBg = "bg-blue-100";
-        iconColor = "text-blue-600";
-        break;
-      case "services":
-        icon = CoffeeIcon;
-        iconBg = "bg-green-100";
-        iconColor = "text-green-600";
-        break;
-      case "other":
-        icon = FileIcon;
-        iconBg = "bg-gray-100";
-        iconColor = "text-gray-600";
-        break;
+      case 'electronics':
+        icon = LaptopIcon
+        iconBg = 'bg-blue-100'
+        iconColor = 'text-blue-600'
+        break
+      case 'services':
+        icon = CoffeeIcon
+        iconBg = 'bg-green-100'
+        iconColor = 'text-green-600'
+        break
+      case 'other':
+        icon = FileIcon
+        iconBg = 'bg-gray-100'
+        iconColor = 'text-gray-600'
+        break
     }
 
     const product = {
@@ -972,27 +972,27 @@ const addNewProduct = () => {
       category: newProduct.value.category,
       icon,
       iconBg,
-      iconColor,
-    };
+      iconColor
+    }
 
-    products.value.push(product);
+    products.value.push(product)
     selectedProducts.value.push({
       ...product,
       quantity: 1,
-      tax: "10",
-    });
+      tax: '10'
+    })
 
-    showProductModal.value = false;
+    showProductModal.value = false
 
     // Reset form
     newProduct.value = {
-      name: "",
+      name: '',
       price: 0,
-      description: "",
-      category: "clothing",
-    };
+      description: '',
+      category: 'clothing'
+    }
   }
-};
+}
 </script>
 
 <style>
