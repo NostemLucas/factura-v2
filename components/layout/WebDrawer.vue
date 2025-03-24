@@ -6,7 +6,6 @@ import {
   Sun as SunIcon,
   Moon as MoonIcon,
   Monitor as MonitorIcon,
-  Search as SearchIcon,
   LogOut as LogOutIcon,
   User as UserIcon,
   HelpCircle as HelpCircleIcon,
@@ -34,10 +33,6 @@ const route = useRouter()
 
 const activeRoute = computed(() => route.currentRoute.value.path)
 const hoverIndex = ref<string | null>(null)
-const searchQuery = ref('')
-const showSearch = ref(false)
-const searchInputRef = ref<HTMLInputElement | null>(null)
-
 const colorMode = useColorMode()
 
 // Theme selector
@@ -67,8 +62,6 @@ const toggleThemeSelector = () => {
   showThemeSelector.value = !showThemeSelector.value
   if (showThemeSelector.value) {
     nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
       showQuickActions.value = false
       showUserMenu.value = false
       showRecentMenu.value = false
@@ -76,7 +69,7 @@ const toggleThemeSelector = () => {
   }
 }
 
-const setTheme = (theme) => {
+const setTheme = (theme: string) => {
   colorMode.preference = theme
   showThemeSelector.value = false
 }
@@ -84,15 +77,12 @@ const setTheme = (theme) => {
 // Recent pages management
 const recentPages = ref<{ path: string; timestamp: number }[]>([])
 const showRecentMenu = ref(false)
-const recentItemToDelete = ref<number | null>(null)
 
 // Toggle recent pages menu
 const toggleRecentMenu = () => {
   showRecentMenu.value = !showRecentMenu.value
   if (showRecentMenu.value) {
     nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
       showThemeSelector.value = false
       showQuickActions.value = false
       showUserMenu.value = false
@@ -150,16 +140,20 @@ onMounted(() => {
 // Quick actions (replacing notification bell)
 const quickActions = [
   {
-    name: 'New Report',
+    name: 'Generar Reporte',
     icon: FileTextIcon,
     action: () => console.log('New report')
   },
   {
-    name: 'Analytics',
+    name: 'Forzar Cufd',
     icon: BarChartIcon,
     action: () => console.log('Analytics')
   },
-  { name: 'Projects', icon: LayersIcon, action: () => console.log('Projects') }
+  {
+    name: 'Sincronizar Catologo',
+    icon: LayersIcon,
+    action: () => console.log('Projects')
+  }
 ]
 
 const showQuickActions = ref(false)
@@ -167,8 +161,6 @@ const toggleQuickActions = () => {
   showQuickActions.value = !showQuickActions.value
   if (showQuickActions.value) {
     nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
       showThemeSelector.value = false
       showUserMenu.value = false
       showRecentMenu.value = false
@@ -182,8 +174,6 @@ const toggleUserMenu = () => {
   showUserMenu.value = !showUserMenu.value
   if (showUserMenu.value) {
     nextTick(() => {
-      // Close other dropdowns
-      showSearch.value = false
       showThemeSelector.value = false
       showQuickActions.value = false
       showRecentMenu.value = false
@@ -215,38 +205,11 @@ const setHoverIndex = (index: string | null) => {
   hoverIndex.value = index
 }
 
-const toggleSearch = () => {
-  showSearch.value = !showSearch.value
-  if (showSearch.value) {
-    nextTick(() => {
-      searchInputRef.value?.focus()
-      // Close other dropdowns
-      showThemeSelector.value = false
-      showQuickActions.value = false
-      showUserMenu.value = false
-      showRecentMenu.value = false
-    })
-  } else {
-    searchQuery.value = ''
-  }
-}
-
 // Get all navigation items flattened
 const allNavigationItems = computed(() => {
   return props.navigation.flatMap((section) => section.items)
 })
 
-// Filtered navigation items based on search
-const filteredNavigationItems = computed(() => {
-  if (!searchQuery.value) return []
-
-  const query = searchQuery.value.toLowerCase()
-  return allNavigationItems.value.filter((item) =>
-    item.name.toLowerCase().includes(query)
-  )
-})
-
-// Saludo Basado en la hora
 //Todo: Evluar si es necesario la rehidratacion
 const greeting = computed(() => {
   const hour = new Date().getHours()
@@ -384,13 +347,6 @@ watch(
         ]"
       >
         <button
-          @click="toggleSearch"
-          class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110 hover:shadow-sm"
-          :class="{ 'bg-gray-100 dark:bg-gray-800': showSearch }"
-        >
-          <SearchIcon class="h-4 w-4 text-gray-500 dark:text-gray-400" />
-        </button>
-        <button
           @click="toggleThemeSelector"
           class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative hover:scale-110 hover:shadow-sm"
           :class="{ 'bg-gray-100 dark:bg-gray-800': showThemeSelector }"
@@ -465,50 +421,6 @@ watch(
             >
           </div>
         </button>
-      </div>
-    </div>
-
-    <!-- Search Bar (Expandable) -->
-    <div
-      v-if="showSearch && !store.isCollapsed"
-      class="px-4 py-3 border-b border-gray-100/70 dark:border-gray-800/40 animate-fadeIn"
-    >
-      <div class="relative">
-        <input
-          ref="searchInputRef"
-          v-model="searchQuery"
-          type="text"
-          placeholder="Buscar..."
-          class="w-full h-9 pl-9 pr-4 rounded-lg text-sm bg-gray-100/70 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-primary-500/30 dark:focus:ring-primary-500/20 focus:border-transparent transition-all duration-200 text-foreground"
-        />
-        <SearchIcon
-          class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
-        />
-      </div>
-
-      <!-- Search Results -->
-      <div
-        v-if="searchQuery && filteredNavigationItems.length > 0"
-        class="mt-2 py-1 space-y-1 max-h-48 overflow-y-auto scrollbar-thin"
-      >
-        <button
-          v-for="item in filteredNavigationItems"
-          :key="item.name"
-          @click="navigateTo(item.route)"
-          class="w-full flex items-center px-3 py-1.5 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors hover:scale-[1.02]"
-        >
-          <component
-            :is="item.icon"
-            class="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400"
-          />
-          <span>{{ item.name }}</span>
-        </button>
-      </div>
-      <div
-        v-else-if="searchQuery && filteredNavigationItems.length === 0"
-        class="mt-2 py-2 text-center text-sm text-gray-500 dark:text-gray-400"
-      >
-        Sin Coincidencías
       </div>
     </div>
 
