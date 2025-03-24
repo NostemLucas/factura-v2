@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { toast } from 'vue-sonner'
-import { http, httpLogin } from '~/services/request.service'
+import * as usuarioServices from '~/services/user.service'
 
 interface User {
   access_token: string
@@ -20,6 +20,18 @@ interface User {
   }
 }
 
+interface PayloadUser {
+  estado: String
+  transaccion: boolean
+  usuario: {
+    ci: string
+    fechaNacimiento: string
+    imagen: string
+    logo: string
+    nombreCompleto: string
+    nombreEntidad: string
+  }
+}
 interface LoginPayload {
   username: string
   password: string
@@ -28,6 +40,7 @@ interface LoginPayload {
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null as User | null,
+
     isAuthenticated: false,
     token: null as string | null
   }),
@@ -35,12 +48,23 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(payload: LoginPayload) {
       try {
-        const { data } = await httpLogin().post('/usuario/login', payload)
+        const { data }: { data: User } =
+          await usuarioServices.loginUsuario(payload)
         if (!data) {
           toast.error('Credenciales Invalidas')
           throw Error
         }
+        this.user = data
+        sessionStorage.setItem('token', this.user.access_token)
+        sessionStorage.setItem('usuario', JSON.stringify(this.user.usuario))
 
+        const response = await usuarioServices.findUsuarioByIdSistema(
+          data.usuario.username,
+          1
+        )
+        const user: PayloadUser = response.data
+        console.log(response.data)
+        sessionStorage.setItem('infoUsuario', JSON.stringify(user.usuario))
         toast.success('Bienvenido')
         navigateTo('/dashboard')
       } catch (error) {
