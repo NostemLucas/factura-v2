@@ -57,7 +57,7 @@ console.log(props.loading)
       <SkeletonTable v-if="loading" :columns="columns" />
 
       <UTable
-        v-else
+        v-else-if="data.length > 0"
         :data="data"
         :columns="columns"
         class="w-full"
@@ -67,6 +67,8 @@ console.log(props.loading)
           '[&_tr:hover]:bg-gray-50 [&_tr:last-child_td]:border-b-0'
         ]"
       />
+
+      <NoData />
     </div>
 
     <div v-if="!loading" class="flex justify-between items-center p-3 text-sm">
