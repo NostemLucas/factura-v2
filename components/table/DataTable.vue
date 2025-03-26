@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { h, resolveComponent, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { TableColumn } from '@nuxt/ui'
 import { numberLiteral } from '~/utils/cadena'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import { LimitItems } from '~/types/datatable.type'
+import SkeletonTable from './SkeletonTable.vue'
 
 const props = defineProps<{
   data: any[]
@@ -46,45 +47,26 @@ const limiteModel = computed({
 defineExpose({
   pagination
 })
+
+console.log(props.loading)
 </script>
 
 <template>
   <div class="font-sans rounded-lg shadow-sm bg-white overflow-hidden m-2">
     <div class="overflow-x-auto">
+      <SkeletonTable v-if="loading" :columns="columns" />
+
       <UTable
-        :data="props.data"
-        :columns="props.columns"
-        :loading="props.loading"
+        v-else
+        :data="data"
+        :columns="columns"
         class="w-full"
         :class="[
           'w-full [&_th]:text-left [&_th]:py-3 [&_th]:px-4 [&_th]:font-medium [&_th]:text-gray-600 [&_th]:border-b [&_th]:border-gray-200 [&_th]:bg-gray-50',
           '[&_td]:py-4 [&_td]:px-4 [&_td]:border-b [&_td]:border-gray-200 [&_td]:text-gray-800',
           '[&_tr:hover]:bg-gray-50 [&_tr:last-child_td]:border-b-0'
         ]"
-      >
-        <template #loading>
-          <tr v-for="i in 5" :key="i" class="animate-pulse">
-            <td class="p-3">
-              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
-            </td>
-            <td class="p-3">
-              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
-            </td>
-            <td class="p-3">
-              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-            </td>
-            <td class="p-3">
-              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
-            </td>
-            <td class="p-3">
-              <div class="flex space-x-2">
-                <div class="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                <div class="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
-              </div>
-            </td>
-          </tr>
-        </template>
-      </UTable>
+      />
     </div>
 
     <div v-if="!loading" class="flex justify-between items-center p-3 text-sm">

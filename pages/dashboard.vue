@@ -2,6 +2,7 @@
 import { h, ref } from 'vue'
 import type { TableColumn } from '@nuxt/ui'
 import DataTable from '~/components/table/DataTable.vue'
+import SkeletonTable from '~/components/table/SkeletonTable.vue'
 
 const loading = ref(false)
 const total = ref(100)
