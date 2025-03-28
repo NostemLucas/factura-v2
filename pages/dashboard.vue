@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { h, ref, type Slots } from 'vue'
-import type { TableColumn } from '@nuxt/ui'
+import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import DataTable from '~/components/table/DataTable.vue'
 import { UBadge, UButton } from '#components'
 import Modal from '~/components/ui/modals/Modal.vue'
@@ -125,6 +125,25 @@ watch([limit, page], async () => await getDataProducts())
 onMounted(() => {
   getDataProducts().finally()
 })
+
+// Dropdown structure
+const items = ref<DropdownMenuItem[]>([
+  {
+    label: 'Profile',
+    icon: 'i-lucide-user'
+  },
+  {
+    type: 'separator'
+  },
+  {
+    label: 'Billing',
+    icon: 'i-lucide-credit-card'
+  },
+  {
+    label: 'Settings',
+    icon: 'i-lucide-cog'
+  }
+])
 </script>
 
 <template>
@@ -146,6 +165,7 @@ onMounted(() => {
   <div class="p-4">
     <DataTable
       title="Ejemplo tabla"
+      subtitle="Aquí se muestra la lista de datos que la tabla tendrá"
       :data="data"
       :columns="columns"
       :total="total"
@@ -162,7 +182,8 @@ onMounted(() => {
             color="info"
             variant="subtle"
             @click="updateData"
-          />
+            >Actualizar</UButton
+          >
           <UButton
             icon="i-lucide-plus"
             color="primary"
@@ -171,6 +192,17 @@ onMounted(() => {
             >Agregar</UButton
           >
         </div>
+      </template>
+      <template v-slot:filters>
+        <UDropdownMenu :items="items" :ui="{ content: 'w-48' }">
+          <UButton
+            label="Open"
+            icon="i-lucide-settings"
+            variant="outline"
+            color="neutral"
+            >Estado</UButton
+          >
+        </UDropdownMenu>
       </template>
     </DataTable>
   </div>

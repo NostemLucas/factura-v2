@@ -60,9 +60,7 @@ const navigation: SideBar[] = reactive([
 ])
 </script>
 <template>
-  <div
-    class="flex flex-col overflow-hidden dark:bg-background bg-gradient-to-br from-blue-50 to-indigo-50"
-  >
+  <div class="flex flex-col overflow-hidden dark:bg-background">
     <MobileDrawer v-if="xs" :navigation="navigation" />
     <WebDrawer v-else :navigation="navigation" />
     <TopBar :navigation="navigation" />

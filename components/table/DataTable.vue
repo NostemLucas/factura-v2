@@ -10,12 +10,15 @@ const props = defineProps<{
   data: any[]
   columns: TableColumn<any>[]
   title?: string
+  subtitle?: string
   secondaryTitle?: string
   loading: boolean
   limit: number
   total: number
   page: number
 }>()
+
+const table = useTemplateRef('table')
 
 const emits = defineEmits<{
   'update:limit': [elem: number]
@@ -52,19 +55,57 @@ defineExpose({
 <template>
   <div class="p-2">
     <div v-if="title" class="flex justify-between items-center mb-4">
-      <h2 class="text-xl">{{ title }}</h2>
+      <div class="flex flex-col">
+        <h2 class="text-xl">{{ title }}</h2>
+        <h1 v-if="subtitle" class="text-lg text-gray-600">{{ subtitle }}</h1>
+      </div>
 
       <slot name="actions" />
+    </div>
+    <div class="my-4 w-full flex justify-between items-center">
+      <div class="flex gap-1">
+        <UInput icon="i-lucide-search" placeholder="Buscar..." />
+        <slot name="filters" />
+      </div>
+
+      <UDropdownMenu
+        :items="
+          table?.tableApi
+            ?.getAllColumns()
+            .filter((column) => column.getCanHide())
+            .map((column) => ({
+              label: column.id,
+              type: 'checkbox' as const,
+              checked: column.getIsVisible(),
+              onUpdateChecked(checked: boolean) {
+                table?.tableApi
+                  ?.getColumn(column.id)
+                  ?.toggleVisibility(!!checked)
+              },
+              onSelect(e?: Event) {
+                e?.preventDefault()
+              }
+            }))
+        "
+        :content="{ align: 'end' }"
+      >
+        <UButton
+          label="Display"
+          color="neutral"
+          variant="outline"
+          trailing-icon="i-lucide-settings-2"
+        />
+      </UDropdownMenu>
     </div>
     <div class="font-sans rounded-lg shadow-sm bg-white overflow-hidden">
       <div class="overflow-x-auto">
         <SkeletonTable v-if="loading" :columns="columns" />
 
         <UTable
+          ref="table"
           v-else
           :data="data"
           :columns="columns"
-          class="w-full"
           :class="[
             'w-full [&_th]:text-left [&_th]:py-3 [&_th]:px-4 [&_th]:font-medium [&_th]:text-gray-600 [&_th]:border-b [&_th]:border-gray-200 [&_th]:bg-gray-50',
             '[&_td]:py-4 [&_td]:px-4 [&_td]:border-b [&_td]:border-gray-200 [&_td]:text-gray-800',
