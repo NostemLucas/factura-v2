@@ -1,6 +1,2 @@
-- [ ] Investigar el match entre tsconfig y eslint para la detección de errores.
-
-- [ ] Mercury
-
-- [ ] Unchecked
-- [x] Checked
+npm install -g json-server
+json-server --watch db.json --port 3000
