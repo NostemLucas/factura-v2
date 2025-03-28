@@ -69,7 +69,7 @@ const navigation: SideBar[] = reactive([
     <div
       :class="[
         xs ? 'ml-0' : store.isCollapsed ? 'ml-[84px]' : 'ml-72',
-        'h-[calc(100vh-64px)]',
+        'min-h-[calc(100vh-64px)]',
         'transition-all duration-300 ease-in-out'
       ]"
     >
