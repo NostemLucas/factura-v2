@@ -9,6 +9,8 @@ export default defineAppConfig({
         base: 'cursor-pointer'
       }
     },
+    input: {},
+    badge: {},
     tooltip: {
       slots: {
         content:

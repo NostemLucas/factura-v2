@@ -1,22 +1,34 @@
 <script setup lang="ts">
-const open = ref(false)
-
-defineProps<{
-  title?: string
-  description?: string
-}>()
-
-defineShortcuts({
-  o: () => (open.value = !open.value)
-})
+const props = withDefaults(
+  defineProps<{
+    open: boolean
+    title: string
+    description?: string
+    footer?: boolean
+    close: () => void
+    accept?: () => void
+  }>(),
+  {
+    footer: true,
+    description: '',
+    accept: () => {}
+  }
+)
+const { accept, close, description, footer, open, title } = props
 </script>
 
 <template>
-  <UModal v-model:open="open" title="Modal with title">
-    <UButton label="Open" color="neutral" variant="subtle" />
-
+  <UModal v-model:open="open" :title="title">
     <template #content>
-      <Placeholder class="h-48 m-4" />
+      <!-- Aquí iría el contenido del modal, si se necesita -->
+      <p>{{ description }}</p>
+    </template>
+
+    <template #footer>
+      <div v-if="footer" class="flex py-1 items-center justify-between">
+        <UButton icon="i-lucide-x" @click="close">Cancelar</UButton>
+        <UButton icon="i-lucide-check" @click="accept">Guardar</UButton>
+      </div>
     </template>
   </UModal>
 </template>
