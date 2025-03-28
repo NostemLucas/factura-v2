@@ -5,6 +5,7 @@ import { numberLiteral } from '~/utils/cadena'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import { LimitItems } from '~/types/datatable.type'
 import SkeletonTable from './SkeletonTable.vue'
+import { useDebounceFn } from '@vueuse/core'
 
 const props = defineProps<{
   data: any[]
@@ -16,6 +17,8 @@ const props = defineProps<{
   limit: number
   total: number
   page: number
+
+  filtro: string
 }>()
 
 const table = useTemplateRef('table')
@@ -23,6 +26,7 @@ const table = useTemplateRef('table')
 const emits = defineEmits<{
   'update:limit': [elem: number]
   'update:page': [page: number]
+  'update:filtro': [texto: string]
 }>()
 
 const pagination = ref({
@@ -47,6 +51,10 @@ const limiteModel = computed({
   }
 })
 
+const debounceFiltroData = useDebounceFn((valor: string) => {
+  emits('update:filtro', valor)
+}, 1000)
+
 defineExpose({
   pagination
 })
@@ -64,7 +72,13 @@ defineExpose({
     </div>
     <div class="my-4 w-full flex justify-between items-center">
       <div class="flex gap-1">
-        <UInput icon="i-lucide-search" placeholder="Buscar..." />
+        <UInput
+          icon="i-lucide-search"
+          :value="filtro"
+          placeholder="Buscar..."
+          @input="debounceFiltroData($event.target.value)"
+          class="w-96"
+        />
         <slot name="filters" />
       </div>
 
@@ -90,7 +104,7 @@ defineExpose({
         :content="{ align: 'end' }"
       >
         <UButton
-          label="Display"
+          label="Filtrar"
           color="neutral"
           variant="outline"
           trailing-icon="i-lucide-settings-2"

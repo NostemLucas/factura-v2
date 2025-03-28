@@ -21,6 +21,8 @@ const total = ref(0)
 const limit = ref(10)
 const page = ref(1)
 
+const filtro = ref('')
+
 const modalAddProduct = ref(false)
 
 const setLimit = (value: number) => {
@@ -163,9 +165,11 @@ const items = ref<DropdownMenuItem[]>([
   </UModal>
 
   <div class="p-4">
+    <div>{{ filtro }}</div>
     <DataTable
       title="Ejemplo tabla"
       subtitle="Aquí se muestra la lista de datos que la tabla tendrá"
+      v-model:filtro="filtro"
       :data="data"
       :columns="columns"
       :total="total"
