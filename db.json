@@ -1,0 +1,274 @@
+{
+  "productos": [
+    {
+      "id": "1",
+      "name": "New Balance Men's 608 V5 Casual",
+      "price": 45,
+      "category": "Footwear",
+      "visibilityScore": 95,
+      "revenue": 27450,
+      "status": "success"
+    },
+    {
+      "id": "2",
+      "name": "Sperry Top-Sider Men's Billfish Ultralite",
+      "price": 72,
+      "category": "Footwear",
+      "visibilityScore": 80,
+      "revenue": 15340,
+      "status": "failed"
+    },
+    {
+      "id": "3",
+      "name": "Men's Minimalist Stainless Steel Slim",
+      "price": 124,
+      "category": "Accessories",
+      "visibilityScore": 55,
+      "revenue": 12380,
+      "status": "process"
+    },
+    {
+      "id": "4",
+      "name": "Timberland Men's Classic Leather",
+      "price": 32,
+      "category": "Footwear",
+      "visibilityScore": 95,
+      "revenue": 8750,
+      "status": "success"
+    },
+    {
+      "id": "5",
+      "name": "KBETHOS Original Classic Low Profile",
+      "price": 24,
+      "category": "Headwear",
+      "visibilityScore": 80,
+      "revenue": 6450,
+      "status": "failed"
+    },
+    {
+      "id": "6",
+      "name": "Nike Men's Air Max 270 React",
+      "price": 150,
+      "category": "Footwear",
+      "visibilityScore": 90,
+      "revenue": 30000,
+      "status": "success"
+    },
+    {
+      "id": "7",
+      "name": "Adidas Ultraboost 21 Running Shoes",
+      "price": 180,
+      "category": "Footwear",
+      "visibilityScore": 88,
+      "revenue": 22000,
+      "status": "process"
+    },
+    {
+      "id": "8",
+      "name": "Under Armour Men's HOVR Phantom 2",
+      "price": 130,
+      "category": "Footwear",
+      "visibilityScore": 70,
+      "revenue": 15000,
+      "status": "failed"
+    },
+    {
+      "id": "9",
+      "name": "Ray-Ban Aviator Sunglasses",
+      "price": 145,
+      "category": "Accessories",
+      "visibilityScore": 95,
+      "revenue": 9500,
+      "status": "success"
+    },
+    {
+      "id": "10",
+      "name": "Fossil Men's Grant Quartz Watch",
+      "price": 85,
+      "category": "Accessories",
+      "visibilityScore": 75,
+      "revenue": 7200,
+      "status": "process"
+    },
+    {
+      "id": "11",
+      "name": "Converse Chuck Taylor All Star Low Top",
+      "price": 55,
+      "category": "Footwear",
+      "visibilityScore": 92,
+      "revenue": 12000,
+      "status": "success"
+    },
+    {
+      "id": "12",
+      "name": "Puma Men's Cali Sneaker",
+      "price": 60,
+      "category": "Footwear",
+      "visibilityScore": 82,
+      "revenue": 9900,
+      "status": "failed"
+    },
+    {
+      "id": "13",
+      "name": "New Era 59FIFTY Fitted Cap",
+      "price": 35,
+      "category": "Headwear",
+      "visibilityScore": 78,
+      "revenue": 4500,
+      "status": "success"
+    },
+    {
+      "id": "14",
+      "name": "Vans Old Skool Skate Shoes",
+      "price": 65,
+      "category": "Footwear",
+      "visibilityScore": 85,
+      "revenue": 19000,
+      "status": "process"
+    },
+    {
+      "id": "15",
+      "name": "Levi's Men's 501 Original Fit Jeans",
+      "price": 80,
+      "category": "Apparel",
+      "visibilityScore": 70,
+      "revenue": 6200,
+      "status": "failed"
+    },
+    {
+      "id": "16",
+      "name": "Champion Men's Reverse Weave Hoodie",
+      "price": 55,
+      "category": "Apparel",
+      "visibilityScore": 93,
+      "revenue": 15000,
+      "status": "success"
+    },
+    {
+      "id": "17",
+      "name": "Tommy Hilfiger Men's Polo Shirt",
+      "price": 60,
+      "category": "Apparel",
+      "visibilityScore": 80,
+      "revenue": 8000,
+      "status": "process"
+    },
+    {
+      "id": "18",
+      "name": "Nike Men's Pro Compression Tights",
+      "price": 50,
+      "category": "Apparel",
+      "visibilityScore": 65,
+      "revenue": 4700,
+      "status": "failed"
+    },
+    {
+      "id": "19",
+      "name": "Prada Men's Leather Wallet",
+      "price": 220,
+      "category": "Accessories",
+      "visibilityScore": 78,
+      "revenue": 5500,
+      "status": "success"
+    },
+    {
+      "id": "20",
+      "name": "Gucci Men's Web GG Belt",
+      "price": 320,
+      "category": "Accessories",
+      "visibilityScore": 65,
+      "revenue": 4200,
+      "status": "process"
+    },
+    {
+      "id": "21",
+      "name": "Bose QuietComfort 35 II Wireless Headphones",
+      "price": 299,
+      "category": "Electronics",
+      "visibilityScore": 88,
+      "revenue": 22000,
+      "status": "success"
+    },
+    {
+      "id": "22",
+      "name": "Apple AirPods Pro 2nd Generation",
+      "price": 249,
+      "category": "Electronics",
+      "visibilityScore": 93,
+      "revenue": 30000,
+      "status": "process"
+    },
+    {
+      "id": "23",
+      "name": "Samsung Galaxy S22 Ultra Smartphone",
+      "price": 1200,
+      "category": "Electronics",
+      "visibilityScore": 85,
+      "revenue": 18000,
+      "status": "failed"
+    },
+    {
+      "id": "24",
+      "name": "Sony PlayStation 5 Console",
+      "price": 499,
+      "category": "Electronics",
+      "visibilityScore": 95,
+      "revenue": 50000,
+      "status": "success"
+    },
+    {
+      "id": "25",
+      "name": "Xbox Series X Console",
+      "price": 499,
+      "category": "Electronics",
+      "visibilityScore": 90,
+      "revenue": 35000,
+      "status": "process"
+    },
+    {
+      "id": "26",
+      "name": "Fitbit Charge 5 Fitness Tracker",
+      "price": 130,
+      "category": "Electronics",
+      "visibilityScore": 80,
+      "revenue": 15000,
+      "status": "failed"
+    },
+    {
+      "id": "27",
+      "name": "Canon EOS Rebel T7 Camera",
+      "price": 499,
+      "category": "Electronics",
+      "visibilityScore": 85,
+      "revenue": 22000,
+      "status": "success"
+    },
+    {
+      "id": "28",
+      "name": "Nikon D3500 DSLR Camera",
+      "price": 450,
+      "category": "Electronics",
+      "visibilityScore": 75,
+      "revenue": 12000,
+      "status": "process"
+    },
+    {
+      "id": "29",
+      "name": "Razer BlackWidow V3 Mechanical Keyboard",
+      "price": 120,
+      "category": "Electronics",
+      "visibilityScore": 70,
+      "revenue": 8000,
+      "status": "failed"
+    },
+    {
+      "id": "30",
+      "name": "Logitech MX Master 3 Mouse",
+      "price": 99,
+      "category": "Electronics",
+      "visibilityScore": 85,
+      "revenue": 16000,
+      "status": "success"
+    }
+  ]
+}
