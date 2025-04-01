@@ -4,6 +4,7 @@ import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import DataTable from '~/components/table/DataTable.vue'
 import { UBadge, UButton } from '#components'
 import Modal from '~/components/ui/modals/Modal.vue'
+import useIFetch from '~/hooks/useIFetch'
 
 interface Product {
   id?: string
@@ -100,12 +101,18 @@ const columns: TableColumn<Product>[] = [
 
 const getDataProducts = async () => {
   loading.value = true
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-  const res: any = await $fetch(
-    `http://localhost:3001/productos?_per_page=${limit.value}&_page=${page.value}`
-  )
-  data.value = res.data
-  total.value = res.items
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+  const { data } = await useIFetch('/productos', {
+    params: {
+      _per_page: limit.value,
+      _page: page.value
+    }
+  })
+
+  console.log(data)
+
+  // data.value = res.data
+  // total.value = res.items
   loading.value = false
 }
 
